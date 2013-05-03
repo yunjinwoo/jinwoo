@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" media="all" href="img/g_style.css" />
+</head>
+<body class="bg_cont">
+<div id="g_cont_wrap">
+
+
+
+
+	<h1>Back-end 개발체크 항목</h1>
+
+	<ul class="glst_a1">
+	<li>아래 종류는 마크업 작업시 기본적인 가이드 관련 내용이다.</li>
+	<li><span>HTML 작업시 지켜야 할 항목들 임</span></li>
+	<li><span>OS 지원 / 문서타입 / 기본 해상도 / 인코딩 은 기획단계에서 나오기 때문에 꼭 확인해야 함</span></li>
+	</ul>
+	
+
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">Back-end 개발시 고려</h2>
+	<!-- ****************************************************** -->
+	<table class="gtable1">
+	<colgroup>
+	<col width="15%" />
+	<col width="15%" />
+	<col />
+	</colgroup>
+	<thead>
+	<tr>
+		<th>구분</th>
+		<th>방법</th>
+		<th>효과</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<th>gZip</th>
+		<td>gZip으로 문서 압축</td>
+		<td>도큐먼트 파일은 모두 gZip을 거치도록 설정. 80%감소효과있음.</td>
+	</tr>
+	<tr>
+		<th>CDN</th>
+		<td>CDN사용</td>
+		<td>요청을 분산시켜 과도한 트래픽 줄임.</td>
+	</tr>
+	<tr>
+		<th>Expires or a cache control Header</th>
+		<td>header에 기간 설정</td>
+		<td>
+			1. IIS5.0, IIS6.0에 비슷한 이슈가 있음. -> Filetimestamp:ChangeNumber<br />
+			2. 서버의 expires header 설정을 통해, 클라이언트의 브라우저에 캐싱되는 도큐먼트나 이미지들이 많아 불필요한 트래픽을 감소시킬 수 있음.
+		</td>
+	</tr>
+	<tr>
+		<th>Configure Etags</th>
+		<td>이미지에 Etag부착</td>
+		<td>서버상의 컴포넌트와 브라우저의 캐쉬에 있는 컴포넌트가 서로 일치하는지를 알기위한 메커니즘.상황에따라설정.</td>
+	</tr>
+	<tr>
+		<th>Flush the buffer early</th>
+		<td></td>
+		<td>
+			flush()는 부분적으로 준비된 html을 브라우저로 미리 보내어, 서버가 html이외의 영역과 다른 작업을 수행하는 동안에, 
+			미리html 코드를 받아 사용자에게 빠르게 보여줄 수 있음. 상황에따라설정.
+		</td>
+	</tr>
+	<tr>
+		<th colspan="3">Use get for AJAX requests</th>
+	</tr>
+	</tbody>
+	</table>
+
+
+
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">참고사이트</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<dl class="gmd_a1">
+			<dt>Yahoo! 퍼포먼스 사이트</dt>
+			<dd><a target="_blank" href="http://developer.yahoo.com/performance/rules.html">http://developer.yahoo.com/performance/rules.html</a></dd>
+		</dl>
+	</div><br />
+
+	<!-- box -->
+	<div class="gbox_a1">
+		<dl class="gmd_a1">
+			<dt>웹사이트 속도측정</dt>
+			<dd>OctaGate : <a target="_blank" href="http://www.octagate.com/service/SiteTimer/?Target=AJAX">http://www.octagate.com/service/SiteTimer/?Target=AJAX (서버위치-Sweden)</a></dd>
+			<dd>Webwait : <a target="_blank" href="http://webwait.com/ ">http://webwait.com/ (서버위치-USA)</a></dd>
+		</dl>
+	</div><br />
+
+	<!-- box -->
+	<div class="gbox_a1">
+		<dl class="gmd_a1">
+			<dt>gZip테스트</dt>
+			<dd><a target="_blank" href="http://www.whatsmyip.org/mod_gzip_test/ ">http://www.whatsmyip.org/mod_gzip_test/</a></dd>
+		</dl>
+	</div><br />
+
+	<!-- box -->
+	<div class="gbox_a1">
+		<dl class="gmd_a1">
+			<dt>cache테스트</dt>
+			<dd>Opera개발자도구 : tools -> advaced -> cache</dd>
+		</dl>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>

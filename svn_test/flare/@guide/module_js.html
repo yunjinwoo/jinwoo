@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" media="all" href="img/g_style.css" />
+<link rel="stylesheet" type="text/css" media="all" href="../common/css/layout.css" />
+<script type="text/javascript" src="../common/js/jquery1.7.1.min.js"></script>
+</head>
+<body class="bg_cont">
+<div id="g_cont_wrap">
+
+
+
+
+	<h1>스크립트-jQuery</h1>
+	<ul class="glst_a1">
+	<li>이벤트가 들어간 내용을 정리</li>
+	</ul>
+<!-- ****************************************************** -->
+	<h2 class="tit_a1">themeAction</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<p class="code_nav">
+			<strong>상황에 따라 바뀌는 내용입니다.</strong></p>
+		<pre name="code" class="js">
+			//테마별 별 액션
+			function themeAction()
+			{
+				var $theme_bg = $("#contents > div.article div#theme_bg") ;
+				if( $theme_bg.hasClass('stand1') ){
+					themeBgPosition($theme_bg, -3617, (33 + 267), -17) ;
+				}else if( $theme_bg.hasClass('stand2') ){
+					themeBgPosition($theme_bg, -4207, (8 + 292) , -7) ;
+				}else if( $theme_bg.hasClass('stand3') ){
+					themeBgPosition($theme_bg, -4500, (300) , 0) ;
+				}else if( $theme_bg.hasClass('stand4') ){
+					themeBgPosition($theme_bg, -4512, (21 + 277) , -12) ;
+				}
+
+				$(".lnb").fadeInMsie("fast");
+				$("ul.controll").hide().removeClass('none').fadeInMsie("fast");
+			}
+			function themeBgPosition( $theme_bg, minLeft , stepLeft , deLeft ) 
+			{
+				var thisLeft = minLeft ;
+				var roll = function(){
+					thisLeft += stepLeft ;
+					if( thisLeft >= deLeft )
+						thisLeft = deLeft ;
+					$theme_bg.attr('style', "background-position:"+thisLeft+"px 0 !important;") ;
+
+					if( thisLeft < deLeft )
+						setTimeout( roll , 50 ) ;
+					else
+						setTimeout( roll2 , 50 ) ;
+				}
+
+				var roll2 = function(){
+					thisLeft -= stepLeft ;
+					if( thisLeft <= minLeft )
+						thisLeft = minLeft ;
+					$theme_bg.attr('style', "background-position:"+(thisLeft)+"px 0 !important;") ;
+
+					if( thisLeft > minLeft )
+						setTimeout( roll2 , 50 ) ;
+				}
+				roll() ;	
+			}
+		</pre>
+
+		<p class="code_nav">이미지 크기에 맞추어 수치를 조절해야합니다.</p>
+		<pre name="code" class="xml">
+			div.theme_area div.stand1 {background-position:-3617px 0 !important;} 최대넓이 3917px -33px 여백 -267px 넓이 
+			div.theme_area div.stand2 {background-position:-4207px 0 !important;} 최대넓이 4500px -8px 여백 -292px 넓이 
+			div.theme_area div.stand3 {background-position:-4200px 0 !important;} 최대넓이 4800px -300px 넓이 
+			div.theme_area div.stand4 {background-position:-4512px 0 !important;} 최대넓이 4800px -21px 여백 -277px 넓이 
+		</pre>
+	</div>
+
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">진행</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<p class="code_nav">
+			<strong>아래 구조는 필수!!</strong></p>
+		<pre name="code" class="xml">
+			<ul class="lnb">
+				<li>
+					<a href="../theme1/theme1.html">
+						<img src="../../common/images/btn/btn_thema_1_off.png" alt="theme1" />
+						.....
+					</a>
+				</li>
+				<li>
+					<a href="../theme2/theme2.html">
+						<img src="../../common/images/btn/btn_thema_2_off.png" alt="theme2" />
+						....
+					</a>
+				</li>
+				<li>
+					<a href="../theme3/theme3.html">
+						<img src="../../common/images/btn/btn_thema_3_off.png" alt="theme3" />
+						....
+					</a>
+				</li>
+				<li>
+					<a href="../theme4/theme4.html">
+						<img src="../../common/images/btn/btn_thema_4_off.png" alt="theme4" />
+						....
+					</a>
+				</li>
+			</ul>
+
+			-------------------------------------------------------
+			<ol class="lnb_sub none">
+				<li><a href="../theme1/theme1_1.html">theme1_1.html</a></li>
+			</ol>
+			
+			<ol class="lnb_sub none">
+				<li><a href="../theme2/theme2_1.html">theme2_1.html</a></li> 
+				<li><a href="../theme2/theme2_2.html">theme2_2.html</a></li>
+				<li><a href="../theme2/theme2_3.html">theme2_3.html</a></li>
+			</ol>
+
+			<ol class="lnb_sub none">
+				<li><a href="../theme3/theme3_1.html">theme3_1.html</a></li>
+				<li><a href="../theme3/theme3_2.html">theme3_2.html</a></li>
+			</ol>
+
+			<ol class="lnb_sub none">
+				<li><a href="../theme4/theme4_1.html">theme4_1.html</a></li>
+			</ol>
+			
+			<ol class="lnb_end none">
+				<li><a href="../pop/theme_comment.html">theme_comment.html</a></li>
+			</ol>
+
+			============================================================
+			.lnb 의 li a 와 .lnb_sub 는 1:1 
+				각 li a 의 href 값으로 돌아가게 됨
+				lnb 1 -> lnb_sub 1-1 -> lnb_sub 1-2 -> ...  lnb 2 -> lnb_sub 2-1 -> .... lnb_end 1 -> ...
+			.lnb_end 는 마지막 페이지
+		</pre>
+
+		<p class="code_nav">a href</p>
+		<pre name="code" class="xml">
+			<li>
+				<a href="../theme4/theme4.html">
+					<img src="../../common/images/btn/btn_thema_4_off.png" alt="theme4" />
+					....
+				</a>
+			</li>
+			---
+			<ol class="lnb_sub none">
+				<li><a href="../theme3/theme3_1.html">theme3_1.html</a></li>
+				<li><a href="../theme3/theme3_2.html">theme3_2.html</a></li>
+			</ol>
+			---
+
+			<div class="photo"><a href="http://14.56.108.119/team/lsm/flare/common/images/@temp/img_theme1_1.jpg"><img src="../../common/images/@temp/@330x330.jpg" alt="플라스틱 아일랜드 데님 재킷 커밍스텝 대표 이미지" /></a><a href="../../common/images/@temp/@666x666.jpg" class="blowup"><img src="../../common/images/btn/btn_a1_blowup.gif" alt="확대보기" /></a></div>
+
+			============================================
+			href 에 페이지나 이미지 경로를 넣어
+			ajax 호출 혹은 확대보기에 이용
+			
+		</pre>
+	</div>
+		
+
+
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">화보 태그 설명</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<p class="code_nav">
+			<strong>아래 구조는 필수!!</strong>
+			스크립트가 contents 안의 내용을 가져다가 출력</p>
+		<pre name="code" class="xml">
+			<div id="contents"> 
+				<div class="article">
+					.....
+				</div>
+			</div>
+		</pre>
+
+
+		<p class="code_nav">
+			article 에 style="background:;" 속성을 넣거나 선언되어 있는 클래스를 넣으면 배경 적용됨.</p>
+		<pre name="code" class="xml">
+			<div id="contents"> 
+				<div class="article bg_cfcfcf" style="background:#dadada;" > 
+					.....
+				</div>
+			</div>
+
+			/* background */
+			.bg_cmt_pattern {background:url('../images/bg/bg_cmt.gif') no-repeat center center;}
+			.bg_cfcfcf {background:#cfcfcf;}
+			.bg_999b9c {background:#999b9c;}
+		</pre>
+			
+			
+		<p class="code_nav">&nbsp;</p>
+		<pre name="code" class="xml">
+			<div id="contents"> 
+				<div class="article bg_cfcfcf" style="background:#dadada;" > 
+					<div class="section">
+						<img class="theme_img" src="../../common/images/@temp/img_theme1_1.jpg" alt="테마1" width="1280" height="800" border="0" usemap="#Map" />
+						<map name="Map" id="Map">
+							<area shape="rect" coords="461,174,613,622"  href="../pop/theme_view.html" alt="루이비통 점프슈트"/>
+							<area shape="rect" coords="663,146,799,610" href="../pop/theme_view.html" alt="루이비통 코튼" />
+						</map>
+
+						<!-- 오버 시 나오는 레이어 -->
+						<div class="product_layer">
+							<span>플라스틱 아일랜드1111</span>
+							<a href="../pop/theme_view.html" class="btn">CLICK</a>
+						</div>
+						<div class="product_layer">
+							<span>플라스틱 아일랜드2222플라스틱 아일랜드2222플라스틱 아일랜드2222플라스틱 아일랜드2222</span>
+							<a href="../pop/theme_view.html" class="btn">CLICK</a>
+						</div>
+					</div>
+
+					<div class="enlarge_layer none">
+						<img src="../../common/images/@temp/@1900x1014.jpg" alt="@1900x1014" />
+						<a href="#none" class="btn_close"><img src="../../common/images/btn/btn_b1_close.gif" alt="닫기" /></a>
+					</div>
+				</div>
+			</div>
+			========================================================================
+			article 안 section 으로 감싸진 부분 내용
+				1.화보컷 이미지
+				2.화보컷 맵 태그
+				3.맵 area 영역과 1:1 관계인 <div class="product_layer">...</div>
+				
+				
+			전체 확대보기 img 태그에 theme_img 클래스가 있을때 실행
+			확대보기 내용
+				<div class="enlarge_layer">...</div>
+		</pre>
+	</div>
+
+
+	
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">pop 페이지</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<p class="code_nav">&nbsp;</p>
+		<pre name="code" class="xml">
+			<div id="contents">
+				<div class="article bg_999b9c">	
+					<div class="section_mask">
+					</div>
+
+					<div class="layer_wrap">
+						....
+						<div class="btn_close"><a href="#none"><img src="../../common/images/btn/btn_b1_close.gif" alt="닫기" /></a>
+					</div>
+				</div>
+			</div>
+
+			============================================
+			위 구조로 이루어저 있음 - comment 제외
+
+			section_mask opacity가 적용된 전체 크기
+			layer_wrap 실 내용 페이지
+				<div class="btn_close"><a href="#none"><img src="../../common/images/btn/btn_b1_close.gif" alt="닫기" /></a>
+			
+		</pre>
+
+
+		
+		<p class="code_nav">상품상세</p>
+		<pre name="code" class="xml">
+			<div class="layer_wrap">
+				<div class="box_a2">
+					<strong class="product_tit">상품명 들어가는곳</strong>
+					<span class="price"> 가격 들어가는곳 </span>
+				</div>
+				<div class="item_view">
+					
+					<!-- 대표이미지 -->
+					<div class="photo"><a href="확대 보기할 이미지 경로[../../common/images/@temp/@666x666.jpg]"><img src="../../common/images/@temp/@330x330.jpg" alt="플라스틱 아일랜드 데님 재킷 커밍스텝 대표 이미지" /></a><a href="확대 보기할 이미지 경로" class="blowup"><img src="../../common/images/btn/btn_a1_blowup.gif" alt="확대보기" /></a></div>
+
+					<!-- thumb -->
+					<ul class="thumb_a1">
+						<li>
+							<a href="확대 보기할 이미지 경로[../../common/images/@temp/img_theme1_1.jpg]"><img src="../../common/images/@temp/@152x156.jpg" alt="@152x156" /></a>
+							<a href="확대 보기할 이미지 경로" class="blowup"><img src="../../common/images/btn/btn_a1_blowup.gif" alt="확대보기" /></a>
+						</li>
+						<li>
+							<a href="확대 보기할 이미지 경로"><img src="../../common/images/@temp/@152x156.jpg" alt="@152x156" /></a>
+							<a href="확대 보기할 이미지 경로" class="blowup"><img src="../../common/images/btn/btn_a1_blowup.gif" alt="확대보기" /></a>
+						</li>
+						<li>
+							<a href="확대 보기할 이미지 경로"><img src="../../common/images/@temp/@152x156.jpg" alt="@152x156" /></a>
+							<a href="확대 보기할 이미지 경로" class="blowup"><img src="../../common/images/btn/btn_a1_blowup.gif" alt="확대보기" /></a>
+						</li>
+						<li>
+							<a href="확대 보기할 이미지 경로"><img src="../../common/images/@temp/@152x156.jpg" alt="@152x156" /></a>
+							<a href="확대 보기할 이미지 경로" class="blowup"><img src="../../common/images/btn/btn_a1_blowup.gif" alt="확대보기" /></a>
+						</li>
+					</ul>	
+
+					<p class="desc_a1">색상 : 데님  소재 : 면100%   문의 : 053.660.3430</p>
+					<p class="desc_a2"><strong>SHOPPING TIP</strong>런더너의 스타일리시함이 묻어나는 타탄 체크 패턴의 팬츠</p>
+					<!-- btn -->
+					<div class="btn_buy"><a href="#none"><img src="../../common/images/btn/btn_b1_buy.gif" alt="구매하기" /></a></div>
+				</div>
+				
+				<!-- 확대 -->
+				<div class="item_view_blowup none">	
+					<div>
+						<img src="../../common/images/@temp/@666x666.jpg" alt="@666x666" />
+						<a href="#none" class="blowup"><img src="../../common/images/btn/btn_a1_abrid.gif" alt="축소하기" /></a>
+					</div>
+				</div>
+
+				<!-- btn -->
+				<div class="btn_close"><a href="#none"><img src="../../common/images/btn/btn_b1_close.gif" alt="닫기" /></a></div>
+
+			</div>
+			<!-- //layer_wrap -->
+
+			===================================
+			item_view 안의 a 링크를 클릭하면 href 의 이미지 경로를 
+			item_view_blowup 안에 첫번째 이미지 src 값으로 바꿈
+		</pre>
+		
+
+		
+		<p class="code_nav">comment</p>
+		<pre name="code" class="xml">
+			<!-- comment_wrap -->
+			<div class="comment_wrap">
+				.....
+			</div>
+			<!-- //comment_wrap -->
+			
+			
+			<div class="comment_wrap opa5_000 none"><!-- mileage_layer, login_layer 를 위한 영역용... -->
+			</div>
+			<!-- login_layer -->
+			<div class="login_layer none"><!-- 431x265 -->
+				....로그인 폼... 
+			</div>
+			<!-- //login_layer -->
+			<!-- with mileage -->
+			<div class="mileage_layer none">
+				...마일리지...
+			</div>
+			<!-- //with mileage -->
+			===================================
+			login_layer , mileage_layer 에 none 가 없어질때
+			comment_wrap opa5_000 의 none 도 같이 없어져야 댓글쪽이 조작되지 않음
+		</pre>
+			
+	</div>
+	<!-- <p class="code_nav"><strong>Code View</strong><a href="#none">OPEN</a><a href="#none">CLOSE</a></p>
+	<div><pre name="code" class="xml">
+	</pre></div> -->
+
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">$ - 플러그인</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<pre name="code" class="jscript">
+			$.flareAjaxPageAnimate($(this).attr("href"), "actionDown" , function(){});
+			$("dl.other_arc").onoff_link("dt a","click") ;
+			$("div.enlarge_layer img:first").mouseMove({box:$("div.enlarge_layer")});
+			$("ul.controll").hide().removeClass('none').fadeInMsie("fast");
+			$("ul.controll").hide().removeClass('none').fadeOutMsie("fast");
+			$.getDocHeight()
+			$.getDocWidth()
+		</pre>
+	</div>
+	<p class="code_nav">&nbsp;</p>
+	<div><pre name="code" class="xml">
+			$.flareAjaxPageAnimate - 플래그용 ajax 호출 및 모션
+			$.fn.onoff_link - dl.other_arc 에 'on'클래스 add, remove 함
+			$.fn.mouseMove - 대상의 마우스 위치값을 기준으로 box에 margin-top,left를 준다.
+			$.fn.fadeInMsie, fadeOutMsie  - ie 8 이하 png opacity 버그 대비용
+			$.getDocHeight - 크로스 브라우저 용 문서 높이 가져오기
+			$.getDocWidth - 크로스 브라우저 용 문서 가로 가져오기
+	</pre></div>
+
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">document bind</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<pre name="code" class="jscript">
+			1 - $(document).bind("onoff-handle")
+			2 - $(document).bind("img_map_area")
+			3 - $(document).bind("layer_exec")
+			4 - $(document).bind("mouseWheelAction")
+			5 - $(document).bind("keyboardAction")
+			6 - $(document).bind("unmouseWheelAction")
+		</pre>
+			
+
+	</div>
+	<p class="code_nav">&nbsp;</p>
+	<div><pre name="code" class="xml">
+			1 - 다른호 보기용
+			2 - 각 화보 페이지를 불러올때 기능 모음
+			3 - mask layer popup 내용 불러올때 내용
+			4 - 키보드 , 마우스 휠 명령 모음
+			5 - 4에 속한 키보드 명령모음
+			6 - 4번 해제용
+	</pre></div>
+		
+	<!-- ****************************************************** -->
+	<h2 class="tit_a1">함수 - 사용자</h2>
+	<!-- ****************************************************** -->
+	<div class="gbox_a1">
+		<pre name="code" class="jscript">
+			1 - function lnbSubPageOn(parentIdx, idx)
+			2 - function lnbPageOn(idx)
+			3 - function lnbImgChange(idx)
+			4 - function actionFalse()
+			5 - function endingAction(step)
+			6 - function commentAction()
+		</pre>
+	</div>
+	<p class="code_nav">&nbsp;</p>
+	<div><pre name="code" class="xml">
+			1 - .lnb_sub 메뉴의 pageOn 클래스를 가지고있는 index 값을 가져오거나 설정
+			2 - .lnb 메뉴의 pageOn 클래스를 가지고있는 index 값을 가져오거나 설정
+			3 - .lnb 안의 img _on.png 와 _off.png 설정
+			4 - 마우스휠, 키보드 조작에 필요한 변수 설정
+			5 - .lnb_sub 와 같이 .lnb 가 .ending 가지고 있을때 실행한다.
+			6 - comment 페이지에서 사용되는 액션
+				 - 수정이 필요할것같아 따로 빼둠
+				 - 함수 안의 
+					$("div.cmt_add input[type='image']").unbind('click').bind('click',function(){ 
+						$("div.login_layer").trigger("open"); 
+					});
+					내용 제거 요망
+	</pre></div>
+
+</div>
+<script class="javascript" src="img/Scripts/shCore.js"></script>
+<script class="javascript" src="img/Scripts/shBrushXml.js"></script>
+<script class="javascript" src="img/Scripts/shBrushJScript.js"></script>
+<script class="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'img/Scripts/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</body>
+</html>
