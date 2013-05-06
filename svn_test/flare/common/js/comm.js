@@ -475,6 +475,11 @@ $(document).bind('mouseWheelAction',function(){
 				if( lnbIdx == null ) return actionFalse();
 
 				$("div#container ul.controll img:eq(1)").triggerHandler('mouseenter');
+				$(".btn_l a").triggerHandler('click',{callback:function(){
+					$("div#container ul.controll img:eq(1)").triggerHandler('mouseout');
+				}}) ;
+				/*
+				 *
 				if( lnbSubIdx == 0 )
 				{
 					$(".lnb a").eq(lnbIdx).triggerHandler('click',{actionName:'actionLeft',callback:function(){
@@ -490,12 +495,19 @@ $(document).bind('mouseWheelAction',function(){
 				$(".lnb_sub").eq(lnbIdx).find("li a").eq(lnbSubIdx).triggerHandler('click',{actionName:'actionLeft',callback:function(){
 					$("div#container ul.controll img:eq(1)").triggerHandler('mouseout');
 				}});
+				 */
 				break ;
 			case 39 : // 우 
 				if( $(document).scrollLeft() != 0 && !($.getDocWidth() - $(document).scrollLeft() == $(window).width()) )
 					return actionFalse();
 				if( lnbIdx == null ) return actionFalse();
 
+				$("div#container ul.controll img:eq(0)").triggerHandler('mouseenter');
+					$(".btn_r a").triggerHandler('click',opt) ;		
+				
+				/*
+				 *
+				 *
 				$("div#container ul.controll img:eq(0)").triggerHandler('mouseenter');
 				if( lnbSubIdx == $(".lnb_sub").eq(lnbIdx).find("li a").size() - 1 )
 				{
@@ -513,6 +525,7 @@ $(document).bind('mouseWheelAction',function(){
 				$(".lnb_sub").eq(lnbIdx).find("li a").eq(lnbSubIdx).triggerHandler('click',{callback:function(){
 					$("div#container ul.controll img:eq(0)").triggerHandler('mouseout');
 				}});
+					 */
 				break ;
 				
 			case 38 : // 상
