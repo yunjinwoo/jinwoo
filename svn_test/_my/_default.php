@@ -38,10 +38,17 @@ function getReadContents($p)
 function quizMenu($class="")
 {
 	$d = dir(_PATH_);
+	$continueFile = array(
+		 '.'  
+		,'..'  
+		,'_default.php'  
+		,'index.php'
+		,'euler.php'
+		,'myjop.php'
+	) ;
 	$link = array() ;
 	while (false !== ($entry = $d->read())) {
-		if( $entry == '.' || $entry == '..' ) continue ;
-		if( $entry == '_default.php' || $entry == 'index.php' || $entry == 'euler.php' ) continue ;
+		if( in_array($entry,$continueFile) ) continue ;
 		if( !is_file(_PATH_.'/'.$entry) ) continue ;
 		
 		$link[] = $entry ;
@@ -60,8 +67,7 @@ function quizMenu($class="")
 	$euler = array() ;
 	$d = dir(_PATH_.'/euler');
 	while (false !== ($entry = $d->read())) {
-		if( $entry == '.' || $entry == '..' ) continue ;
-		if( $entry == '_default.php' || $entry == 'index.php' ) continue ;
+		if( in_array($entry,$continueFile) ) continue ;
 		if( !is_file(_PATH_.'/euler/'.$entry) ) continue ;
 		
 		$euler[] = $entry ;
