@@ -36,6 +36,9 @@ function a( $h,$s,$t="" ){
 function hr(){
 	return "<hr />".newline() ;
 }
+function strong($s){
+	return "<strong>".$s.'</strong>' ;
+}
 
 function ul($class=""){
 	return new ul($class) ;
