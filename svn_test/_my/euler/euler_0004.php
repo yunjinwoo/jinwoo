@@ -22,24 +22,48 @@ function problem4( $num1 , $num2 )
 		for( $n2 = $num2 , $j = strlen($num2); strlen($n2) == $j ; $n2-- )
 		{
 			$t = $n1*$n2 ;
-			echo ($t == strrev($t)?"true@":"false@").$t.'::'.$n1.'::'.$n2.hr() ;
+		//	echo ($t == strrev($t)?"true@":"false@").$t.'::'.$n1.'::'.$n2.hr() ;
 			if( $t == strrev($t) ) break 2;
 		}
 	}
-	
+	echo '<br />'.$t.'::'.$n1.'::'.$n2 ;
+	echo "<hr />";
 	$dep = $n2 ;
 	for( $n1 = $num1; $dep < $n1 ; $n1-- )
 	{
 		for( $n2 = $num2 ; $dep < $n2 ; $n2-- )
 		{
 			$t = $n1*$n2 ;
-			echo ($t == strrev($t)?"true@":"false@").$t.'::'.$n1.'::'.$n2.hr() ;
+		//	echo ($t == strrev($t)?"true@":"false@").$t.'::'.$n1.'::'.$n2.hr() ;
 			if( $t == strrev($t) ) break 2;
 		}
 	}
 	return $t.'::'.$n1.'::'.$n2 ;
 }
 
+function problem4_ver1( $num1 , $num2 )
+{	
+	$n1 = $num1 ;
+	$n2 = $num2 ;
+	$dep = 0 ;
+	for( $n1 = $num1; $dep < $n1 ; $n1-- )
+	{
+		for( $n2 = $num2 ; $dep < $n2 ; $n2-- )
+		{
+			$t = $n1*$n2 ;
+		//	echo ($t == strrev($t)?"true@":"false@").$t.'::'.$n1.'::'.$n2.hr() ;
+			if( $t == strrev($t) ) {
+				if($n2 >= $n1 ) break 2 ;
+				$n1 = $num1 ;
+				
+				$dep = $n2 ;
+				echo '<br />'.$n1.'@@@'.$n2 ;				
+				break ;
+			}
+		}
+	}
+	return $t.'::'.$n1.'::'.$n2 ;
+}
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=3'
 		,'project Euler@kr'
 		,'_blank') ;
@@ -49,8 +73,12 @@ echo h1("대칭수 ".$s);
 $s = microtime(true) ;
 $a = problem4(999,999).'<br />';
 $t1 = microtime(true) - $s ;
+$s = microtime(true) ;
+$b = problem4_ver1(999,999).'<br />';
+$t2 = microtime(true) - $s ;
 echo ul()->
 		li('problem4( 999,999 )'.$a.strong($t1))->
+		li('problem4( 999,999 )'.$b.strong($t2))->
 	end(); 
 
 ?>
