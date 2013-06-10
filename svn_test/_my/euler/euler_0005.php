@@ -13,6 +13,29 @@ Problem 5 출제 일시 : 2012-01-03 19:11:35
 /*@high_no*/printLayout('Problem 4');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
+
+function primes($max)
+{
+	$a = array(2=>2,3=>3);
+	$tmp = 3 ;
+	for( $i = 5 ; $i < $max ; $i+=2)
+	{
+		$primes = true ;
+		foreach($a as $v){
+			if( $i % $v === 0 ){
+				$primes = false ;
+			}
+		}
+			
+		if( $primes ){
+			$a[$i] = $i ;
+			$tmp = $i ;
+		}
+		
+	}	
+	return $a ;
+}
+
 function problem3( $n )
 {	
 }
@@ -28,18 +51,61 @@ echo ul()->
 	end(); // 600851475143    13195
 /**
 1   1 * 1
-2   2 * 1 
-3   3 * 1
+		2   2 * 1 
+		3   3 * 1
 4   2 * 2
-5   5 * 1
+		5   5 * 1
 6   2 * 3
-7   7 * 1
+		7   7 * 1
 8   2 * 4
 9   3 * 3 
 10	2 * 5
 
 (2*5 3*3 7 2*2)
 */
+$max = 10 ;
+$range = range(1,10) ;
+$aPrimes = primes(10);
+$aPrimes[1] = 1 ;
+
+$s = 1 ;
+foreach( $aPrimes as $v )
+	$s *= $v ;
+echo h3( $s ) ;
+print_r($aPrimes) ;
+$break = 0 ;
+while( true )
+{
+	if( $break++ >= $max ) break ;
+	
+	foreach( $aPrimes as $v )
+	{
+		if( $break == $v )
+			break ;
+		
+		if( $break % $v == 0 ){
+			$n = $break/$v ;
+			if( $v == $n )
+				$aPrimes[$break] = $n ;
+			else
+				foreach( $aPrimes as $v )
+				{
+					if(isset($aPrimes[$n]))
+					{
+						$aPrimes[$break] = $aPrimes[$n] ;
+					}						
+				}
+				
+		}
+	}
+}
+$s = 1 ;
+foreach( $aPrimes as $v )
+	$s *= $v ;
+echo h3( $s ) ;
+print_r($aPrimes) ;
+
+echo h3($break);
 $s = microtime(true) ;
 echo h1(10*7*4);
 $t1 = microtime(true) - $s ;
