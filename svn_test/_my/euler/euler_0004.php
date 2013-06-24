@@ -82,15 +82,10 @@ $s = a('http://euler.synap.co.kr/prob_detail.php?id=3'
 echo h1("대칭수 ".$s);
 
 
-$s = microtime(true) ;
-$a = problem4(999,999).'<br />';
-$t1 = microtime(true) - $s ;
-$s = microtime(true) ;
-$b = problem4_ver1(999,999).'<br />';
-$t2 = microtime(true) - $s ;
+
 echo ul()->
-		li('problem4( 999,999 )'.$a.strong($t1))->
-		li('problem4( 999,999 )'.$b.strong($t2))->
+		li('problem4( 999,999 )'.executeTimer( "problem4" , 999, 999 ))->
+		li('problem4( 999,999 )'.executeTimer( "problem4_ver1" , 999, 999 ))->
 	end(); 
 
 ?>

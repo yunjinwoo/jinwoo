@@ -10,7 +10,7 @@ Problem 5 출제 일시 : 2012-01-03 19:11:35
 
 
 //@high_no highlight print
-/*@high_no*/printLayout('Problem 4');
+/*@high_no*/printLayout('Problem 5');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
 
@@ -36,10 +36,6 @@ function primes($max)
 	return $a ;
 }
 
-function problem3( $n )
-{	
-}
-
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=3'
 		,'project Euler@kr'
 		,'_blank') ;
@@ -63,58 +59,47 @@ echo ul()->
 
 (2*5 3*3 7 2*2)
 */
-$max = 10 ;
-$range = range(1,10) ;
-$aPrimes = primes(10);
-$aPrimes[1] = 1 ;
 
-$s = 1 ;
-foreach( $aPrimes as $v )
-	$s *= $v ;
-echo h3( $s ) ;
-print_r($aPrimes) ;
-$break = 0 ;
-while( true )
+function primes($max)
 {
-	if( $break++ >= $max ) break ;
-	
-	foreach( $aPrimes as $v )
+	$a = array(2=>2,3=>3);
+	$tmp = 3 ;
+	for( $i = 5 ; $i < $max ; $i+=2)
 	{
-		if( $break == $v )
-			break ;
-		
-		if( $break % $v == 0 ){
-			$n = $break/$v ;
-			if( $v == $n )
-				$aPrimes[$break] = $n ;
-			else
-				foreach( $aPrimes as $v )
-				{
-					if(isset($aPrimes[$n]))
-					{
-						$aPrimes[$break] = $aPrimes[$n] ;
-					}						
-				}
-				
+		$primes = true ;
+		foreach($a as $v){
+			if( $i % $v === 0 ){
+				$primes = false ;
+			}
 		}
-	}
+			
+		if( $primes ){
+			$a[$i] = $i ;
+			$tmp = $i ;
+		}
+		
+	}	
+	return $a ;
 }
-$s = 1 ;
-foreach( $aPrimes as $v )
-	$s *= $v ;
-echo h3( $s ) ;
-print_r($aPrimes) ;
 
-echo h3($break);
-$s = microtime(true) ;
-echo h1(10*7*4);
-$t1 = microtime(true) - $s ;
-$s = microtime(true) ;
-$t2 = microtime(true) - $s ;
-echo '<br />@@';
+function problem5($max)
+{	
+	$aPrimes = primes($max);
+	$aPrimes[1] = 1 ;
 
-echo "<br />";
-echo $t1 ;
-echo "<br />";
-echo $t2 ;
+	$sum = 1 ;
+	foreach( $aPrimes as $v )
+		$sum *= $v ;
+	for( $i = 1 ; $i <= $max ; $i++ )
+		if( $sum % $i !== 0 )
+			foreach( $aPrimes as $v )
+				if( $i % $v == 0 )
+					$sum *= $v ;
+	return $sum ;
+}
+
+echo ul()->
+		li('executeTimer( "problem5" , 10 )'.executeTimer( "problem5" , 10 ) )->
+		li('executeTimer( "problem5" , 20 )'.executeTimer( "problem5" , 20 ) )->
+	end(); 
 ?>
