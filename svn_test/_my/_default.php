@@ -82,3 +82,12 @@ function quizMenu($class="")
 	
 	return $ret. $ul->end().$ul2->end() ;
 }
+
+function executeTimer($userFunc, $param1, $param2)
+{
+	$time = microtime(true) ;
+	$s = call_user_func( $userFunc, $param1, $param2 ) ;
+	$time = microtime(true) - $time ;
+	
+	return $s.'::'.strong($time) ;
+}
