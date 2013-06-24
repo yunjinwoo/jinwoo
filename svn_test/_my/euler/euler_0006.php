@@ -19,5 +19,36 @@ Problem 6
 /*@high_no*/printLayout('Problem 6');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
- 
+function numberSumPow( $start, $end ) 
+{
+	$ret = 0 ;
+	for($i = $start; $i <= $end ; $i++ )
+	{
+		$ret += pow($i,2) ;
+	}
+
+	return $ret ;
+}
+
+function numberPowSum( $start, $end ) 
+{
+	$ret = 0 ;
+	for($i = $start; $i <= $end ; $i++ )
+	{
+		$ret += $i ;
+	}
+
+	return pow($ret,2) ;
+}
+
+
+echo ul()->
+		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "numberSumPow" , 1, 10 ) )->
+		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "numberPowSum" , 1, 10 ) )->
+		li('(numberPowSum(1,10) - numberSumPow(1,10))'.(numberPowSum(1,10) - numberSumPow(1,10)) )->
+		
+		li('executeTimer( "numberSumPow" , 1, 100 )'.executeTimer( "numberSumPow" , 1, 100 ) )->
+		li('executeTimer( "numberSumPow" , 1, 100 )'.executeTimer( "numberPowSum" , 1, 100 ) )->
+		li('(numberPowSum(1,100) - numberSumPow(1,100))'.(numberPowSum(1,100) - numberSumPow(1,100)) )->
+	end(); 
 ?>
