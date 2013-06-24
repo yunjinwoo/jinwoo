@@ -19,5 +19,5 @@ Problem 6
 /*@high_no*/printLayout('Problem 6');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
-function 
+ 
 ?>
