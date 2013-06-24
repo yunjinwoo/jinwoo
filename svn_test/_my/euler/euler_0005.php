@@ -13,29 +13,6 @@ Problem 5 출제 일시 : 2012-01-03 19:11:35
 /*@high_no*/printLayout('Problem 5');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
-
-function primes($max)
-{
-	$a = array(2=>2,3=>3);
-	$tmp = 3 ;
-	for( $i = 5 ; $i < $max ; $i+=2)
-	{
-		$primes = true ;
-		foreach($a as $v){
-			if( $i % $v === 0 ){
-				$primes = false ;
-			}
-		}
-			
-		if( $primes ){
-			$a[$i] = $i ;
-			$tmp = $i ;
-		}
-		
-	}	
-	return $a ;
-}
-
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=3'
 		,'project Euler@kr'
 		,'_blank') ;
