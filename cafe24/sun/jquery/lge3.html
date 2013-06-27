@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> lge3 - test </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+<!--
+	$(function(){		
+	
+		$("#main_left_animate").on('click',function(){ } ) ;
+		$("#main_right_animate").on('click',function(){ } ) ;
+		
+		
+		var o = $("#content1 > .sub_list  > ul ") ;
+		o.find( " li > ol " ).css( {marginTop:"-402px"} )  ;
+		$("#banner_animate1").on('click',function(){ 
+			if( o.hasClass("big") )
+			{
+				o.removeClass("big", 200 , "linear") ;
+				o.find( " li > ol " ).animate( {marginTop:"-402px"} , 200 , "linear")  ;
+				
+			}else{			
+				o.addClass("big", 200 , "linear") ;
+				o.find( " li > ol " ).animate( {marginTop:"-0px"} , 200 , "linear")  ;
+			}
+		});
+	});
+//-->
+</script>
+<style type="text/css">
+	*{ margin:0px; padding:0px; }
+	hr{ clear:both; }
+	li{ list-style:none; }
+	
+	body{ width:100%; text-align:center;}
+	div#main{ height:100%;  width:500px; margin: 0 auto;  overflow:hidden;}
+
+	div#content1 { position:relative; width:500px; }
+	div#content1 .hide_list{ height:200px; width:500px; background-color:#660000; }	
+	div#content1 .sub_list{ width:500px; overflow:hidden; }
+	div#content1 .sub_list li{ position:relative; width:123px; border:1px solid red; float:left ; height:100%; }
+	div#content1 ul.small{ height:200px; }
+	div#content1 ul.big{ height:400px; }
+	div#content1 li.small{ background-color:#ffcc00; height:200px;}
+	div#content1 li.big{ background-color:#6600ff; height:400px; }
+
+	div#content2 { position:relative; width:500px; }
+	div#content2 .hide_list{ height:200px; width:500px; background-color:#660000; }	
+	div#content2 .sub_list{ width:500px; overflow:hidden; }
+	div#content2 .sub_list li{ position:relative; width:123px; border:1px solid red; float:left ; height:100%; }
+	div#content2 ul.small{ height:200px; }
+	div#content2 ul.big{ height:400px; }
+
+	div.small{ background-color:#ffcc00; height:200px;}
+	div.big{ background-color:#6600ff; height:400px; }
+</style>
+
+</head>
+
+<body>
+	<div id="main">
+
+	<ul>
+		<li><button id="main_left_animate">좌측</button></li>
+		<li><button id="main_right_animate">우측</button></li>
+	</ul>
+
+	<div id="content1">
+	<div class="hide_list"></div>
+	
+
+
+	<div class="sub_list">
+		<ul class="small">
+			<li class="vertical">
+				<ol>
+					<li><div class="big">큰사이즈</div></li>
+					<li><div class="small">작은사이즈</div></li>
+				</ol>
+			</li>
+			<li class="vertical">
+				<ol>
+					<li><div class="big">큰사이즈</div></li>
+					<li><div class="small">작은사이즈</div></li>
+				</ol>
+			</li>
+			<li class="horizontal">
+				<ol>
+					<li><div class="big">큰사이즈</div></li>
+					<li><div class="small">작은사이즈</div></li>
+				</ol>
+			</li>
+		</ul>
+	</div>
+
+
+
+
+
+	<hr />
+	<button id="banner_animate1">모션1!!!</button>
+	</div>
+
+	
+	<div id="content2">
+	<div class="hide_list"></div>
+	<div class="sub_list">
+		<ul class="small">
+			<li>
+				<ol>
+					<li class="small">작은사이즈</li>
+					<li class="big">큰사이즈</li>
+				</ol>
+			</li>
+			<li>
+				<ol>
+					<li class="small">작은사이즈</li>
+					<li class="big">큰사이즈</li>
+				</ol>
+			</li>
+			<li>
+				<ol>
+					<li class="small">작은사이즈</li>
+					<li class="big">큰사이즈</li>
+				</ol>
+			</li>
+			<li>
+				<ol>
+					<li class="small">작은사이즈</li>
+					<li class="big">큰사이즈</li>
+				</ol>
+			</li>
+		</ul>
+	</div>
+
+	<hr />
+	<button id="banner_animate2">모션1!!!</button>
+	</div>
+
+	</div>
+</body>
+</html>

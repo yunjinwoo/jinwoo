@@ -1,0 +1,62 @@
+<form name="board_write" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+	<input type="hidden" name="mode" value="action_write">
+	<textarea name="_BW[content]" style="display:none" class="required" title="내용" ></textarea>
+			<table class="view_a1" summary="제목, 작성자, 등록일, 첨부파일">
+			<caption>글쓰기</caption>
+			<colgroup>
+			<col width="123" />
+			<col  />
+			<col width="123" />
+			<col />
+			</colgroup>
+			<tbody>
+			<tr>
+				<th class="nbg"><label for="tit">제목</label></th>
+				<td colspan="3"><input type="text" id="tit" name="_BW[subject]" class="intx2 required" title="제목" style="width:580px;" /></td>
+			</tr>
+			<?php if( !$isMember ) : ?>
+			<tr>
+				<th class="nbg">비밀번호</th>
+				<td colspan="3"><input type="password" id="tit" name="_BW[passwd]" class="intx2 required" title="비밀번호" style="width:580px;" value=""/></td>
+			</tr>
+			<?php endif ; ?>
+
+			<tr>
+				<td colspan="4" class="reset"><div style="width:740px;"><!--
+					<img src="/common/images/@temp/@740x273.gif" alt="" />--><?php daumEditor('/inc/lib/daumeditor/','board_write');?></td>
+			</tr>
+			</tbody>
+			</table>
+			<div class="btn_wrap a_ctr">
+				<?php echo $btn_check?>
+				<?php echo $btn_list?>
+			</div>
+</form>
+
+<script type="text/javascript" src="/common/js/validator.js"></script>
+<script type="text/javascript">
+function writeSubmit()
+{
+	try{
+		var frm = document.forms['board_write'] ;
+		var contents = getDaumEditorContent() ;
+			
+		if( !contents )
+			frm.elements['_BW[content]'].value = '' ;
+		else
+			frm.elements['_BW[content]'].value = contents ;
+		
+		if( !Validator.validate(frm) )
+			return
+		
+		frm.action = "" ;
+		frm.submit() ;
+	}catch(e){
+		alert(e.message) ;
+		Editor.focus() ;
+	}
+}
+
+
+</script>
+

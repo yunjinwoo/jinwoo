@@ -1,0 +1,44 @@
+<form name="board_write" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+	<input type="hidden" name="mode" value="action_delete">
+			<table class="view_a1" summary="제목, 작성자, 등록일, 첨부파일">
+			<caption>비밀번호확인</caption>
+			<colgroup>
+			<col width="123" />
+			<col  />
+			<col width="123" />
+			<col />
+			</colgroup>
+			<tbody>
+			<tr>
+				<th class="nbg">비밀번호</th>
+				<td colspan="3"><input type="password" id="tit" name="_BW[passwd]" value="" class="intx2 required" title="비밀번호" style="width:580px;" value="<?php echo $write_name?>"/></td>
+			</tr>
+			</tbody>
+			</table>
+			<div class="btn_wrap a_ctr">
+				<?php echo $btn_delete?>
+				<?php echo $btn_list?>
+			</div>
+</form>
+
+<script type="text/javascript" src="/common/js/validator.js"></script>
+<script type="text/javascript">
+function writeSubmit()
+{
+	try{
+		var frm = document.forms['board_write'] ;
+		
+		if( !Validator.validate(frm) )
+			return
+		
+		frm.action = "" ;
+		frm.submit() ;
+	}catch(e){
+		alert(e.message) ;
+		Editor.focus() ;
+	}
+}
+
+
+</script>
+

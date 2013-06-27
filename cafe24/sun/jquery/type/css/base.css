@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+* {margin:0;padding:0;}
+html {width:100%;height:100%;}
+body {width:100%;height:100%;font:12px/1.3em "돋움",Dotum, "굴림",Gulim,Helvetica,AppleGothic,sans-serif;color:#333;background:url("../images/comm/bg/bg_back.jpg")}
+div, form, p {}
+h1, h2, h3, h4, h5, h6, h7 {font-size:100%;font-weight:normal;}
+ul, ol, li { list-style:none;}
+dl, dt, dd {}
+
+a:link {color:#333;text-decoration:none;}
+a:visited {color:#333;text-decoration:none;}
+a:hover {color:#aa621d;text-decoration:underline;}
+a:active {color:#333;text-decoration:none; }
+a:focus{text-decoration:none;}/*text-decoration:underline;*/
+
+table {width:100%;}
+table, tbody, tfoot, thead, tr, th, td {border-collapse:separate;border-spacing:0;table-layout:fixed;}/*border:none; separate*/
+/* 6 */* html table, tbody, tfoot, thead, tr, th, td {border-collapse:collapse;}
+/* 7 */* + html table, tbody, tfoot, thead, tr, th, td {border-collapse:collapse;}
+
+caption {display:none;}
+fieldset {border:none;}
+legend {display:none;}
+
+input {font-family: "돋움",Dotum, "굴림",Gulim,Helvetica,AppleGothic,sans-serif; color:#919191;}
+textarea{overflow:auto;font:12px/1.3em "돋움",Dotum, "굴림",Gulim,Helvetica,AppleGothic,sans-serif;} 
+textarea {resize: none;} /* 크롬,사파리 */
+button{cursor:pointer;}
+input, button, select, textarea {color:#666; vertical-align:middle;}
+
+address{font-style:normal;}
+em {font-style:normal;}
+hr {display:none;}
+img {border:none;vertical-align:middle;}
+select {font-size:12px;color:#666;padding:1px;vertical-align:middle;}

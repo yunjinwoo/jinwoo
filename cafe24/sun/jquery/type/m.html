@@ -1,0 +1,354 @@
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+<!--
+	$(function(){	
+		$("#main_left_animate").on('click',function(){ } ) ;
+		$("#main_right_animate").on('click',function(){ } ) ;
+		
+		$(".banner_animate_top_top_left").on('click',function(){
+			var o = $(this).parent().find(".sub_list ") ;
+
+			if( o.hasClass("clicked") )
+			{
+				o.removeClass("clicked") ;
+				o.animate( {height:"215px"} , 200 , "linear")  ;
+				o.find( " ul > .vertical " ).animate( {marginTop:"0px"} , 200 , "linear")  ;
+								
+				o.find( " ul > .cross > div" ).eq(0).animate( {left:"0px",top:"0px"} , 200 , "linear")  ;
+				o.find( " ul > .cross > div" ).eq(1).animate( {right:"0px"} , 200 , "linear")  ;
+				o.find( " ul > .cross > div" ).eq(2).animate( {left:"0px",top:"0px"} , 200 , "linear")  ;
+
+				o.find( " ul > .horizontal > ul " ).animate( {marginLeft:"-390px"} , 200 , "linear")  ;
+			}else{			
+				o.addClass("clicked") ;
+				o.animate( {height:"381px"} , 200 , "linear")  ;
+				o.find( " ul > .vertical " ).animate( {marginTop:"-215px"} , 200 , "linear")  ;
+				o.find( " ul > .cross > div" ).eq(0).animate( {left:"175px",top:"215px"} , 200 , "linear")  ;
+				o.find( " ul > .cross > div" ).eq(1).animate( {right:"175px"} , 200 , "linear")  ;
+				o.find( " ul > .cross > div" ).eq(2).animate( {left:"175px",top:"-215px"} , 200 , "linear")  ;
+				
+				//o.find( " ul > .cross > div" ).eq(0).css( {float:"right"})  ;
+				//o.find( " ul > .cross > div" ).eq(1).css( {float:"left"})  ;
+				//o.find( " ul > .cross > div" ).eq(2).css( {float:"right"})  ;
+				
+				
+				o.find( " ul > .horizontal > ul " ).animate( {marginLeft:"0px"} , 200 , "linear")  ;
+			}
+		});
+		/******************/
+		/*
+		
+	<ul>
+		<li><button id="main_left_animate">좌측</button></li>
+		<li><button id="main_right_animate">우측</button></li>
+	</ul>
+
+
+	<ul>
+		<li><button id="main_1_animate">1로</button></li>
+		<li><button id="main_2_animate">2로</button></li>
+		<li><button id="main_3_animate">3로</button></li>
+		<li><button id="main_4_animate">4로</button></li>
+		<li><button id="main_5_animate">5로</button></li>
+	</ul>
+		*/
+		$("#main").data("main_size",740);
+		$("#main").data("main_index",0);
+		$("#main").data("main_length", $(".content_list > li").size() );
+
+		$("#main_left_animate").on('click',function(){
+			var a = $("#main").data("main_index") ;
+			if( --a <= 0 ) a = $("#main").data("main_length")-1;
+
+			$("#main").data("main_index", a );
+			main_animate() ;
+		});
+		$("#main_right_animate").on('click',function(){
+			var a = $("#main").data("main_index") ;
+			
+			if( ++a >= $("#main").data("main_length") ) a = 0 ;
+
+			$("#main").data("main_index", a );
+			main_animate() ;
+		});
+
+		$("#main_1_animate").on('click',function(){
+			$("#main").data("main_index",0);
+			main_animate() ;
+		});
+		$("#main_2_animate").on('click',function(){
+			$("#main").data("main_index",1);
+			main_animate() ;
+		});
+		$("#main_3_animate").on('click',function(){	
+			$("#main").data("main_index",2);
+			main_animate() ;
+		});
+		$("#main_4_animate").on('click',function(){
+			$("#main").data("main_index",3);
+			main_animate() ;
+		});
+		$("#main_5_animate").on('click',function(){
+			$("#main").data("main_index",4);
+			main_animate() ;
+		});
+		
+	});
+
+	function main_animate()
+	{
+		$(".content_list").animate( {marginLeft:$("#main").data("main_size")*-1*$("#main").data("main_index")}, 200 , "linear")  ;
+	}
+//-->
+</script>
+
+
+<style type="text/css">
+	div#layout { position:relative; width:1130px  }
+	div#layout .title_div{ height:200px;background-color:#660000; }	
+	div#layout .sub_list{ overflow:hidden; }
+	div#layout .sub_list li{ position:relative; float:left ; height:100%; }
+	div#layout .sub_list li.vertical{ width:175px; }
+	div#layout .sub_list li.horizontal{ width:780px; }/* 390  *2 780 + 175 *2 350 */
+
+
+	
+	
+	*{ margin:0px; padding:0px; }
+	hr{ clear:both; }
+	li{ list-style:none; }
+
+	body{ width:100%; text-align:center;}
+	div#main{ height:100%;  width:740px; margin: 0 auto;  overflow:hidden;} /* width:1130px */
+	div#main .content_list { width:3700px; overflow:hidden;margin-left:-740px;} /* width:1130px */
+	div#main .content_list li { position:relative; float:left ; height:100%; }
+
+
+/* position:absolute; top:925px ; */
+	div.content { position:relative; width:740px;  background:url("images/bg_a.gif") repeat-x left bottom; }
+	div.content .title_div{ height:200px;}	
+	div.content .sub_list{ overflow:hidden;  height:215px;  }
+	div.content .sub_list li{ position:relative; float:left ; height:100%; overflow:hidden;  }
+	div.content .sub_list li.vertical{ width:175px; }
+	div.content .sub_list li.cross{ width:350px; }
+	div.content .sub_list li.cross div{ position:relative;  }
+	div.content .sub_list li.horizontal{ width:390px; }/* 390  *2 780 + 175 *2 350 */
+	div.content .sub_list li.horizontal ul{ width:780px;  margin-left:-390px ; } 
+	
+	.bg1{ background-color:#660000; }
+	.bg2{ background-color:#ffcc00; }
+	.bg3{ background-color:#00ccff; }
+	.bg4{ background-color:#cc0000; }
+	.bg5{ background-color:#ffff00; }
+	
+
+</style>
+
+
+	<div id="layout">
+		<div class="hide_list"> 레이아웃용 !!</div>
+		
+
+
+		<div class="sub_list big">
+			<ul>
+				<li class="vertical">
+					<div><a href="#none"><img src="images/gds_a_1.jpg" alt="" /></a></div>
+					<div><a href="#none"><img src="images/gds_b_1.jpg" alt="" /></a></div>				
+				</li>
+				<li class="vertical">
+					<div><a href="#none"><img src="images/gds_a_2.jpg" alt="" /></a></div>
+					<div><a href="#none"><img src="images/gds_b_2.jpg" alt="" /></a></div>	
+				</li>
+				<li class="horizontal">
+					<ul>
+						<li class="aa"><a href="#none"><img src="images/gds_b_3.jpg" alt="" /></a></li>
+						<li class="line_r"><a href="#none"><img src="images/gds_a_3.jpg" alt="" /></a></li>
+						<li><a href="#none"><img src="images/gds_a_4.jpg" alt="" /></a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<hr />
+		여기까지!!
+	</div>
+
+
+
+	<div id="main">
+
+	<ul>
+		<li><button id="main_left_animate">좌측</button></li>
+		<li><button id="main_right_animate">우측</button></li>
+	</ul>
+
+
+	<ul>
+		<li><button id="main_1_animate">1로</button></li>
+		<li><button id="main_2_animate">2로</button></li>
+		<li><button id="main_3_animate">3로</button></li>
+		<li><button id="main_4_animate">4로</button></li>
+		<li><button id="main_5_animate">5로</button></li>
+	</ul>
+
+
+	
+	<ul class="content_list">
+		<li>
+			<div class="content">
+				<div class="title_div bg1">111111111111111111111</div>
+
+				<div class="sub_list">
+					<ul>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_1.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_1.jpg" alt="" /></a></div>				
+						</li>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_2.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_2.jpg" alt="" /></a></div>	
+						</li>
+						<li class="horizontal">
+							<ul>
+								<li class="aa"><a href="#none"><img src="images/gds_b_3.jpg" alt="" /></a></li>
+								<li class="line_r"><a href="#none"><img src="images/gds_a_3.jpg" alt="" /></a></li>
+								<li><a href="#none"><img src="images/gds_a_4.jpg" alt="" /></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<hr />
+				<span class="banner_animate_top_top_left btn_more"><a href="#none"><img src="images/btn_more.gif" alt="" /></a></span>
+
+			</div>
+		</li>
+		<li>
+			<div class="content">
+				<div class="title_div bg2">22222222222222222222</div>
+
+				<div class="sub_list">
+					<ul>
+						<li class="cross" style="width:350px;">
+							<div style="float:left;"><a href="#none"><img src="images/gds_a_1.jpg" alt="" /></a></div>
+							<div style="float:right;"><a href="#none"><img src="images/gds_b_1.jpg" alt="" /></a></div>
+							<div style="float:left;"><a href="#none"><img src="images/gds_a_2.jpg" alt="" /></a></div>
+						</li>
+						<li class="horizontal">
+							<ul>
+								<li class="aa"><a href="#none"><img src="images/gds_b_3.jpg" alt="" /></a></li>
+								<li class="line_r"><a href="#none"><img src="images/gds_a_3.jpg" alt="" /></a></li>
+								<li><a href="#none"><img src="images/gds_a_4.jpg" alt="" /></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<hr />
+				<span class="banner_animate_top_top_left btn_more"><a href="#none"><img src="images/btn_more.gif" alt="" /></a></span>
+
+			</div>
+		</li>
+		<li>
+			<div class="content">
+				<div class="title_div bg3">3333333333333333333333</div>
+
+				<div class="sub_list">
+					<ul>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_1.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_1.jpg" alt="" /></a></div>				
+						</li>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_2.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_2.jpg" alt="" /></a></div>	
+						</li>
+						<li class="horizontal">
+							<ul>
+								<li class="aa"><a href="#none"><img src="images/gds_b_3.jpg" alt="" /></a></li>
+								<li class="line_r"><a href="#none"><img src="images/gds_a_3.jpg" alt="" /></a></li>
+								<li><a href="#none"><img src="images/gds_a_4.jpg" alt="" /></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<hr />
+				<span class="banner_animate_top_top_left btn_more"><a href="#none"><img src="images/btn_more.gif" alt="" /></a></span>
+
+			</div>
+		</li>
+		<li>
+			<div class="content">
+				<div class="title_div bg4">4444444444444444444444</div>
+
+				<div class="sub_list">
+					<ul>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_1.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_1.jpg" alt="" /></a></div>				
+						</li>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_2.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_2.jpg" alt="" /></a></div>	
+						</li>
+						<li class="horizontal">
+							<ul>
+								<li class="aa"><a href="#none"><img src="images/gds_b_3.jpg" alt="" /></a></li>
+								<li class="line_r"><a href="#none"><img src="images/gds_a_3.jpg" alt="" /></a></li>
+								<li><a href="#none"><img src="images/gds_a_4.jpg" alt="" /></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<hr />
+				<span class="banner_animate_top_top_left btn_more"><a href="#none"><img src="images/btn_more.gif" alt="" /></a></span>
+
+			</div>
+		</li>
+		<li>
+			<div class="content">
+				<div class="title_div bg5">5555555555555555555555</div>
+
+				<div class="sub_list">
+					<ul>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_1.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_1.jpg" alt="" /></a></div>				
+						</li>
+						<li class="vertical">
+							<div><a href="#none"><img src="images/gds_a_2.jpg" alt="" /></a></div>
+							<div><a href="#none"><img src="images/gds_b_2.jpg" alt="" /></a></div>	
+						</li>
+						<li class="horizontal">
+							<ul>
+								<li class="aa"><a href="#none"><img src="images/gds_b_3.jpg" alt="" /></a></li>
+								<li class="line_r"><a href="#none"><img src="images/gds_a_3.jpg" alt="" /></a></li>
+								<li><a href="#none"><img src="images/gds_a_4.jpg" alt="" /></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<hr />
+				<span class="banner_animate_top_top_left btn_more"><a href="#none"><img src="images/btn_more.gif" alt="" /></a></span>
+
+			</div>
+		</li>
+
+
+	</div>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

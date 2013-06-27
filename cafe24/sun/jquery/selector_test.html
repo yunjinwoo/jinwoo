@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+
+<section class="test_gt">
+  <h3> :gt </h3>
+  <table border="1">
+
+<tr>
+	<td>TD #0</td>
+	<td>TD #1</td>
+	<td>TD #2</td>
+</tr>
+<tr>
+	<td>TD #3</td>
+	<td>TD #4</td>
+	<td>TD #5</td>
+</tr>TD #2</td>
+</tr>
+<tr>
+	<td>TD #6</td>
+	<td>TD #7</td>
+	<td>TD #8</td>
+</tr>
+
+  </table>
+  <script>$(".test_gt > table > tbody > tr > td:gt(2)").css("color", "red");</script>
+</section>
+<pre class="brush: js ; html-script:true;" id="test_gt"></pre>
+
+<section class="test_lt">
+  <script>$(".test_gt > table > tbody > tr > td:lt(7)").css("text-decoration", "line-through");</script>
+</section>
+<pre class="brush: js ; html-script:true;" id="test_lt"></pre>
+
+
+<section class="test_slice">
+  <script>$(".test_gt > table > tbody > tr > td").slice(3,5).css("backgroundColor", "yellow");</script>
+</section>
+<pre class="brush: js ; html-script:true;" id="test_slice"></pre>
+
+
+<section class="test_test">
+  <h3> 같은 이름을 가질때 클릭된 것만 빼는 법?? </h3>
+  http://phpschool.com/gnuboard4/bbs/board.php?bo_table=qna_html&wr_id=215662
+  <ul>
+    <li class="section">
+    일번
+    <div style="display: none; ">하나</div>
+    </li>
+    <li class="section">
+    이번
+    <div style="display: none; ">둘</div>
+    </li>
+    <li class="section">
+    삼번
+    <div style="display: none; ">셋</div>
+    </li>
+    <li class="section">
+    사번
+    <div style="display: none; ">넷</div>
+    </li>
+    <li class="section">
+    오번
+    <div style="display: none; ">다섯</div>
+    </li>
+    <li class="section">
+    육번
+    <div style="display: none; ">여섯</div>
+    </li>
+    <li class="section">
+    칠번
+    <div style="display: none; ">일곱</div>
+    </li>
+    <li class="section">
+    팔번
+    <div style="display: none; ">여덟</div>
+    </li>
+  </ul>
+  <script>
+	$(".section").click(function(){
+		var index = $(".section").index($(this));
+		
+		$('.section').each(function(i) {
+		  if( index == i )
+		  {
+		    $(this).css('background-color', '');
+			$(this).children().slideDown();
+		  }else{
+			$(this).css('background-color', 'red');
+			$(this).children().slideUp();
+		  }
+		}) ;
+	});
+
+
+	$(document).ready(function() {
+            $('.paymentName').change(function(e) {                
+                alert($('.paymentName').index(this)); //현재index를 표시한다.
+            });            
+ });
+
+
+
+
+  </script>
+</section>
+<pre class="brush: js ; html-script:true;" id="test_test"></pre>
+
+<script type="text/javascript">
+<!--
+
+	$(function(){
+		$("section").each(function(i){
+			$("#"+$(this).attr("class")).text( $(this).html() ) ;
+		});
+
+		highStart();
+	});
+
+//-->
+</script>
+	<script type="text/javascript" src="http://addbasic.cafe24.com/sun/highlight.js"></script>
+	<script type="text/javascript">
+	<!--
+		
+	//-->
+	</script>
+</body>
+</html>
+lt 시작부터 어디까지
+slice 범위
+gt 어디까지 끝까지
+
