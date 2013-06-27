@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> 알람 테스트 </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	
+	<!-- cookie 사용하자 -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="/js/jquery.cookie.js"></script>
+
+</head>
+
+<body>
+	<h2 id="end_time">2</h2>
+	<h2 id="now">2</h2>
+	<h2 id="sec">2</h2>
+	<h2 id="msg_div">2</h2>
+	분<input type="text" name="time" id="time" value="15"/><br />
+	내용<input type="text" name="msg" id="msg" value="팝업프린트,줌,리펙터링,CMS,오목"/>
+	<input type="checkbox" id="time_start" checked="checked"/>
+	<button onclick="start_init();">start</button>
+
+	<br /><br />
+	<h3>금일 로그</h3>
+	<ol id="log">
+		<li>로그 기록</li>
+	</ol>
+	
+	<h3>전일 로그</h3>
+	<ol id="yes_log">
+		<li>로그 기록</li>
+	</ol>
+	<script type="text/javascript">
+	<!--
+		var timer = null
+		var startDate = new Date() ;
+		var limitTimeIndex = 0 ;
+		var limitMsgIndex = 0 ;
+		var defaultLimitTime = 15 ;
+		function start()
+		{
+			var now = new Date() ;
+			document.getElementById('now').innerHTML = now.toLocaleString() ;
+			var limitTime = document.getElementById('time').value.split(',') ;
+			var msgArr = document.getElementById('msg').value.split(',') ;
+			var limit = defaultLimitTime ;
+			var msg = '' ;
+
+			if( limitTime.length <= limitTimeIndex ) limitTimeIndex = 0 ;
+			if( !isNaN(limitTime[limitTimeIndex]) ) limit = limitTime[limitTimeIndex] ;
+
+			if( msgArr.length <= limitMsgIndex ) limitMsgIndex = 0 ;
+			if( !isNaN(msgArr[limitMsgIndex]) ) msg = '데이타오류' ;
+			else msg = msgArr[limitMsgIndex] ;
+
+			if( limit <= 0 ) return false ;
+			try{
+			//	console.log("limit-"+limit);
+			//	console.log("1-"+(startDate.getTime() + (limit*60*1000)) );
+			//	console.log("2-"+now.getTime());
+			}catch(e){}
+			
+			
+			var end_ = new Date() ;
+			end_.setTime(startDate.getTime() +  (limit*60*1000) ) ;
+			document.getElementById('end_time').innerHTML = end_.toLocaleString() ;
+
+
+			//console.log("limit-"+(now.getTime() - ( startDate.getTime() + (limit*60*1000) )) );
+			document.title = document.getElementById('sec').innerHTML = Math.ceil((now.getTime() - ( startDate.getTime() + (limit*60*1000) ))/1000) ;
+			document.getElementById('msg_div').innerHTML = msg ;
+			if( document.getElementById('time_start').checked == true && startDate.getTime() + (limit*60*1000) < now.getTime() )
+			{			
+				var log = limit+"분 알람" ;
+				var flag = prompt( "["+msg+"]" + log, "성공,실패-["+msg+"]") ;
+				if( flag == null )
+					log = "["+msg+"]"+ log ;
+				else log = flag+"-"+log ;
+
+				addLog( log + "::" + now.getHours() +":"+ now.getMinutes() +":"+ now.getSeconds()  ) ;
+				printLog() ;
+				limitTimeIndex++ ;
+				limitMsgIndex++ ;
+				startDate = new Date() ;
+			}
+
+			if( timer == null ) timer = setInterval( start , 1000 ) ;
+		}
+		
+
+		function start_init()
+		{
+			if( timer != null )
+			{
+				clearInterval( timer ) ;
+				timer = null ;
+			}
+
+			limitTimeIndex = 0 ;
+			defaultLimitTime = 15 ;
+			startDate = new Date() ;
+			
+			start() ; 
+		}
+
+		function printLog()
+		{
+			var cookieOption =  {expires:3 ,domain:'', path:'/', secure:''} ;
+			var yesterday	= $.cookie('yesterday') ;
+			var today		= $.cookie('today') ;
+			var log			= $.cookie('log') ;
+
+			var startDateStr = startDate.getFullYear() + "" + startDate.getMonth() + "" +startDate.getDate() ;
+			if( today != startDateStr )
+			{
+				$.cookie('yesterday', log, cookieOption) ;
+				$.cookie('today', startDateStr , cookieOption) ;
+				$.cookie('log', "" , cookieOption) ;
+				log			= $.cookie('log') ;
+			}
+
+			if( log == null ) return ;
+			var logArr = log.split( "@" ) ;
+			var logStr = "" ;
+			for( i = logArr.length - 1 ; i >= 0 ; i-- )
+			{
+				logArr[i] = $.trim(logArr[i]) ;
+				if( logArr[i] != "" && logArr[i] != "null" )
+					logStr += "<li>"+logArr[i]+"</li>\n" ;
+			}
+			$("#log").html(logStr) ;
+
+			
+			if( yesterday == null ) return ;
+			var logArr = yesterday.split( "@" ) ;
+			var logStr = "" ;
+			for( i = logArr.length - 1 ; i >= 0 ; i-- )
+			{
+				logArr[i] = $.trim(logArr[i]) ;
+				if( logArr[i] != "" && logArr[i] != "null" )
+					logStr += "<li>"+logArr[i]+"</li>\n" ;
+			}
+			$("#yes_log").html(logStr) ;
+		}
+		function addLog( str )
+		{
+			$.cookie('log', $.cookie('log')+"@"+str , {expires:3 ,domain:'', path:'/', secure:''} );
+		}
+		printLog() ;
+	//-->
+	</script>
+</body>
+</html>
