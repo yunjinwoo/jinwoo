@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> effect - test </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+</head>
+
+<body>
+	
+	
+	
+	
+	
+	<style>
+	.graph {
+		float: left;
+		margin-left: 10px;
+	}
+	</style>
+	<script>
+	$(function() {
+		if ( !$( "<canvas>" )[0].getContext ) {
+			$( "<div>" ).text(
+				"Your browser doesn't support canvas, which is required for this demo."
+			).appendTo( "#graphs" );
+			return;
+		}
+
+		var i = 0,
+			width = 300,
+			height = 300;
+
+		$.each( $.easing, function( name, impl ) {
+			var graph = $( "<div>" ).addClass( "graph" ).appendTo( "#graphs" ),
+				text = $( "<div>" ).text( ++i + ". " + name ).appendTo( graph ),
+				wrap = $( "<div>" ).appendTo( graph ).css( 'overflow', 'hidden' ),
+				canvas = $( "<canvas>" ).appendTo( wrap )[ 0 ];
+
+			canvas.width = width;
+			canvas.height = height;
+			var drawHeight = height * 0.8,
+				cradius = 10;
+				ctx = canvas.getContext( "2d" );
+			ctx.fillStyle = "black";
+
+			// draw background
+			ctx.beginPath();
+			ctx.moveTo( cradius, 0 );
+			ctx.quadraticCurveTo( 0, 0, 0, cradius );
+			ctx.lineTo( 0, height - cradius );
+			ctx.quadraticCurveTo( 0, height, cradius, height );
+			ctx.lineTo( width - cradius, height );
+			ctx.quadraticCurveTo( width, height, width, height - cradius );
+			ctx.lineTo( width, 0 );
+			ctx.lineTo( cradius, 0 );
+			ctx.fill();
+
+			// draw bottom line
+			ctx.strokeStyle = "#555";
+			ctx.beginPath();
+			ctx.moveTo( width * 0.1, drawHeight + .5 );
+			ctx.lineTo( width * 0.9, drawHeight + .5 );
+			ctx.stroke();
+
+			// draw top line
+			ctx.strokeStyle = "#555";
+			ctx.beginPath();
+			ctx.moveTo( width * 0.1, drawHeight * .3 - .5 );
+			ctx.lineTo( width * 0.9, drawHeight * .3 - .5 );
+			ctx.stroke();
+
+			// plot easing
+			ctx.strokeStyle = "white";
+			ctx.beginPath();
+			ctx.lineWidth = 2;
+
+			console.group( "각도 - " + name ) ;
+			ctx.moveTo( width * 0.1, drawHeight );
+			$.each( new Array( width ), function( position ) {
+				var state = position / width,
+				val = impl( state, position, 0, 1, width );
+				console.log( "val - " + val + "="+ state+":"+position+":"+width) ;
+				ctx.lineTo( position * 0.8 + width * 0.1,
+					drawHeight - drawHeight * val * 0.7 );
+			});
+			console.groupEnd() ;
+			ctx.stroke();
+
+			// animate on click
+			graph.click(function() {
+				wrap
+					.animate( { height: "hide" }, 2000, name )
+					.delay( 800 )
+					.animate( { height: "show" }, 2000, name );
+			});
+
+			graph.width( width ).height( height + text.height() + 10 );
+		});
+	});
+	</script>
+
+
+
+	<div class="demo">
+
+	<div id="graphs"></div>
+
+	</div><!-- End demo -->
+
+	<hr />
+
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+
+<h3>test</h3>
+	<style type="text/css">
+		*{ font-size:9pt;}
+		div#demo_test .demo_area{ height:300px;width:300px; border:1px solid black; overflow:hidden; }
+		div#demo_test .demo_area .demo2{ position:relative;top:100px;left:80px;height:30px;width:30px;background-color:red; }
+
+		div#demo_test ul{ padding:0px;margin:0px;width:700px;}
+		div#demo_test li{ float:left;list-style:none;width:70px;height:18px;overflow:hidden; }
+	</style>
+	
+	<script>
+	$(function() {
+		$("#up_hidden").on( 'click' , function(){ 
+			demoAnimate( { top:"+="+$(".demo2").height()*-1*2 } ) ;
+			
+		});
+		$("#down_hidden").on( 'click' , function(){ 
+			demoAnimate( { top:"+="+$(".demo2").height()*2 } ) ;
+		});
+		$("#right_hidden").on( 'click' , function(){ 
+			demoAnimate( { left:"+="+$(".demo2").width()*-1*2 } ) ;
+		});
+		$("#left_hidden").on( 'click' , function(){ 
+			demoAnimate( { left:"+="+$(".demo2").width()*2 } ) ;
+		});
+		
+		$("#reset").on( 'click' , function(){ 
+			$(".demo").css({ top:100 , left:100 });
+		});
+		
+
+		$("#step_btn").on('click', function(){
+			var i = $(':radio').index( $(':radio:checked') ) ;
+			var len = $(':radio').length ;
+
+			if( len <= i ) i = 0 ;
+
+			$(':radio').eq(i+1).click() ;
+			$('.animate').eq(i%4).click() ;
+
+		});
+
+		$("#step_btn").click() ;
+	});
+
+	function demoAnimate( o )
+	{
+		$(".demo2").html( $(":radio:checked").val() ) ;
+		$("#effect_name").html( $(":radio:checked").val()  +":"+ $.easing[$(":radio:checked").val()] ) ;
+		$(".demo2").animate( o, $("#times").val(), $(":radio:checked").val() );
+	}
+	</script>
+
+
+<div id="demo_test">
+	<h3 id="effect_name"></h3>
+	<div class="demo_area">
+		<div class="demo2">
+
+		</div>
+	</div>
+
+	<input type="text" id="times" value="1000"/>
+	<button class="animate" id="up_hidden">상단</button>
+	<button class="animate" id="down_hidden">하단</button>
+	<button class="animate" id="right_hidden">우측</button>
+	<button class="animate" id="left_hidden">좌측</button>
+
+	<button id="step_btn">순서대로</button>
+	<button id="reset">reset</button>
+
+	<ul>
+	<script type="text/javascript">
+	<!--
+	var idx = 0 ;
+		$.each( $.easing, function( name , impl ){
+			document.write( "<li><input type='radio' name='effect' value='"+name+"'/>"+ ++idx +". "+ name+"</li>" ) ;
+		} ) ;
+	//-->
+	</script>
+	</ul>
+</div>
+
+
+</body>
+</html>

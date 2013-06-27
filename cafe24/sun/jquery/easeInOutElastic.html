@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> easeOutBounce.html </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+	<style type="text/css">
+		div#demo .demo_area{ height:300px;width:300px; border:1px solid black; overflow:hidden; }
+		div#demo .demo_area .demo{ position:relative;height:50px;width:50px;background-color:red; }
+	</style>
+</head>
+
+<body>
+	
+	<script>
+	$(function() {
+		$("#up_hidden").on( 'click' , function(){ 
+			$(".demo").animate({ top:"+="+$(".demo").height()*-1 }, $("#time").val(), "easeInOutElastic");
+		});
+		$("#down_hidden").on( 'click' , function(){ 
+			$(".demo").animate({ top:"+="+$(".demo").height() }, $("#time").val(), "easeInOutElastic");
+		});
+		$("#right_hidden").on( 'click' , function(){ 
+			$(".demo").animate({ left:"+="+$(".demo").width()*-1 }, $("#time").val(), "easeInOutElastic");
+		});
+		$("#left_hidden").on( 'click' , function(){ 
+			$(".demo").animate({ left:"+="+$(".demo").width() }, $("#time").val(), "easeInOutElastic");
+		});
+		$("#test").on( 'click' , function(){ 
+			$(".demo").animate({ left:"+="+$(".demo").width() }, $("#time").val(), "easeInOutElastic");
+		});
+		
+		$("#reset").on( 'click' , function(){ 
+			$(".demo").css({ top:0 , left:0 });
+		});
+	});
+	</script>
+
+
+
+<div id="demo">
+	<div class="demo_area">
+		<div class="demo">
+
+		</div>
+	</div>
+</div>
+
+<h3>action</h3>
+<input type="text" id="time" value="1000"/>
+<button id="up_hidden">상단</button>
+<button id="down_hidden">하단</button>
+<button id="right_hidden">우측</button>
+<button id="left_hidden">좌측</button>
+
+<button id="test">test</button>
+
+<button id="reset">reset</button>
+
+</body>
+</html>

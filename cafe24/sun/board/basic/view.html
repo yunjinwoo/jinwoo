@@ -1,0 +1,53 @@
+			<!-- view -->
+			<table class="view_a1" summary="제목, 작성자, 등록일, 첨부파일, 내용">
+			<caption>상세내용</caption>
+			<colgroup>
+			<col width="123" />
+			<col />
+			<col width="123" />
+			<col />
+			</colgroup>
+			<tbody>
+			<tr>
+				<th class="nbg">제목</th>
+				<td colspan="3"><?php echo $aRow['subject']?></td>
+			</tr>
+			<tr>
+				<th class="nbg">작성자</th>
+				<td><?php echo $aRow['write_name']?></td>
+				<th>등록일</th>
+				<td><?php echo $aRow['date']?></td>
+			</tr>
+
+			<tr>
+				<td colspan="4" class="cot" title="내용"><?php echo $aRow['content']?></td>
+			</tr>
+			</tbody>
+			</table>
+	
+			<div class="btn_wrap a_ctr">
+				<?php echo $btn_list;?>
+				<?php echo $btn_reply;?>
+				<?php echo $btn_delete;?>
+				<?php echo $btn_modify;?>
+				
+			</div>
+
+<form name="board_delete" method="post">
+	<input type="hidden" name="del_board_idx" value="<?php echo $aRow['board_idx']?>"/>
+	<input type="hidden" name="mode" value="action_delete">
+</form>
+
+<script type="text/javascript">
+function deleteSubmit()
+{
+	try{
+		var frm = document.forms['board_delete'] ;
+		frm.submit() ;
+	}catch(e){
+		alert(e.message) ;
+	}
+}
+
+
+</script>

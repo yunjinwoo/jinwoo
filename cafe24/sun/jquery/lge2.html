@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> lge2 - test </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+<!--
+	$(function(){		
+		$("#banner_animate").on('click',function(){ 
+			if( $(".sub_list").hasClass("big_list") )
+			{
+				
+				$(".sub_list").find(".small").removeClass("b1" , 300 , "linear") ;
+				$(".sub_list").find(".big").removeClass("b2", 200 , "linear") ;
+
+				$(".sub_list").addClass("small_list") ;
+				$(".sub_list").removeClass("big_list", 500 , "linear") ;
+
+				
+			}else{			
+				$(".sub_list").find(".small").addClass("b1", 300 , "linear") ;
+				$(".sub_list").find(".big").addClass("b2", 400 , "linear") ;
+
+				$(".sub_list").addClass("big_list", 500 , "linear") ;
+				$(".sub_list").removeClass("small_list") ;				
+			}
+		});
+	});
+//-->
+</script>
+<style type="text/css">
+	*{ margin:0px; padding:0px; }
+	hr{ clear:both; }
+	.hide_list{ height:200px; width:500px; background-color:#660000; }
+	
+	.sub_list{ width:500px; overflow:hidden; }
+	.small_list{ height:200px; overflow:hidden;}
+	.big_list{ height:400px;  overflow:hidden; }
+
+	.sub_list li{ position:relative; width:123px; border:1px solid red; float:left}
+	li.small{ height:200px; }
+	li.big{ height:400px; }
+
+	li.b1{ top:-200px; }
+	li.b2{ top:-200px; }
+</style>
+
+</head>
+
+<body>
+	
+	<div class="hide_list"></div>
+	
+	<div class="sub_list small_list">
+		<ul>
+			<li class="small banner1">small banner1</li>
+			<li class="small banner2">small banner2</li>
+			<li class="small banner3">small banner3</li>
+			<li class="small banner4">small banner4</li>
+			
+			<li class="big banner1">big banner1</li>
+			<li class="big banner2">big banner2</li>
+			<li class="big banner3">big banner3</li>
+			<li class="big banner4">big banner4</li>
+		</ul>
+	</div>
+
+	<hr />
+	<button id="banner_animate">모션!!!</button>
+</body>
+</html>

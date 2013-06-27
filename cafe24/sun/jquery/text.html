@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> new document </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+	
+	<script type="text/javascript">
+	<!--
+	/*
+var _t:Number = 1;  //현재시간
+var _b:Number = myObject.x;   //시작할값
+var _c:Number = 300;   //증가량
+var _d:Number = 50;   //최종시간
+	*/
+	
+	function test111(){
+		return -c * ( (t=t/d-1)*t*t*t - 1) + d;
+	}
+	/*
+	Bounce: function ( p ) {
+		var pow2,
+			bounce = 4;
+
+		while ( p < ( ( pow2 = Math.pow( 2, --bounce ) ) - 1 ) / 11 ) {}
+		return 1 / Math.pow( 4, 3 - bounce ) - 7.5625 * Math.pow( ( pow2 * 3 - 2 ) / 22 - p, 2 );
+	}
+	
+	class com.robertpenner.easing.Quad {
+	static function easeIn (t:Number, b:Number, c:Number, d:Number):Number {
+		return c*(t/=d)*t + b;
+	}
+	static function easeOut (t:Number, b:Number, c:Number, d:Number):Number {
+		return -c *(t/=d)*(t-2) + b;
+	}
+	static function easeInOut (t:Number, b:Number, c:Number, d:Number):Number {
+		if ((t/=d/2) < 1) return c/2*t*t + b;
+		return -c/2 * ((--t)*(t-2) - 1) + b;
+	}
+}
+
+*/
+
+
+var t = 1;  //현재시간
+var b = 10;   //시작할값
+var c = 10;   //증가량
+var d = 1000;   //최종시간
+
+function easeIn (b) {
+	console.log(b);
+	return c*(t/=d)*t + b;
+}
+
+function easeinout2(x, t, b, c, d) {
+  if (t < d/2) return 2*c*t*t/(d*d) + b;
+  var ts = t - d/2;
+  return -2*c*ts*ts/(d*d) + 2*c*ts/d + c/2 + b;  
+ }
+
+
+
+
+	var func = { 
+							Bounce: function ( p ) {
+								var pow2,
+									bounce = 4;
+
+								while ( p < ( ( pow2 = Math.pow( 2, --bounce ) ) - 1 ) / 11 ) {}
+								return 1 / Math.pow( 4, 3 - bounce ) - 7.5625 * Math.pow( ( pow2 * 3 - 2 ) / 22 - p, 2 );
+							} } ;
+
+
+		$(function(){
+			$( "#test" ).click(function() {
+				//alert( $( "#easing" ).val() ) ;
+				
+
+
+				var num = parseInt($("#num").val()) ;
+			//	alert( num +":"+ {duration: 1000, easing: easeinout2 }  ) ;
+				$("#num").val( easeIn(t,num,c,d) ) ;
+			});
+
+			$( "#button" ).click(function() {
+				$( ".text" ).addClass( "end", 1000, function(){
+					$( ".text" ).removeClass( "end", 1000 , function(){} ) ;
+				} );
+				return false;
+			});
+
+			$( "#pow" ).click(function() {
+				/*
+				radian(호도) = 각도 * π(PI) / 180  
+				X = 반지름 * sin( radian )  
+				Y = 반지름 * cos( radian )
+				*/
+				cls_start( 1 ) ;
+
+				return false;
+			});
+
+			$( "#pow2" ).click(function() {
+				/*
+				pow 를 이용해 지그재그 하면서 앞으로 이동하는 모양을 그려보기 
+				Y = 반지름 * cos( radian )
+				*/
+				ge_start( 1 ) ;
+
+				return false;
+			});
+			$( "#pow3" ).click(function() {
+				/*
+				pow 를 이용해 지그재그 하면서 앞으로 이동하는 모양을 그려보기 
+				Y = 반지름 * cos( radian )
+				*/
+				ge_start2( 360 ) ;
+
+				return false;
+			});
+
+			$( "#updown" ).click(function() {
+				/*
+				직선으로 지그재그
+				*/
+				updown_start() ;
+
+				return false;
+			});
+		});
+
+		function cls( i )
+		{
+			var size = 200 ;
+			x = size*Math.sin(i*Math.PI/180) +200;
+			y = size*Math.cos(i*Math.PI/180) ;
+
+			$('.pi').css({top:y,left:x}) ;
+			
+		}
+
+		function cls_start(i)
+		{
+			
+			if( i >= 360 ) return ;
+			cls( i++ ) ;
+
+			console.group( "각도 - " + i +":"+ (i/10+1) ) ;
+			console.log( "X - " + x ) ;
+			console.log( "Y - " + y ) ;
+			console.groupEnd() ;
+
+			setTimeout( 'cls_start('+(i+2)+')', (i/10+1) );
+		}
+
+
+		function ge( i )
+		{
+			var x_do = 180 ;
+			var y_do = 180 ;
+
+			/*
+			if( i >= 90 )
+			{
+			//	x_do = 90 ;
+			//	y_do = 90 ;
+			}
+			*/
+				
+			// 반원을 왕복한다.
+			//if( i >= 180 ) i *= -1 ;
+			
+			if( i >= 180 )
+			{
+				x_do = 120 ;
+			}
+
+			var size = 100 ;
+			x = size*Math.sin(i*Math.PI/x_do) + 100;
+			y = size*Math.cos(i*Math.PI/y_do) ;
+
+			$('.ge').css({top:y,left:x}) ;
+			
+		}
+		
+		function ge_start(i)
+		{
+			if( i >= 360 ) return ;
+			ge( i++ ) ;
+
+			console.group( "각도 - " + i +":"+ (i/10+1) ) ;
+			console.log( "X - " + x ) ;
+			console.log( "Y - " + y ) ;
+			console.groupEnd() ;
+
+			setTimeout( 'ge_start('+(i+2)+')', (i/10+1) );
+		}
+
+
+
+		function ge2( i )
+		{
+			var x_do = i - 100 ;
+			var y_do = 180 ;
+			//if( i < 280 )
+			//	x_do = 240 ;
+			//else if( i < 200 )
+			//	x_do = 270 ;
+
+
+			var size = 100 ;
+			x = size*Math.sin(i*Math.PI/x_do) + 100;
+			y = size*Math.cos(i*Math.PI/y_do) ;
+
+			$('.ge').css({top:y,left:x}) ;
+			
+		}
+		
+		function ge_start2(i)
+		{
+			if( i < 170 ) return ;
+			ge2( i-- ) ;
+
+			console.group( "각도 - " + i +":"+ (i/10-1) ) ;
+			console.log( "X - " + x ) ;
+			console.log( "Y - " + y ) ;
+			console.groupEnd() ;
+
+			setTimeout( 'ge_start2('+(i-2)+')', (i/10-1) );
+		}
+
+		function updown_start(i)
+		{
+			
+			$('.updown')
+				.animate({top:"-100px",left:"+=80"},300,"easeInCirc")
+				.animate({top:"200px",left:"+=20"},500, "easeInOutCirc")
+				.animate({top:"0px",left:"+=100"},500,"easeOutBounce") ;
+		}
+
+
+
+	//-->
+	</script>
+
+	<style type="text/css" id="test_css">
+		.start{ font-size:10pt; color:red; }		
+		.end{ font-size:100pt; color:blue; }	
+		
+			
+		.rel{ position:relative; }	
+	</style>
+</head>
+
+<body onload="document.getElementById('high').innerHTML = document.getElementById('test_css').innerHTML ;">
+<pre class="brush: css;" id="high">
+	
+</pre>
+	<input type="text" id="easing" value="function (a){return a<.5?c(a*2)/2:c(a*-2+2)/-2+1}" size="50"/>
+	<input type="text" id="num" value="100" size="20"/>
+	<div id="test_log"></div>
+	<button id="test">test</button>
+	<br />
+	<button id="button">addClass</button>
+	<button id="pow">cls( i )</button>
+	<button id="pow2">gege( i )</button>
+	<button id="pow3">gege2( i )</button>
+	<button id="updown">updown()</button>
+
+	
+	<h2 class="text">test</h2>
+	<h2 class="pi rel">cls( i )</h2>
+	<h2 class="ge rel">gege( i )</h2>
+	<h2 class="updown rel">updown()</h2>
+
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<!-- <script type="text/javascript" src="http://addbasic.cafe24.com/sun/highlight.js"></script>
+ --></body>
+</html>

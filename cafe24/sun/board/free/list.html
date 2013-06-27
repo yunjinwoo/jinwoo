@@ -1,0 +1,69 @@
+<style type="text/css">
+	.search{color:red;font-weight: bold;}
+</style>
+			
+			<!-- search -->
+		<form name="search" method="get">
+			<input type="hidden" name="board_id" value="<?php echo $board_id?>" />
+			<input type="hidden" name="page" value="<?php echo $nPage?>" />
+			
+			<fieldset class="srh_a1">
+			<legend>검색</legend>
+				<input type="text" id="entry" name="search_keyword" value="<?php echo $sSearchKeyword?>" title="검색어 입력" class="intx1" />
+				<input type="image" src="/common/images/comm/btn/btn_srch.gif" alt="검색" />
+			</fieldset>
+			
+		</form>
+			
+			<!-- list -->
+			<table class="list_a1" summary="No, 제목, 등록일">
+			<caption>목록</caption>
+			<colgroup>
+			<col width="90" />
+			<col width="290"/>
+			<col width="100"/>
+			</colgroup>
+			<thead>
+			<tr>
+				<th class="nbg">No</th>
+				<th>제목</th>
+				<th>등록일</th>
+			</tr>
+			</thead>
+			<tbody>
+				
+<?php if( count($aList) >= 1 ) : ?>
+	<?php foreach( $aList as $aRow ):?>
+			<tr>
+				<td><?php echo $aRow['no'] ;?></td>
+				<td class="a_lft"><a href="<?php echo $aRow['href'] ;?>"><?php echo $aRow['subject'] ;?></a><?php 
+					echo $aRow['hot'];
+					echo $aRow['new'];
+					echo $aRow['com_cnt'];?></td>
+				<td><?php echo $aRow['date'] ;?></td>
+			</tr>
+	<?php endforeach ; ?>
+<?php else : ?>
+			<tr>
+				<td colspan="4" class="notxt">등록된 내용이 없습니다.</td>
+			</tr>
+<?php endif ; ?>			
+			</tbody>
+			</table>
+
+			<!-- btn -->
+			<div class="btn_wrap">
+				<?php echo $btn_write ; ?>
+			</div>
+				
+		<!-- paginate -->
+			<div class="paginate mt20">
+				<a href="<?php echo $first_page?>" class="pre"><img src="/common/images/comm/btn/btn_pre2.gif" alt="처음" /></a>
+				<a href="<?php echo $back_page?>" class="pre"><img src="/common/images/comm/btn/btn_pre1.gif" alt="이천" /></a>
+				<span>
+					<?php echo $page_tag ; ?>
+				</span>
+				<a href="<?php echo $next_page?>" class="nxt"><img src="/common/images/comm/btn/btn_nxt1.gif" alt="다음" /></a>
+				<a href="<?php echo $last_page?>" class="nxt"><img src="/common/images/comm/btn/btn_nxt2.gif" alt="마지막" /></a>
+			</div>
+		

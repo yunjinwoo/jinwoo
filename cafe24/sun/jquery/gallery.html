@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> effect - test </title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="editplus" />
+	<meta name="author" content="" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+	
+	<style type="text/css">
+		*{margin:0px; padding:0px; list-style:none;}
+		button{padding:5px; }
+
+		#contents{ height:100px; width:500px; border:1px solid red; } /*   overflow:hidden;  border:1px solid red; */
+		#contents ul {  position: relative; } /*absolute*/
+		#contents ul li{ float:left; } /*absolute*/
+		ul li{ width:100px;height:100px;}
+		.on{ border:1px solid red; }
+	</style>
+</head>
+
+<body>
+	
+
+<h3>div 안에 ul.li 내용을 스크롤링한다.</h3>
+
+<button id="btn_left">좌</button>
+<div style="padding-left:300px; ">
+	<div id="contents">
+
+	<ul>
+	<script type="text/javascript">
+	<!--
+		for( i = 1 ; i <= 10 ; i++ )
+			document.write( '<li> <img src="//175.196.73.184/@img/50_'+ i +'.jpg"  width=100 height=100 border=0/> </li>' ) ;
+
+	//-->
+	</script>
+	</ul>
+
+	</div>
+</div>
+<button id="btn_right">우</button>
+
+<hr />
+<hr />
+
+	
+
+
+
+
+<script type="text/javascript">
+<!--
+	$(function(){
+		var index = $("#imgs > li ").data( 'index' , 0 ) ;
+		var w = $("#contents > ul > li").eq(0).width() ;
+		var s = w * $("#contents > ul > li").size() ;
+
+		$("#contents > ul ").css({width:s}) ;
+
+		$("#btn_left").bind("click",	function() {
+			viewContent(w) ;
+		});
+		$("#btn_right").bind("click",	function() {
+			viewContent(w*-1) ;
+		} );
+
+	//	setTimeout( timer , 4000 ) ;
+	//	viewContent() ;
+	});
+
+	function timer()
+	{	
+		imgsOn() ;
+		viewContent() ;
+
+		setTimeout( timer , 4000 ) ;
+	}
+
+	function imgsOn()
+	{
+		$("#imgs > li ").removeClass( "on" ) ;
+		$("#imgs > li ").eq( getIndex() ).addClass( "on" ) ;	
+	}
+
+	
+	function viewContent(s)
+	{
+		console.log( $("#contents > ul ").css('left')+" : +="+s ) ;
+		$("#contents > ul ").animate({left:"+="+s},300,"easeInOutExpo") ;
+		console.log( "ee" ) ;
+	}
+
+	function viewContent2()
+	{
+		if( $("#contents > img").size() >= 4 )
+			return ;
+		
+		console.log( $("#imgs > li ").eq( getIndex() ).html() ) ;
+		
+		$("#contents").prepend( $("#imgs > li ").eq( getIndex() ).html() ).eq(0).hide().show("fast") ;
+		$("#contents > img").eq($("#contents > img").size()-1).remove() ;
+
+		imgsOn() ;
+		
+		$("#contents").data("isStart" , 1 ) ;
+	}
+
+	function setIndex( num )
+	{
+		var index = $("#imgs > li ").data('index') ;
+		var len = $("#imgs > li ").size() ;
+
+		index += num ;
+		if( index >= len ) index = 0 ;
+		if( index < 0 ) index = len - 1 ;
+
+		$("#imgs > li ").data('index' , index ) ;
+	}
+
+	
+	function getIndex()
+	{
+		return $("#imgs > li ").data('index') ;
+	}
+//-->
+</script>
+
+
+
+
+
+
+</body>
+</html>

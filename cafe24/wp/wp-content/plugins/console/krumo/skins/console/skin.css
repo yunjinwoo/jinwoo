@@ -1,0 +1,152 @@
+/*
+ * Krumo "Console" Skin
+ */
+
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+#console-wrapper {
+    font: normal 12px 'Lucida Console', Monaco, monospace;
+    color: #0f0;
+    position: absolute;
+    top: 0;
+    z-index: 100000;
+    background: #000;
+    width: 100%;
+    -moz-box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+}
+#console-header-wrapper {
+    overflow: hidden;
+    padding: 1em 2em;
+    font-weight: bold;
+    font-size: 16px;
+}
+#console-header-wrapper .title {
+    float: left;
+    color: #fff;
+    margin: 0;
+}
+#console-header-wrapper a.close {
+    cursor: pointer;
+    display: block;
+    color: #fff;
+    float: right;
+}
+#console-krumo-dump {
+    padding: 0 2em 2em;
+}
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+ul.krumo-node {
+    margin: 0px;
+    padding: 0px;
+}
+ul.krumo-node ul {
+    margin-left: 20px;
+}
+* html ul.krumo-node ul {
+    margin-left: 24px;
+}
+ul.krumo-first {
+    /* border-top-width:1px; */
+    background: #000;
+}
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+li.krumo-child {
+    display: block;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+div.krumo-element {
+    cursor: default;
+    line-height: 24px;
+    display: block;
+    clear: both;
+    white-space: nowrap;
+    background: #000;
+    padding-left: 10px;
+}
+* html div.krumo-element {
+    padding-bottom: 3px;
+}
+a.krumo-name {
+    color: #0f0;
+    font-weight: bold;
+    font-size: 13px;
+    text-decoration: blink;
+}
+a.krumo-name .normal {
+    font-weight: normal;
+}
+a.krumo-name big {
+    font-size: 20pt;
+    font-weight: bold;
+    line-height: 14px;
+    position: relative;
+    top: 2px;
+    left: -2px;
+}
+* html a.krumo-name big {
+    font-size: 19pt;
+    font-weight: bold;
+    top: 5px;
+    left: 0px;
+    line-height: 9px;
+    height: 12px;
+    padding: 0px;
+    margin: 0px;
+}
+div.krumo-expand {
+    cursor: pointer;
+}
+div.krumo-hover {
+    background: #000;
+}
+
+div.krumo-expand .cursor{
+    background: #000 url(%url%cursor.gif) bottom right no-repeat;
+    width: 9px;
+    font-size: 11px;
+}
+
+div.krumo-opened .cursor{
+    background: none !important;
+}
+
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+div.krumo-preview {
+    font-size: 13px;
+    font-weight: normal;
+    padding: 5px 5px 14px 5px;
+    background: white;
+    border-top: 0px;
+    overflow: auto;
+}
+* html div.krumo-preview {
+    padding-top: 2px;
+}
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+li.krumo-footnote {
+    display: none;
+}
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+div.krumo-title {
+    font-size: 11px;
+    font-weight: normal;
+    position: relative;
+    top: 9px;
+    cursor: default;
+    line-height: 2px;
+}
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+strong.krumo-array-length, strong.krumo-string-length {
+    font-weight: normal;
+}
+/* -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
