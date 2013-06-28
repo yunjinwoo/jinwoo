@@ -1,0 +1,29 @@
+<?php
+include_once '_default.php' ; DEFAULTTAG('UTF-8') ;
+?>
+<script language="JavaScript" type="text/javascript">
+<!--
+	function str_to_encode()
+	{
+		document.getElementById('text_after_text').value = encodeURI(document.getElementById('text_before_text').value) ;
+	}
+	function str_to_decode()
+	{
+		document.getElementById('text_after_text').value = decodeURI(document.getElementById('text_before_text').value) ;
+	}
+//-->
+</script>
+<div id="text_before">
+	<textarea name="text_before_text" id="text_before_text" rows="30" cols="80"></textarea>
+</div>
+
+<div id="button_area">
+	string.encodeURI() ;
+	<button onclick="str_to_encode()" >변경</button>
+	string.decodeURI() ;
+	<button onclick="str_to_decode()">복귀</button>
+</div>
+
+<div id="text_after">
+	<textarea name="text_after_text" id="text_after_text" rows="30" cols="80"></textarea>
+</div>
