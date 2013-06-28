@@ -1,0 +1,23 @@
+
+.menu { width:280px; float:left; }
+.red{ color:red ; }
+
+
+/* http://php.net 복사 */
+table.doctable thead th, table.informaltable thead th {
+background-color: #9999CC;
+}
+table.doctable td, table.doctable th, table.doctable caption, table.informaltable td, table.informaltable th, table.informaltable caption {
+    padding: 5px;
+}
+
+#content, #headmenu, #footnav, #copyright, #thismirror, #headsearch span, #headsearch input, #headsearch select {
+    font-size: 85%;
+}
+tbody td {
+    background-color: #F0F0F0;
+}
+
+	#contents li { width:700px; } 
+	#contents dt { font-weight:bold; } 
+	#contents dd { margin:10px; } 
