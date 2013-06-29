@@ -12,8 +12,8 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" /> 
 <meta http-equiv="Content-Style-Type" content="text/css" /> 
 <meta http-equiv="imagetoolbar" content="false" /> 
-<meta name="description" content="´õÆäÀÌÆÛ ÀÓ½Ã Ãµ¸· ¿¬±¸¼Ò ÀÔ´Ï´Ù." /> 
-<meta name="keywords" content="THEPAPER,´õÆäÀÌÆÛ" /> 
+<meta name="description" content="ë”íŽ˜ì´í¼ ìž„ì‹œ ì²œë§‰ ì—°êµ¬ì†Œ ìž…ë‹ˆë‹¤." /> 
+<meta name="keywords" content="THEPAPER,ë”íŽ˜ì´í¼" /> 
 <meta name="classification" content="Internet" /> 
 <meta name="Rating" content="Mature" /> 
 <meta name="doc-type" content="Web Page" /> 
@@ -21,9 +21,9 @@
 <meta name="Googlebot" content="all" /> 
 <meta name="revisit-after" content="1 Days" /> 
 <meta name="MSSmartTagsPreventParsing" content="true" /> 
-<meta name="author" content="THEPAPER¢â" /> 
-<meta name="copyright" content="Copyright 2002-2009 THEPAPER¢â All Rights Reserved." /> 
-<meta name="generator" content="THEPAPER¢â" /> 
+<meta name="author" content="THEPAPERâ„¢" /> 
+<meta name="copyright" content="Copyright 2002-2009 THEPAPERâ„¢ All Rights Reserved." /> 
+<meta name="generator" content="THEPAPERâ„¢" /> 
 <meta name="Powered By" content="www.thepaper.kr" /> 
 <title>THEPAPER LAB.</title> 
 <link rel="stylesheet" type="text/css" media="screen" href="/_CORE/CSS/_global.css" /> 
@@ -48,14 +48,14 @@
 	</fieldset> 
 </div><!-- // Time Browser --> 
 <div id="TimeBrowser"> 
-	<button type="button" id="util_rss" title="RSS ±¸µ¶ÇÏ±â">RSS</button> 
-	<button type="button" id="util_admin" title="´õ Á¾ÀÌµé¸¸ Á¢¼Ó">+</button> 
-	<button type="button" id="util_help" title="´õÆäÀÌÆÛÀÇ Å¸ÀÓºê¶ó¿ìÀú¿¡ ´ëÇØ">?</button> 
+	<button type="button" id="util_rss" title="RSS êµ¬ë…í•˜ê¸°">RSS</button> 
+	<button type="button" id="util_admin" title="ë” ì¢…ì´ë“¤ë§Œ ì ‘ì†">+</button> 
+	<button type="button" id="util_help" title="ë”íŽ˜ì´í¼ì˜ íƒ€ìž„ë¸Œë¼ìš°ì €ì— ëŒ€í•´">?</button> 
 	<h1>THEPAPER <em>Lab</em></h1> 
 	<fieldset> 
-		<button id="PrevY" type="button" title="Data of past year">¢¸</button> 
+		<button id="PrevY" type="button" title="Data of past year">â—€</button> 
 		<span id="TB_Y"></span> 
-		<button id="NextY" type="button" title="Data of next year">¢º</button> 
+		<button id="NextY" type="button" title="Data of next year">â–¶</button> 
 	</fieldset> 
 	<div id="TimeBar"></div> 
 	<hr /> 
@@ -70,12 +70,12 @@
 	<ul id="CMNT_WRAP"> 
 		<li> 
 			<div> 
-				<span>ICON</span> <strong>¾Æ¸§ÀÌ</strong> 09-07-22 18:25:33
+				<span>ICON</span> <strong>ì•„ë¦„ì´</strong> 09-07-22 18:25:33
 				<button type="button">REPLY</button> 
 				<button type="button">DEL</button> 
 				<button type="button">EDIT</button> 
 			</div> 
-			<p>ºí¶ó ºí¶ó ºí¶ó ºí¶ó ¿©±â´Â ÄÚ¸àÆ®ÀÔ´Ï´ç^.^/</p> 
+			<p>ë¸”ë¼ ë¸”ë¼ ë¸”ë¼ ë¸”ë¼ ì—¬ê¸°ëŠ” ì½”ë©˜íŠ¸ìž…ë‹ˆë‹¹^.^/</p> 
 		</li> 
 	</ul> 
 	<fieldset> 
