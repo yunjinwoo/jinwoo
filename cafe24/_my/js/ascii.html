@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+<meta http-equiv='Content-Type'		content='text/html; charset=utf-8'>
+
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+
+<script type="text/javascript">
+<!--
+	var str_pass = '' ;
+	
+	function check_ascii( str )
+	{
+		var strLen = str.length ;
+
+		var tmpValue = tmp = '' ;
+		for( i = 0 ; i < strLen ; i++ )
+		{
+			tmp = str.substr( i , 1 ) ;
+			tmpValue += tmp+":"+ str.charCodeAt(i)+"\n" ;
+		}
+
+		document.getElementById('return').value = tmpValue ;
+	}
+
+	function check_ascii_num( str )
+	{
+		str = parseInt(str);
+		var num = isNaN(document.getElementById('num').value) ? 20 :  parseInt(document.getElementById('num').value)  ;
+
+		var tmpValue = tmp = '' ;
+		for( i = str ; i < str + num ; i++ )
+		{
+			tmp = i  ;
+			tmpValue += tmp+":"+ String.fromCharCode(i)+"\n" ;
+		}
+
+		document.getElementById('return2').value = tmpValue ;
+	}
+
+
+	function key_down_to_code( e )
+	{
+		document.getElementById('key_down_result').value = e.keyCode ;
+	}
+	
+//////////////////////////////////////
+	function CallCheckPassStr()
+	{
+		var check_str_arr = document.getElementById('check_str').value.split("\n");
+		var check_result = document.getElementById('check_result') ;
+		check_result.value = '' ;
+
+		var i = s = '' ;
+		for( i in check_str_arr )
+		{
+			p = new CheckPass( check_str_arr[i].replace(/\r/,'') ) ;
+			//alert( check_str_arr[i] ) ;
+
+			if( !p.isCheck() ){ s = '['+check_str_arr[i]+':'+p.getLog()+']' ; }
+			else{ s = '@@@'+check_str_arr[i]+'@@@' ; }
+
+			//alert( check_str_arr[i] + "@@" + s ) ;
+			//if( p.isCheck() ) s =  '올바른 비밀번호::'+check_str_arr[i] ;
+			//else s = '잘못된 비밀번호::'+check_str_arr[i] ;
+
+			check_result.value += s + "\n" ;
+		}
+	}
+
+function CheckPass( str )
+{
+	this.isEng = false ; //영문사용여부 
+	this.isNum = false ; //숫자사용여부 
+	this.isSpe = false ; //특수문자사용여부 
+	
+	this.isKey = false ; //키보드입력사용여부 
+	this.isLen = false ; //길이허용여부 
+
+	this.pass_str = str ;	
+	this.isCheck = function()
+	{
+		var strLen = this.pass_str.length ;
+		if( strLen < 6 ) { this.setLog('len') ; return false ; }
+		if( strLen > 16 ) { this.setLog('len') ; return false ; }
+
+		var over_count = 1 ;
+		var over_str = '' ;
+		var check_str = '' ;
+		var code_num = 0 ;
+		for( var i = 0 ; i < strLen ; i++ )
+		{ 
+			check_str = this.pass_str.substr(i,1) ;
+			code_num = check_str.charCodeAt(0) ;
+			if( code_num < 32 ) { this.setLog('key') ; return false ; }
+			if( code_num > 126 ) { this.setLog('key') ; return false ; }
+
+			if( over_str == check_str ) over_count++ ;
+			else{ over_str = check_str ; over_count = 1 ; }
+
+			if( over_count >= 3 ){ this.setLog('over') ; return false ; }
+
+			if( code_num >= 48 && code_num <= 57 ) this.isNum = true ;
+			else if( code_num >= 65 && code_num <= 90 ) this.isEng = true ;
+			else if( code_num >= 97 && code_num <= 122 ) this.isEng = true ;
+			else this.isSpe = true ;
+		}
+
+		var use_count = 0 ;
+		if( this.isNum ) use_count++ ; 
+		if( this.isEng ) use_count++ ; 
+		if( this.isSpe ) use_count++ ; 
+
+		if( use_count < 2 ){ this.setLog('spe') ; return false ; }
+
+		return true ;
+	}
+	
+	this.log = '' ;
+	this.setLog = function( log_type )
+	{
+		if( log_type == 'len' ) this.log = ' 비밀번호는 6~16자 사이로 입력해주세요. ' ;
+		else if( log_type == 'key' ) this.log = ' 키보드에 입력된것만을 허용합니다. ' ;
+		else if( log_type == 'over' ) this.log = ' 같은문자가 3회이상 반복되는 비밀번호는 사용할 수가 없습니다. ' ;
+		else if( log_type == 'spe' ) this.log = ' 영문/숫자/특수문자 중 2가지 이상을 조합해서 입력을 주세요. ' ;
+//		else this.log = '알수없는 오류 입니다 잠시후 다시 시도해 주세요.' ;
+	}
+
+	this.getLog = function()
+	{
+		return this.log ;
+	}
+}
+
+//-->
+</script>
+
+<pre>
+test1234 
+test111
+testtest
+
+6~16자 이내의 영문/숫자/특수문자 중 2가지 이상을 조합해서 입력을 주세요.
+특수문자의 경우 키보드에 입력된것만을 허용합니다.
+같은문자가 3회이상 반복되는 비밀번호는 사용할 수가 없습니다.
+아이디와 같은 비밀번호는 사용할 수 없습니다.
+
+
+126 까지 허용하자
+</pre>
+
+<textarea id="check_str" rows="20" cols="20"></textarea><textarea id="check_result" rows="20" cols="60"></textarea>
+<br />
+<input type="button" value="비밀번호 확인하기" onclick="CallCheckPassStr() ;">
+
+<hr />
+
+<form method="post" action="">
+	<input type="password" id="passwd">
+	<input type="button" value=" 확인 " onclick="check_ascii( document.getElementById('passwd').value )">
+
+	<textarea id="return" rows="20" cols="20"></textarea>
+
+<hr />
+	
+	<input type="text" id="str" size=6>
+	<input type="text" id="num" size=6 value=20>
+	<input type="button" value=" 확인 " onclick="check_ascii_num( document.getElementById('str').value )">
+
+	<textarea id="return2" rows="20" cols="20"></textarea>
+</form>
+
+
+
+<hr />
+<input id="key_down" onkeydown="key_down_to_code(event);" />
+<textarea id="key_down_result" rows="20" cols="60"></textarea>
+ </body>
+</html>
