@@ -977,7 +977,7 @@ jQuery(function($){
 	});
 	jQuery('form input[value=""]:first').focus();
 });
-// -->
+-->
 </script>
 <form action="<?php echo $form_post ?>" method="post">
 <div class="wrap">
