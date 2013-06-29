@@ -1,5 +1,6 @@
 <?php
-include_once '_default.php' ; DEFAULTTAG('UTF-8') ;
+/*@high_no*/ if(!defined("_PATH_"))	require_once '../_default.php'; 
+printLayout(" URL ");
 ?>
 <form method="post" action="">
 <input type="hidden" name="decode_type">
