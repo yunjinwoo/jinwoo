@@ -46,6 +46,7 @@ function quizMenu($class="")
 		,'index.php'
 		,'euler.php'
 		,'myjop.php'
+		,'quiz.php'
 	) ;
 	$link = array() ;
 	while (false !== ($entry = $d->read())) {
@@ -65,22 +66,23 @@ function quizMenu($class="")
 		$ul->li('<a href="'.$v.'">'.$v.'</a>');
 	}
 	
-	$euler = array() ;
-	$d = dir(_PATH_.'/euler');
-	while (false !== ($entry = $d->read())) {
-		if( in_array($entry,$continueFile) ) continue ;
-		if( !is_file(_PATH_.'/euler/'.$entry) ) continue ;
-		
-		$euler[] = $entry ;
-	}
-	$ul2 = ul($class);
-	foreach( $euler as $v )
-	{
-		$ul2->li('<a href="euler.php?tpl='.$v.'">'.$v.'</a>');
-	}
-		
+	$ul2Tag = menu_pathToTag('euler') ;
+	$ul2Tag .= menu_pathToTag('quiz') ;
 	
-	return $ret. $ul->end().$ul2->end() ;
+	$ul3 = ul($class) ;
+	
+	$ul4 = ul($class) ;
+	$ul4->li('<a href="quiz/company_quiz/quiz_1/quiz.php">도형을찾아라</a>');
+	$ul4->li('<a href="quiz/company_quiz/quiz_2/quiz.php">문자를 보내자</a>');
+	$ul4->li('<a href="quiz/company_quiz/quiz_3/quiz.php">3개의 곱</a>');
+	$ul4->li('<a href="quiz/company_quiz/quiz_4/quiz.php">이진수 곱하기</a>');
+	$ul4->li('<a href="quiz/company_quiz/quiz_5/quiz.php">triple</a>');
+	$ul4->li('<a href="quiz/company_quiz/quiz_6/quiz.php">막대자르기</a>');
+	$ul4->li('<a href="quiz/company_quiz/quiz_7/quiz.php">문장비교</a>');
+			
+	$ul3->li("어떤회사입사문제".$ul4->end()) ;
+			
+	return $ret. $ul->end().$ul2Tag.$ul3->end() ;
 }
 
 function executeTimer($userFunc, $param1, $param2)
@@ -90,4 +92,28 @@ function executeTimer($userFunc, $param1, $param2)
 	$time = microtime(true) - $time ;
 	
 	return $s.'::'.strong($time) ;
+}
+
+function menu_pathToTag($path)
+{
+	$file = array() ;
+	$d = dir(_PATH_.'/'.$path);
+	
+	$continueFile = array(
+		 '.'  
+		,'..'  
+	) ;
+	
+	while (false !== ($entry = $d->read())) {
+		if( !is_file(_PATH_.'/'.$path.'/'.$entry) ) continue ;
+		
+		$file[] = $entry ;
+	}
+	$ul2 = ul($class);
+	foreach( $file as $v )
+	{
+		$ul2->li('<a href="'.$path.'.php?tpl='.$v.'">'.$v.'</a>');
+	}
+	
+	return $ul2->end() ;
 }
