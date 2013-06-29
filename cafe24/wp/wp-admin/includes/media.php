@@ -2072,7 +2072,7 @@ jQuery(function($){
 		updateMediaForm();
 	}
 });
-//-->
+-->
 </script>
 
 <div id="media-items">
