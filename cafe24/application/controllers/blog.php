@@ -9,14 +9,12 @@ class Blog extends CI_Controller {
 	
 	public function test($a,$a1)
 	{
-		echo '$a'.$a ;
-		echo '$a1'.$a1 ;
 		$this->view();
 	}
 	
 	public function view()
 	{
-		$this->load->view('blogview');
+		$this->layout->view('welcome_message');
 	}
 }
 

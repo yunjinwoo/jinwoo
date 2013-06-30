@@ -20,7 +20,8 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		console::group('eee');
-		$this->load->view('my_index');
+		
+		$this->layout->view('my_index');
 		console::groupEnd();
 	}
 	

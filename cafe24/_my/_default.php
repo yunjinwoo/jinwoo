@@ -57,7 +57,7 @@ function quizMenu($class="")
 	}
 	$d->close();
 	sort($link);
-		
+	
 	$ret  = hr().h2("메뉴") ;
 	
 	$ul = ul($class);
@@ -109,6 +109,8 @@ function menu_pathToTag($path)
 		
 		$file[] = $entry ;
 	}
+	
+	sort($file);
 	$ul2 = ul($class);
 	foreach( $file as $v )
 	{
