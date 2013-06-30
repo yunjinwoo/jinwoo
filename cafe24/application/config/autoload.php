@@ -54,6 +54,7 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = array();
 $autoload['libraries'][] = 'console';
+$autoload['libraries'][] = 'layout';
 
 /*
 | -------------------------------------------------------------------
