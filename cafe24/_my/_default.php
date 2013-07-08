@@ -47,6 +47,7 @@ function quizMenu($class="")
 		,'euler.php'
 		,'myjop.php'
 		,'quiz.php'
+		,'.htaccess'
 	) ;
 	$link = array() ;
 	while (false !== ($entry = $d->read())) {
