@@ -1,6 +1,3 @@
-<?
-$mysql_host = "localhost";
-$mysql_user = "addbasic";
-$mysql_password = "jinwoo3";
-$mysql_db = "addbasic";
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'].'/../'.basename(__FILE__);
 ?>
