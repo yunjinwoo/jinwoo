@@ -1,8 +1,5 @@
 <?php
-define( '_DB_NAME_','addbasic' ) ;
-define( '_DB_HOST_','localhost' ) ;
-define( '_DB_USER_','addbasic' ) ;
-define( '_DB_PASSWD_','jinwoo3' ) ;
+require_once $_SERVER['DOCUMENT_ROOT'].'/../'.basename(__FILE__);
 ######################### 설정
 
 ini_set( 'display_errors' , 'on' ) ;
