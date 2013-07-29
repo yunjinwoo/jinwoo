@@ -26,7 +26,7 @@ class CrayonFormatter {
 	/* Formats the code using the parsed language elements. */
 	public static function format_code($code, $language, $hl = NULL) {
 		// Ensure the language is defined
-		if ($language != NULL && $hl->is_highlighted) {
+		if ($language != NULL && $hl->is_highlighted()) {
 			$code = self::clean_code($code, FALSE, FALSE, FALSE, TRUE);
 			/* Perform the replace on the code using the regex, pass the captured matches for
 			 formatting before they are replaced */
@@ -44,7 +44,6 @@ class CrayonFormatter {
 				$error = 'An error occured when formatting: ' . $e->message();
 				$hl ? $hl->log($error) : CrayonLog::syslog($error);
 			}
-			
 			return $code;
 		} else {
 			return self::clean_code($code, TRUE, TRUE, TRUE, TRUE);
@@ -109,13 +108,17 @@ class CrayonFormatter {
 		// Determine font size
 		// TODO improve logic
 		if ($hl->setting_val(CrayonSettings::FONT_SIZE_ENABLE)) {
-			$font_size = $hl->setting_val(CrayonSettings::FONT_SIZE) . 'px !important;';
-			$font_height = $font_size * 1.25 . 'px !important;';
+            $_font_size = $hl->setting_val(CrayonSettings::FONT_SIZE);
+			$font_size = $_font_size . 'px !important;';
+            $_line_height = $hl->setting_val(CrayonSettings::LINE_HEIGHT);
+            // Don't allow line height to be less than font size
+            $line_height = ($_line_height > $_font_size ? $_line_height : $_font_size) . 'px !important;';
 			$toolbar_height = $font_size * 1.5 . 'px !important;';
-			$info_height = $font_size * 1.25 . 'px !important;';
+			$info_height = $font_size * 1.4 . 'px !important;';
 			
-			$font_style .= "font-size: $font_size line-height: $font_height";
-			$line_style .= "height: $font_height";
+			$font_style .= "font-size: $font_size line-height: $line_height";
+            $toolbar_style .= "font-size: $font_size";
+			$line_style .= "height: $line_height";
 			
 			if ($hl->is_inline()) {
 				$font_style .= "font-size: $font_size";
@@ -127,7 +130,7 @@ class CrayonFormatter {
 		} else if (!$hl->is_inline()) {
 			if (($font_size = CrayonGlobalSettings::get(CrayonSettings::FONT_SIZE)) !== FALSE) {
 				$font_size = $font_size->def() . 'px !important;';
-				$font_height = ($font_size + 4) . 'px !important;';
+                $line_height = ($font_size * 1.4) . 'px !important;';
 			}
 		}
 		
@@ -136,7 +139,7 @@ class CrayonFormatter {
 			$wrap = !$hl->setting_val(CrayonSettings::INLINE_WRAP) ? 'crayon-syntax-inline-nowrap' : '';
 			$output .= '
 			<span id="'.$uid.'" class="crayon-syntax crayon-syntax-inline '.$wrap.' crayon-theme-'.$theme_id_dashed.' crayon-theme-'.$theme_id_dashed.'-inline crayon-font-'.$font_id_dashed.'" style="'.$font_style.'">' .
-				'<span class="crayon-pre" style="'.$font_style.'">' . $code . '</span>' . 
+				'<span class="crayon-pre crayon-code" style="'.$font_style.'">' . $code . '</span>' . 
 			'</span>';
 			return $output;
 		}
@@ -165,7 +168,7 @@ class CrayonFormatter {
 			$code_line = $code_lines[0][$i - 1];
 			
 			// If line is blank, add a space so the div has the correct height
-			if (empty($code_line)) {
+			if ($code_line == '') {
 				$code_line = '&nbsp;';
 			}
 			
@@ -312,7 +315,7 @@ class CrayonFormatter {
 				foreach ($value as $k=>$v) {
 					$buttons_str .= ' ' . $k . '="' . $v . '"';
 				}
-				$buttons_str .= '></div>';
+				$buttons_str .= '><div class="crayon-button-icon"></div></div>';
 			}
 
 			// $print_plain_button = $hl->setting_val(CrayonSettings::PLAIN) && $hl->setting_val(CrayonSettings::PLAIN_TOGGLE) ? '<div class="crayon-plain-button crayon-button" title="'.crayon__('Toggle Plain Code').'"></div>' : '';
@@ -331,7 +334,7 @@ class CrayonFormatter {
 			$buttons = $print_plus.$buttons_str.$print_lang;
 			$toolbar = '
 			<div class="crayon-toolbar" data-settings="'.$toolbar_settings.'" style="'.$toolbar_style.'">'.$print_title.'
-			<div class="crayon-tools">'.$buttons.'</div></div>
+			<div class="crayon-tools" style="'.$toolbar_style.'">'.$buttons.'</div></div>
 			<div class="crayon-info" style="'.$info_style.'"></div>';
 
 		} else {
@@ -590,6 +593,7 @@ class CrayonFormatter {
 
 	public static function split_lines($code, $class) {
 		$code = self::clean_code($code, TRUE, TRUE, TRUE, FALSE);
+        $class = preg_replace('#(\w+)#m', 'crayon-$1', $class);
 		$code = preg_replace('#^([^\r\n]+)(?=\r\n|\r|\n|$)#m', '<span class="'.$class.'">$1</span>', $code);
 		return $code;
 	}
