@@ -204,7 +204,7 @@ class CrayonThemeEditorWP {
                 'editingTheme' => crayon__("Editing Theme: %s"),
                 'creatingTheme' => crayon__("Creating Theme: %s"),
                 'submit' => crayon__("Submit Your Theme"),
-                'submitText' => crayon__("Submit your User Theme for inclusion as a Stock Theme in Crayon!"),
+                'submitText' => crayon__("Submit your User Theme for inclusion as a Stock Theme in Crayon! This will email me your theme - make sure it's considerably different from the stock themes :)"),
                 'message' => crayon__("Message"),
                 'submitMessage' => crayon__("Please include this theme in Crayon!"),
                 'submitSucceed' => crayon__("Submit was successful."),
@@ -218,11 +218,20 @@ class CrayonThemeEditorWP {
         global $CRAYON_VERSION;
         self::initSettings();
         $path = dirname(dirname(__FILE__));
-        wp_enqueue_script('cssjson_js', plugins_url(CRAYON_CSSJSON_JS, $path), $CRAYON_VERSION);
+
+        if (!CRAYON_MINIFY) {
+            wp_enqueue_script('cssjson_js', plugins_url(CRAYON_CSSJSON_JS, $path), $CRAYON_VERSION);
+        }
 
         wp_enqueue_script('jquery_colorpicker_js', plugins_url(CRAYON_JS_JQUERY_COLORPICKER, $path), array('jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-tabs', 'jquery-ui-draggable', 'jquery-ui-dialog', 'jquery-ui-position', 'jquery-ui-mouse', 'jquery-ui-slider', 'jquery-ui-droppable', 'jquery-ui-selectable', 'jquery-ui-resizable'), $CRAYON_VERSION);
         wp_enqueue_script('jquery_tinycolor_js', plugins_url(CRAYON_JS_TINYCOLOR, $path), array(), $CRAYON_VERSION);
-        wp_enqueue_script('crayon_theme_editor', plugins_url(CRAYON_THEME_EDITOR_JS, $path), array('jquery', 'crayon_util_js', 'crayon_admin_js', 'cssjson_js', 'jquery_colorpicker_js', 'jquery_tinycolor_js'), $CRAYON_VERSION);
+
+        if (CRAYON_MINIFY) {
+            wp_enqueue_script('crayon_theme_editor', plugins_url(CRAYON_THEME_EDITOR_JS, $path), array('jquery', 'crayon_js_min', 'crayon_admin_js', 'jquery_colorpicker_js', 'jquery_tinycolor_js'), $CRAYON_VERSION);
+        } else {
+            wp_enqueue_script('crayon_theme_editor', plugins_url(CRAYON_THEME_EDITOR_JS, $path), array('jquery', 'crayon_util_js', 'crayon_admin_js', 'cssjson_js', 'jquery_colorpicker_js', 'jquery_tinycolor_js'), $CRAYON_VERSION);
+        }
+
         wp_localize_script('crayon_theme_editor', 'CrayonThemeEditorSettings', self::$settings);
         wp_localize_script('crayon_theme_editor', 'CrayonThemeEditorStrings', self::$strings);
 
@@ -376,7 +385,7 @@ class CrayonThemeEditorWP {
                     </div>
                     <div id="tabs-2">
                         <?php
-                        $highlight = ' .crayon-pre .';
+                        $highlight = ' .crayon-pre';
                         $elems = array(
                             'c' => crayon__("Comment"),
                             's' => crayon__("String"),
@@ -395,16 +404,18 @@ class CrayonThemeEditorWP {
                             'sy' => crayon__("Symbol"),
                             'n' => crayon__("Notation"),
                             'f' => crayon__("Faded"),
-                            'h' => crayon__("HTML")
+                            'h' => crayon__("HTML"),
+                            '' => crayon__("Unhighlighted")
                         );
                         $atts = array(new CrayonHTMLTitle($tHighlighting));
                         foreach ($elems as $class => $name) {
+                            $fullClass = $class != '' ? $highlight . ' .crayon-' . $class : $highlight;
                             $atts[] = array(
                                 $name,
-                                self::createAttribute($highlight . $class, 'color'),
-                                self::createAttribute($highlight . $class, 'font-weight'),
-                                self::createAttribute($highlight . $class, 'font-style'),
-                                self::createAttribute($highlight . $class, 'text-decoration')
+                                self::createAttribute($fullClass, 'color'),
+                                self::createAttribute($fullClass, 'font-weight'),
+                                self::createAttribute($fullClass, 'font-style'),
+                                self::createAttribute($fullClass, 'text-decoration')
                             );
                         }
                         self::createAttributesForm($atts);
@@ -550,7 +561,8 @@ class CrayonThemeEditorWP {
                                 self::createAttribute($language, 'font-weight'),
                                 self::createAttribute($language, 'font-style'),
                                 self::createAttribute($language, 'text-decoration')
-                            )
+                            ),
+                            self::createAttribute($language, 'background-color', $tBackground)
                         ));
                         ?>
                     </div>

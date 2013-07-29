@@ -48,6 +48,7 @@ function quizMenu($class="")
 		,'myjop.php'
 		,'quiz.php'
 		,'.htaccess'
+		,'file_search.php'
 	) ;
 	$link = array() ;
 	while (false !== ($entry = $d->read())) {

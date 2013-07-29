@@ -49,7 +49,7 @@ It also supports some neat features like:
 * Local directory to search for local files
 * File extension detection
 * Live Preview in settings
-* Dimensions, margins, alignment and CSS floating
+* Dimensions, margins, alignment, font-size, line-height, float
 * Extensive error logging
 
 **Links**
@@ -57,7 +57,7 @@ It also supports some neat features like:
 * <a href="https://github.com/aramkocharyan/crayon-syntax-highlighter" target="_blank">Beta Releases</a>
 * <a href="http://aramk.com/crayon/crayon-themes/" target="_blank">Themes Demo</a>
 * <a href="http://aksandbox.webege.com/?p=1" target="_blank">Live Demo</a>
-* <a href="http://aramk.com/projects/crayon-syntax-highlighter/" target="_blank">Short How-To</a>
+* <a href="https://github.com/aramkocharyan/crayon-syntax-highlighter" target="_blank">Short How-To</a>
 
 **Contributions**
 
@@ -120,6 +120,7 @@ See the <a href="http://aramk.com/projects/crayon-language-file-specification/" 
 
 **International Languages**
 
+* Arabic (thanks to <a href="http://djennadhamza.eb2a.com/" target="_blank">Djennad Hamza</a>)
 * Chinese (Simplified, thanks to <a href="http://smerpup.com/" target="_blank">Dezhi Liu</a> & <a href="http://neverno.me/" target="_blank">Jash Yin</a>)
 * Dutch (thanks to <a href="https://twitter.com/#!/chilionsnoek" target="_blank">Chilion Snoek</a>)
 * French (thanks to <a href="http://tech.dupeu.pl" target="_blank">Victor Felder</a>)
@@ -153,6 +154,8 @@ These are helpful for discovering new features.
 
 A handful of articles from others written about Crayon, thanks guys!
 
+* <a href="http://www.jjpro.net/2013/01/13/how-to-post-source-code-on-wordpress-2/" target="_blank">How to post source code on WordPress</a>
+* <a href="http://www.emanueleferonato.com/2013/02/01/syntax-highlighter-switched-to-crayon/" target="_blank">Syntax highlighter switched to Crayon</a>
 * <a href="http://www.wordpressthemeshq.net/5-best-syntax-highlighter-plugins-for-wordpress/" target="_blank">5 Best Syntax Highlighter Plugins for WordPress</a>
 * <a href="http://amecylia.com/how-to-post-source-code-wordpress/" target="_blank">How To Post Source Code In Wordpress</a>
 * <a href="http://icrunched.co/top-5-syntax-highlighter-wordpress-plugins/" target="_blank">Top 5 Syntax Highlighter WordPress Plugins</a>
@@ -181,8 +184,17 @@ A handful of articles from others written about Crayon, thanks guys!
 
 **Donations**
 
-Thanks to all those who donate to my project, your support keeps the Crayons going!
+Thanks to all those who donate to the project:
 
+* Kho Minh Vi, (http://khominhvi.com/), UK
+* Ivan Churakov, Russia
+* Carla Macías González, Mexico
+* Saulius Stonys, Lithuania
+* Konstantin Sabel, Germany
+* Luigi Massa, (http://bwlab.it/), Italy
+* Anthony Steiner, (http://steinerd.com/), US
+* Alexander Harvey, (http://alexharvey.eu/), UK
+* Minhazul Haque Shawon, Cyprus
 * Raam Dev, (http://raamdev.com/), USA
 * Scot Ranney, (http://scotsscripts.com/), USA
 * Nico Hartung, (http://www.loggn.de/), Germany
@@ -222,7 +234,7 @@ Thanks to all those who donate to my project, your support keeps the Crayons goi
 
 == Frequently Asked Questions ==
 
-Please see the <a href="http://aramk.com/projects/crayon-syntax-highlighter/" target="_blank">documentation</a> for all the details.
+Please see the <a href="https://github.com/aramkocharyan/crayon-syntax-highlighter" target="_blank">documentation</a> for all the details.
 
 = Support =
 
@@ -237,6 +249,78 @@ Contact me at http://twitter.com/crayonsyntax or crayon.syntax@gmail.com.
 5. Theme Editor.
 
 == Changelog ==
+
+= 2.3.1 =
+* ADDED:
+    * New setting to remove &lt;code&gt; blocks surrounding the code, often not intended to be in the code itself
+    * Scala language thanks to https://github.com/vkostyukov
+* FIXED:
+	* Most important documentation paths now point to github docs.
+
+= 2.3.0 =
+* ADDED:
+    * Ada langauge from https://github.com/antiphasis/crayon-lang-ada
+    * Monokai theme
+    * CG Cookie theme
+    * MATLAB language
+    * Scala language
+* FIXED:
+    * Escaping quotes in strings
+    * R language type literals
+    * Arabic translation
+    * Forced LTR for Crayon CSS, preventing the line numbers from appearing on the right
+    * Added unhighlighted colour to theme editor and existing dark themes
+    * New theme inputs not present in the loaded theme are added during save
+    * Fixed a bug related to IIS 7.5 and uniqid(): https://github.com/aramkocharyan/crayon-syntax-highlighter/issues/97
+
+= 2.2.1 =
+* ADDED:
+    * Mirc Dark theme
+    * Feeldesign theme
+    * IntelliJ theme
+    * Arabic translation
+* FIXED:
+    * All language css classes are prefixed with "crayon-" to prevent conflicts
+    * Terminal theme fix
+    * Improved language readme
+    * Lines containing a single zero appeared blank when highlighting was disabled
+    * AppleScript regex (thanks to darricktheprogrammer)
+
+= 2.2.0 =
+* ADDED:
+    * ASP language
+    * Added Secrets of Rock theme
+    * &lt;code&gt; tags can now be captured as either inline or block Crayons.
+* FIXED:
+    * Comments now pass through filters before being checked for Crayons.
+    * JavaScript and CSS resources are minified into single files on the front-end to reduce HTTP requests.
+    * Toolbar buttons use a sprite sheet, not individual images.
+    * bbPress now allows posting Crayons for non-users
+
+= 2.1.4 =
+* ADDED:
+    * Eclipse theme
+    * Background colour for language added to Theme Editor
+    * More extendable handling and santisation of settings
+* FIXED:
+    * Blog content was being treated as a single code block due to a change in the internal CrayonWP::highlight() method
+    * Crayon post management is now refreshed when plugin is activated
+    * Terminal theme improvement
+
+= 2.1.3 =
+* ADDED:
+    * Line height can now be customised along with font size
+    * AJAX method for highlighting Crayon using ajaxurl. See http://aramk.com/crayon/adding-crayon-to-posts-in-wordpress-programmatically/.
+    * Ability to capture code tags as inline Crayons
+    * Terminal theme
+* FIXED:
+    * Expanding code issues to do with position and dimensions
+    * Toolbar font-size and line height improvements
+    * Now settings which affect capturing trigger a refresh of crayon posts when modified
+    * Added message about emailing in submit window of theme editor
+    * Border is now drawn inside so right border won't clip from theme CSS
+    * Comments were not detected to contain Crayons unless edited in wp-admin
+    * Highlighting improvements for variables and entities
 
 = 2.1.2 =
 * ADDED:
@@ -711,7 +795,7 @@ Contact me at http://twitter.com/crayonsyntax or crayon.syntax@gmail.com.
 = 1.7.3 =
 * Added Mini Tags and Plain Tags into Crayon. http://aramk.com/projects/mini-tags-in-crayon/
 * Fixed a bug causing RSS feeds to contain malformed HTML of Crayons, now it shows plain code with correct indentations. Thanks to Артём.
-* Updated help in Settings and http://aramk.com/projects/crayon-syntax-highlighter/
+* Updated help in Settings and https://github.com/aramkocharyan/crayon-syntax-highlighter
 
 = 1.7.2 =
 * Fixed a bug that prevented foreign languages from being initialised and used. Thanks to @west_323 for finding it.  

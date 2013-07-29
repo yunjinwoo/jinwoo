@@ -32,11 +32,43 @@ snippet: <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.
 
 </xmp>
 
-해봐야 될것들...
-<ul>
-	<li>마스터링 - 모션</li>
-	<li>전체 속도감 스크롤에 부분 모션</li>
-	<li>전체스크롤에 부분 모션</li>
-</ul>
+브라우저별 클래스 넣기
+
+<script type="text/javascript">
+
+document.write( navigator.appName ) ;
+document.write("<br />"+ navigator.appVersion ) ;
+document.write("<br />"+ navigator.userAgent ) ;
+
+function userAgentTypeClass()
+{
+	var body = document.body ;
+	if( navigator.userAgent.indexOf("MSIE 6") > -1){	
+		body.className = "ie6" ;
+	}else if(navigator.userAgent.indexOf("MSIE 7") > -1){
+		body.className = "ie7" ;
+	}else if(navigator.userAgent.indexOf("MSIE 8") > -1){
+		body.className = "ie8" ;
+	}else if(navigator.userAgent.indexOf("MSIE 9") > -1){
+		body.className = "ie9" ;
+	}else if(navigator.userAgent.indexOf("MSIE 10") > -1){
+		body.className = "ie10" ;
+	}else if(navigator.userAgent.indexOf("Firefox") > -1){
+		body.className = "ff" ;
+	}else if(navigator.userAgent.indexOf("Opera") > -1){
+		body.className = "op" ;
+	}else if(navigator.userAgent.indexOf("Safari") > -1){
+		if(navigator.userAgent.indexOf("Chrome") > -1){
+			body.className = "ch" ;
+		}else
+			body.className = "sa" ;
+	}
+}
+
+document.body.onload = function(){
+	userAgentTypeClass() ;	
+}
+</script>
+
  </body>
 </html>
