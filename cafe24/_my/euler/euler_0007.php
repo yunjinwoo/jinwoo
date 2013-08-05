@@ -15,8 +15,6 @@ Problem 7
 
 function problem7($cnt)
 {
-
-
 	$aPrimes = array(2=>2,3=>3);
 	switch($max)
 	{
@@ -34,6 +32,7 @@ function problem7($cnt)
 	for( $i = 6 ; $i < $max ; $i+=6)
 	{
 		$t1 = $i-1;
+		
 		$t2 = $i+1;
 		$primes1 = false ;
 		$primes2 = false ;
@@ -82,8 +81,39 @@ function problem7($cnt)
 	else
 		return $tmp ;
 }
-print_r( problem7(10000) ) ;
+  
+
+print_r( problem7(100) ) ;
 echo ul()->
-		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "problem7" , 10000 ) )->
+		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "problem7" , 100 ) )->
 	end(); 
 ?>
+
+function p007_in(n){
+	if (n <= 2) {
+		alert(n);
+		return;
+	}
+
+	var cnt = 1;
+
+	var prime = new Array();
+	prime[0] = 2;
+	var t = 3;
+	while (cnt < n){
+		var check = true;
+		for(var i = 0;	i < cnt;	i++) {
+			if(prime[i]>t/prime[i-1])
+				break; 
+			else if(t%prime[i] == 0) {
+				check = false;
+				break;
+			}
+		}
+		if (check)
+			prime[cnt++] = t;
+		t += 2;
+	}
+
+	alert(prime[n-1]);
+}
