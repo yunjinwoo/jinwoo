@@ -1,0 +1,10 @@
+/* 
+    Document   : schedule
+    Created on : 2013. 8. 1, 오후 4:37:24
+    Author     : Administrator
+    Description:
+        Purpose of the stylesheet follows.
+*/
+*{margin:0;padding:0px;}
+
+#right_menu{background: red;position:fixed;right:0px;}
