@@ -87,10 +87,12 @@ function quizMenu($class="")
 	return $ret. $ul->end().$ul2Tag.$ul3->end() ;
 }
 
-function executeTimer($userFunc, $param1, $param2)
+function executeTimer($userFunc)
 {
+	$args = func_get_args();
+	$userFunc = array_shift($args);
 	$time = microtime(true) ;
-	$s = call_user_func( $userFunc, $param1, $param2 ) ;
+	$s = call_user_func_array( $userFunc, $args ) ;
 	$time = microtime(true) - $time ;
 	
 	return $s.'::'.strong($time) ;
