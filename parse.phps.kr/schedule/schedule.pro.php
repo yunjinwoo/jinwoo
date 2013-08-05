@@ -6,12 +6,11 @@ $action = $_GET['action'] ;
 $Schedule = new Schedule ;
 if( $action == "list" )
 {
-	$Schedule->setDay($_GET['day']) ;
-	$Schedule->
+	$Schedule
+			->setDay($_GET['day'])
+			->dayToList($_GET['len']) ;
 	
-	$json = array() ;
-	$json['list'] = getDayList($_GET['day'],$_GET['len']) ;
-	$json['list'] = getDayList($json['list']) ;
+	
 	exit ;
 }
 
@@ -21,10 +20,10 @@ if( $action == "list" )
 ################# FUNCTION ####################
 ###############################################
 /**
-* 2013-08-02
-* 변수가 날짜 형식의 문자열인지 아닌지 판단하는 함수
-* @param string 2000-10-10
-*/
+ * 2013-08-02
+ * 스케줄 관련 클레스
+ * @param string 2000-10-10
+ */
 class Schedule
 {
 	private $day ;
@@ -41,9 +40,10 @@ class Schedule
 	}
 	
 	/**
-	* 기준 날짜를 설정
-	* @param string 2000-10-10
-	*/
+	 * 기준 날짜를 설정
+	 * @param string 2000-10-10
+	 * @return $this 
+	 */
 	function setDay($day)
 	{
 		if( !F::isDate($day) ) {
@@ -53,8 +53,15 @@ class Schedule
 			
 		$this->day = $day ;
 		$this->day_list = array( $day ) ;
+		
+		return $this ;
 	}
 	
+	/**
+	 * 검색할 날짜 영역을 구한다
+	 * @param int 2000-10-10
+	 * @return $this 
+	 */
 	function dayToList($len)
 	{
 		if( !is_numeric($len) ) return ;
@@ -65,6 +72,8 @@ class Schedule
 		{
 			$this->day_list[] = date('Y-m-d', strtotime(' '.$i.'day ', strtotime($tmp) )) ;
 		}
+		
+		return $this ;
 	}
 	
 }
