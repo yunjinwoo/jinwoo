@@ -87,6 +87,7 @@ print_r( problem7(100) ) ;
 echo ul()->
 		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "problem7" , 100 ) )->
 	end(); 
+//@highlight_end
 ?>
 
 function p007_in(n){

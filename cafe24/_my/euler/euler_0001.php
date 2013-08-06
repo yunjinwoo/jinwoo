@@ -27,7 +27,6 @@ $s = a('http://euler.synap.co.kr/prob_detail.php?id=1'
 		,'_blank') ;
 echo h1("3 또는 5의 배수".$s);
 echo ul()->
-		li('10:'.problem1( 10 ))->
-		li('1000:'.problem1( 1000 ))->
+		li('problem1( 10 )'.executeTimer( "problem1" , 10 ) )->
+		li('problem1( 1000 )'.executeTimer( "problem1" , 1000 ) )->
 	end();
-?>

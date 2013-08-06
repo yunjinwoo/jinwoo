@@ -142,7 +142,7 @@ $b = prime_euler(600851475143).'<br />';
 $t2 = microtime(true) - $s ;
 
 echo ul()->
-		li('Primes( 100 )'.Primes( 100 ) )->
+		li('Primes( 100 )'.executeTimer( "Primes" , 100 ) )->
 		li('primesFind( 600851475143 )'.  $a.strong($t1))->
 		li('prime_euler( 600851475143 )'.  $b.strong($t2))->
 	end(); // 600851475143    13195
