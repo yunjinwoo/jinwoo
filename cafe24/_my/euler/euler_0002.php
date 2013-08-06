@@ -85,15 +85,16 @@ $s = a('http://euler.synap.co.kr/prob_detail.php?id=2'
 		,'_blank') ;
 echo h1("피보나치 수열 ".$s);
 echo ul()->
-		li('10:'.  problem2( 0,1,10 ))->
-		li('10:'.  problem2_quiz( 0,1,33 ))->
-		li('4000000:'.  problem2_quiz( 0,1,4000000 ))->
-		li('4000000:'.  problem2_quiz2( 4000000 ))->
-		li('100:'.  problem2( 0,1,100 ))->
-	
-	//  27 이때쯤부터...
-		li('10:'. fibo( 10 ))->
-		li('10:'.  problem2_test( 400000 ))->
+		li('problem2( 0,1,10 )'.			executeTimer( "problem2" , 0,1,10 ) )->
+		li('problem2_quiz( 0,1,33 )'.		executeTimer( "problem2_quiz" , 0,1,33 ) )->
+		li('problem2_quiz( 0,1,4000000 )'.	executeTimer( "problem2_quiz" , 0,1,4000000 ) )->
+		li('problem2_quiz2( 4000000 )'.		executeTimer( "problem2_quiz2" , 4000000 ) )->
+		li('problem2( 0,1,100 )'.			executeTimer( "problem2" ,  0,1,100 ) )->
+		
+		
+		li('fibo( 10 )'.executeTimer( "fibo" , 10 ) )->
+		li('problem2_test( 400000 )'.executeTimer( "problem2_test" , 400000 ) )->
+		
 	end();
 
 ?>

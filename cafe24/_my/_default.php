@@ -25,7 +25,7 @@ function getReadContents($p)
 	$r = '' ;
 	$fp = fopen( $p , 'r') ;
 	while (($s = fgets($fp, 4096)) !== false) {
-		if( strpos($s,'@highlight') !== false )
+		if( strpos($s,'@highlight_end') !== false )
 			break ;
 		if( strpos($s,'@high_no') !== false )
 			continue ;
