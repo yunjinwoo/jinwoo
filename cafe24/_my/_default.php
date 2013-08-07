@@ -4,6 +4,7 @@
 define('_PATH_', str_replace(DIRECTORY_SEPARATOR,'/',dirname(__FILE__))) ;
 //define('_PATH_', dirname(__FILE__)) ;
 define('_INC_', _PATH_.'/inc') ;
+define('_URL_MY_', '/_my/') ;
 
 require_once _INC_.'/func.php';
 require_once _INC_.'/html.c.php';
@@ -65,7 +66,7 @@ function quizMenu($class="")
 	$ul = ul($class);
 	foreach( $link as $v )
 	{
-		$ul->li('<a href="'.$v.'">'.$v.'</a>');
+		$ul->li('<a href="'._URL_MY_.$v.'">'.$v.'</a>');
 	}
 	
 	$ul2Tag = menu_pathToTag('euler') ;
@@ -118,7 +119,7 @@ function menu_pathToTag($path)
 	$ul2 = ul($class);
 	foreach( $file as $v )
 	{
-		$ul2->li('<a href="'.$path.'.php?tpl='.$v.'">'.$v.'</a>');
+		$ul2->li('<a href="'._URL_MY_.$path.'.php?tpl='.$v.'">'.$v.'</a>');
 	}
 	
 	return $ul2->end() ;
