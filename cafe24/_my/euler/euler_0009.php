@@ -1,7 +1,7 @@
 <?php
 /*@high_no*/ if(!defined("_PATH_"))	require_once '../_default.php';
 /*
-Problem 9 [ProjectEuler.net 원본] 출제 일시 : 2012-01-03 19:11:35
+Problem 9 : 2012-01-03 19:11:35
 
 세 자연수 a, b, c 가 피타고라스 정리 a2 + b2 = c2 를 만족하면 피타고라스 수라고 부릅니다 (여기서 a < b < c ).
 예를 들면 32 + 42 = 9 + 16 = 25 = 52이므로 3, 4, 5는 피타고라스 수입니다.
