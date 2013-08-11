@@ -28,10 +28,10 @@ Problem 12 : 2012-01-03 19:11:35
 
 
 
-function problem12($cnt)
+function problem12($max , $cnt=6)
 {
-	$sum = $n = array_sum(range(1,$cnt)) ;
-	$arr = array() ;
+	$sum = $n = array_sum(range(1,$max)) ;
+	$arr = array(1) ;
 	for( $i = 2 ; $n > 2 ; $i++ )
 	{
 		while($n%$i==0)
@@ -40,12 +40,34 @@ function problem12($cnt)
 			$arr[] = $i ;
 		}		
 	}
+	$arr[] = $sum ;
 	
-	if( count( $arr ) < 11 ) return ;
+	return count( $arr ) ;
 	
-	echo h1($cnt.'::'.$sum) ;
-	echo count( $arr ) ;
-	print_r($arr) ;
+	if( count( $arr ) < $cnt ) return count( $arr ) ;
+	if( count( $arr ) < $cnt ) return count( $arr ) ;
+	
+	$endArr = array() ;
+	if( count( $arr ) >= $cnt ){
+	//	echo h1($max.'::'.$sum) ;
+		$i_cnt = 0 ;
+		for($i=0,$m=count($arr); $i < $m ; $i++ )
+		{
+	//		echo h3($i) ;
+			for( $ii = $i + 1; $ii < $m ; $ii++ )
+			{
+				$i_cnt++ ;
+				$k = $arr[$i]*$arr[$ii] ;
+				$endArr[$k] = $k ;
+			}
+		}
+	//	echo $i_cnt;
+	//
+	//		echo h1(count( $arr ).print_r($arr,true).'<br />'.count( $endArr ).print_r($endArr,true)) ;		
+	} 
+	
+	if( count($endArr) < 500 ) return '' ; // count( $arr ).print_r($arr, true) ;
+	return 'GOOD!! ['.$sum.']'.count( $endArr ).print_r($endArr, true).'<br />기준:'.print_r($arr, true) ;
 }
 
 
@@ -54,10 +76,20 @@ $s = a('http://euler.synap.co.kr/prob_detail.php?id=12'
 		,'project Euler@kr'
 		,'_blank') ;
 echo h1("최대 공약수".$s);
+ 
+$ul = new ul ;
 
-for( $i = 10000 ; $i < 11000; $i++ )
-	problem12($i) ;
+//for( $i = 2, $m = $i + 100  ; $i <= $m ; $i++ )
+//{
+//	echo h3($i.'::'.array_sum(range(1,$i))) ;
+//}
 
-echo ul()->
-	//	li('executeTimer( "problem12" , "500" )'.executeTimer( "problem12" , "500" ) )->
-	end(); 
+//for($i = 8000 , $m = $i+4000 ; $i < $m ; $i++)
+for($i = 12000 , $m = $i+1000 ; $i < $m ; $i++)
+{
+	$startTime = microtime(true) ;
+	$tmp = h3($i.'::'.problem12( $i, 32 )) ;	
+	$ul->li(  $tmp.( ' - execTime:'.(microtime(TRUE)-$startTime) ) ) ;
+}
+	
+echo $ul->end(); 
