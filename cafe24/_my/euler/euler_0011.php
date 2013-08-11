@@ -59,61 +59,55 @@ $txt = '08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 
 
 $txt = explode( ' ', str_replace("\n", ' ', $txt) ) ;
+class maxLog
+{
+	public $max = 0 ;
+	public $max_i = 0 ;
+	public $max_type = 0 ;
+	function __construct(){}
+	function log($tmp,$max_type,$log){
+		if( $this->max < $tmp )
+		{
+			$this->max = $tmp ;
+			$this->max_i = $log ;
+			$this->max_type = $max_type ;
+		}
+	}
+}
+
 function problem11()
 {
 	global $txt ;
 	
-	$max = 0 ;	
-	$max_i = 0 ;
-	$max_type = 0 ;
+	$ML = new maxLog() ;
 	for( $i = 0 , $m = count($txt) ; $i < $m ; $i++ )
 	{
 		if( $i/20 == ($i+4)/20 )
 		{			
 			$tmp = $txt[$i] * $txt[$i+1] * $txt[$i+2] * $txt[$i+3] ;
-			if( $max < $tmp )
-			{
-				$max = $tmp ;
-				$max_i = $i.' ['.$txt[$i].'*'.$txt[$i+1].'*'.$txt[$i+2].'*'.$txt[$i+3].'] ' ;
-				$max_type = 1 ;
-			}
+			$ML->log($tmp,1,$i.' ['.$txt[$i].'*'.$txt[$i+1].'*'.$txt[$i+2].'*'.$txt[$i+3].'] ');
 		}
 		
 		if( $i+60 <= 400 )
 		{
-			$tmp = $txt[$i] * $txt[$i+20] * $txt[$i+40] * $txt[$i+60] ;
-			if( $max < $tmp )
-			{
-				$max = $tmp ;
-				$max_i = $i.' ['.$txt[$i].'*'.$txt[$i+20].'*'.$txt[$i+40].'*'.$txt[$i+60].'] ' ;
-				$max_type = 2 ;
-			}
+			$tmp = $txt[$i] * $txt[$i+20] * $txt[$i+40] * $txt[$i+60] ;	
+			$ML->log($tmp,2,$i.' ['.$txt[$i].'*'.$txt[$i+20].'*'.$txt[$i+40].'*'.$txt[$i+60].'] ');
 		}
 		
 		if( $i+63 <= 400  ) // && (($i+63)/20-1 == ($i+42)/20)
 		{
-			$tmp = $txt[$i] * $txt[$i+21] * $txt[$i+42] * $txt[$i+63] ;
-			if( $max < $tmp )
-			{
-				$max = $tmp ;
-				$max_i = $i.' ['.$txt[$i].'*'.$txt[$i+21].'*'.$txt[$i+42].'*'.$txt[$i+63].'] ' ;
-				$max_type = 3 ;
-			}
+			$tmp = $txt[$i] * $txt[$i+21] * $txt[$i+42] * $txt[$i+63] ;	
+			$ML->log($tmp,3,$i.' ['.$txt[$i].'*'.$txt[$i+21].'*'.$txt[$i+42].'*'.$txt[$i+63].'] ');
 		}
 		
 		if( $i+57 <= 400 ) //  && (($i-57)/20-1 == ($i-38)/20)
 		{
-			$tmp = $txt[$i] * $txt[$i+19] * $txt[$i+38] * $txt[$i+57] ;
-			if( $max < $tmp )
-			{
-				$max = $tmp ;
-				$max_i = $i.' ['.$txt[$i].'*'.$txt[$i+19].'*'.$txt[$i+38].'*'.$txt[$i+57].'] ' ;
-				$max_type = 4 ;
-			}
+			$tmp = $txt[$i] * $txt[$i+19] * $txt[$i+38] * $txt[$i+57] ;	
+			$ML->log($tmp,4,$i.' ['.$txt[$i].'*'.$txt[$i+19].'*'.$txt[$i+38].'*'.$txt[$i+57].'] ');
 		}
 	}
 	
-	return $max .' $i:'.$max_i.'  type:'.$max_type;
+	return $ML->max .' $i:'.$ML->max_i.'  type:'.$ML->max_type;
 	
 }
 
@@ -125,5 +119,5 @@ $s = a('http://euler.synap.co.kr/prob_detail.php?id=11'
 echo h1("소수 알고리즘".$s);
 
 echo ul()->
-		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "problem11" , 2000000 ) )->
+		li('executeTimer( "problem11" , "" )'.executeTimer( "problem11" , "" ) )->
 	end(); 
