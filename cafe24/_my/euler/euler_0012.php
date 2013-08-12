@@ -122,3 +122,34 @@ function problem12($cnt)
 echo ul()->
 		li('executeTimer( "problem12" , "32" ) ['.executeTimer( "problem12" , "32" ).']' )->
 	end(); 
+
+?>
+
+<script type="text/javascript">
+<!--
+/* 
+2013-08-05 12:00:54
+	window.onload = function() {
+
+		var add = 1;
+		var now = 0;
+		now += (add++)
+		while (getDiv(now) < 500) {
+			now += (add++);
+			//$("#asdf").html(	$("#asdf").html()+"/"+now);
+		}
+		alert(now);
+
+	}
+	function getDiv(input) {
+		var cnt = 0;
+		for ( var i = 1; i < Math.sqrt(input); i++) {
+			if (input % i == 0)
+				cnt++
+		}
+		return cnt * 2;
+	}
+*/
+
+//-->
+</script>
