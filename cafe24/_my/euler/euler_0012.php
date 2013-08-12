@@ -28,7 +28,7 @@ Problem 12 : 2012-01-03 19:11:35
 
 
 
-function problem12($max , $cnt=6)
+function problem12_test($max , $cnt=6)
 {
 	$sum = $n = array_sum(range(1,$max)) ;
 	$arr = array(1) ;
@@ -85,11 +85,40 @@ $ul = new ul ;
 //}
 
 //for($i = 8000 , $m = $i+4000 ; $i < $m ; $i++)
-for($i = 12000 , $m = $i+1000 ; $i < $m ; $i++)
+//for($i = 12000 , $m = $i+10 ; $i < $m ; $i++)
+//{
+//	$startTime = microtime(true) ;
+//	$tmp = h3($i.'::'.problem12( $i, 32 )) ;	
+//	$ul->li(  $tmp.( ' - execTime:'.(microtime(TRUE)-$startTime) ) ) ;
+//}
+//echo $ul->end(); 
+
+/**
+ * 500개 이상이 되려면 32 개의 약수가 필요하다
+ */
+function problem12($cnt)
 {
-	$startTime = microtime(true) ;
-	$tmp = h3($i.'::'.problem12( $i, 32 )) ;	
-	$ul->li(  $tmp.( ' - execTime:'.(microtime(TRUE)-$startTime) ) ) ;
-}
+	while(  ++$idx )
+	{
+		$sum = $n = array_sum(range(1,$idx)) ;
+		$arr = array(1) ;
+		for( $i = 2 ; $n > 2 ; $i++ )
+		{
+			while($n%$i==0)
+			{
+				$n = $n / $i ;
+				$arr[] = $i ;
+			}		
+		}
+		$arr[] = $sum ;
+		//echo h1($idx.'@'.$sum.'::'.count($arr));
+
+		if( count( $arr ) >= $cnt )
+			return $idx.print_r($arr, true) ;
+	}
 	
-echo $ul->end(); 
+	return 'fail' ;
+}
+echo ul()->
+		li('executeTimer( "problem12" , "32" ) ['.executeTimer( "problem12" , "32" ).']' )->
+	end(); 
