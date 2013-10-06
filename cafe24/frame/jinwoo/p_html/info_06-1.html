@@ -1,0 +1,74 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">VATECH Networks</h3>
+			<div class="cont_location">
+				<a href="admin_01.html">Home</a>
+				&gt;
+				<a href="info_01.html">회사정보 관리</a>
+				&gt;
+				<strong>VATECH Networks 등록</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			
+			<form method="post" name="page_name_info" action="" enctype="multipart/form-data">
+			<table class="tbl_st2 write_board">
+				<colgroup>
+					<col width="100" />
+					<col width="*" />
+					<col width="50" />
+					<col width="230" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" style="line-height: 25px;">이미지<br />248x177</th>
+						<td>
+						<?php $a=A::str($data['data_row'],'network_img'); if(!empty($a)):?>
+						[<a href="<?=$a;?>" target="_blank"><?=basename($a);?></a>]
+						<?php endif;?>
+						<input type="hidden" class="input_text" name="v[network_img]" value="<?=$a;?>"/>
+						<input type="file" class="input_file validate-image" name="file[network_img]"/></td>
+						<th scope="row">alt</th>
+						<td><input type="text" class="input_text"  name="v[network_alt]" value="<?=A::str($data['data_row'],'network_alt');?>"/></td>
+					</tr>
+					<tr>
+						<th scope="row">타이틀</th>
+						<td colspan="3">
+							<input type="text" class="input_text"  name="v[network_title]" value="<?=A::str($data['data_row'],'network_title');?>"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4"><textarea cols="30" rows="10" name="v[network_text]"><?=A::str($data['data_row'],'network_text');?></textarea>
+							<?php editor('textarea',A::str($data['data_row'], 'editor_session_key'),  'v[editor_session_key]', true, 200, 750);?></td>
+					</tr>
+					<tr>
+						<th scope="row">URL</th>
+						<td colspan="3">
+							<input type="text" class="input_text" name="v[network_url]" value="<?=A::str($data['data_row'],'network_url');?>"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">노출순서</th>
+						<td colspan="3">
+							<select name='v[network_sort]'>
+								<?php for( $i = $data['list_cnt']+(A::str($data['data_row'],'network_sort')!=""?0:1) ; $i > 0 ; $i-- ) : ?>
+								<option value='<?=$i?>' <?=H::selected($i, A::str($data['data_row'],'network_sort'))?>><?=$i?></option>
+								<?php endfor;?>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="function_btns3">
+				<input type="submit" class="btn btn_em2" value="등록" />
+				<a href="?view=06" class="btn btn_em2">취소</a>
+			</div>
+			<?php if( is_numeric(A::str($data['data_row'],'network_idx')) ): ?>
+			<div class="function_btns2">
+				<a href="?view=06-1&delete=on&network_idx=<?=$data['data_row']['network_idx']?>" class="btn btn_em2">삭제</a>
+			</div>
+			<?php endif;?>
+			</form>
+		</div>
+	</div>

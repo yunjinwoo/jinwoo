@@ -1,0 +1,90 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">Overseas Subsidiary</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="media_01.html">회사정보관리</a>
+			&gt;
+			<strong>Overseas Subsidiary</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" name="info_subsidiary" action="" enctype="multipart/form-data">
+		<table class="tbl_st2 write_board">
+			<colgroup>
+				<col width="100" />
+				<col width="*" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">구분</th>
+					<td>
+						<select class="category_overseas" name="v[code_key]">
+							<?php foreach($data['code_list'] as $row ) : ?>
+							<option value="<?=$row['code_key']?>"><?=$row['code_value']?></option>
+							<?php endforeach;?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">국가명</th>
+					<td><input type="text" class="input_text required" name="v[sub_country]" title="국가명" value="<?=A::str($data['data_row'],'sub_country');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">법인명</th>
+					<td><input type="text" class="input_text" name="v[sub_company]" title="법인명" value="<?=A::str($data['data_row'],'sub_company');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">주소</th>
+					<td><input type="text" class="input_text" name="v[sub_address]" value="<?=A::str($data['data_row'],'sub_address');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">Tel</th>
+					<td><input type="text" class="input_text" name="v[sub_tel]" value="<?=A::str($data['data_row'],'sub_tel');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">Fax</th>
+					<td><input type="text" class="input_text" name="v[sub_fax]" value="<?=A::str($data['data_row'],'sub_fax');?>"/></td>
+				</tr>	
+				<tr>
+					<th scope="row">E-mail</th>
+					<td><input type="text" class="input_text" name="v[sub_email]" value="<?=A::str($data['data_row'],'sub_email');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height:25px;">이미지<br />115x140</th>
+					<td class="write_board_attach">
+						<?php $a=A::str($data['data_row'],'sub_img'); if(!empty($a)):?>
+						[<a href="<?=$a;?>" target="_blank"><?=basename($a);?></a>]
+						<?php endif;?>
+						<input type="hidden" class="input_text" name="v[sub_img]" value="<?=$a;?>"/>
+						<input type="file" class="input_file validate-image" name="file[]"/>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="v[sub_alt]" value="<?=A::str($data['data_row'],'sub_alt');?>"/></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="function_btns3">
+			<input type="submit" class="btn btn_em2" value="등록" />
+			<a href="info.php?view=02" class="btn btn_em2">취소</a>
+		</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['info_subsidiary'].onsubmit = function() { 
+		return Validator.validate(this);
+	};
+	
+	$(function(){
+		var code = "<?=G::get('code_key')?>" || "<?=A::str($data['data_row'],'code_key')?>" ;
+		if( code != "" ) $("select.category_overseas").val(code);		 
+	});
+	
+</script>	

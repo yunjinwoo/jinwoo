@@ -1,0 +1,71 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">VATECH Networks</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="info_01.html">회사정보 관리</a>
+			&gt;
+			<strong>VATECH Networks</strong>
+		</div>
+	</div>
+	
+		<div class="cont_body">
+		<form method="post" name="page_name_info" action="" enctype="multipart/form-data">
+			<table class="tbl_st2">
+				<tbody>
+					<tr class="last_tr">
+						<td class="about_text">
+						<textarea name="p[page_text]" id="" cols="30" rows="10"><?=A::str($data['data_row'], 'page_text')?></textarea>
+						<?php editor('textarea', A::str($data['data_row'], 'editor_session_key'),'p[editor_session_key]',"true",300,750) ;?>
+						
+						<div class="function_btns3" style="margin-top:20px;margin-bottom:40px;">
+							<input type="submit" class="btn btn_em2" value="저장" />
+						</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>		
+		</form>
+			<!--[D] 세개씩 묶음으로 추가됨, 9개 기본-->
+			<div class="networks_image">
+				<?php while( true ) : 
+						$ul = ul();
+						$isBreak = false ;
+						for( $i = 0 ; $i < 3 ; $i++ ) : 							
+							$s = '<img src="../images/networks_img_default.png" alt="vatech"/>' ;
+							if(list($k, $row) = each($data['data_list'])){
+								$s = '<a href="?view=06-1&network_idx='.$row['network_idx'].'"><img src="'.$row['network_img'].'" alt="'.$row['network_alt'].'"/></a>' ;
+							}else{
+								if( $i == 0 ) break 2;
+								$isBreak = true ;
+							}
+							
+							$ul->li($s);
+						endfor;
+						echo $ul->end();
+						
+						if( $isBreak ) break;
+				endwhile; ?>
+			</div>
+			<div class="function_btns4">
+				<a href="?view=06-1" class="btn btn_em2">등록</a>
+			</div>
+		</div>
+	
+</div>
+
+
+
+<style type="text/css">#contents{width: 752px;}</style>
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['page_name_info'].onsubmit = function() { 
+		$("textarea").each(function(i){
+			$(this).val(tinymce.get(i).getContent());
+		});
+		
+		return Validator.validate(this);
+	};
+</script>

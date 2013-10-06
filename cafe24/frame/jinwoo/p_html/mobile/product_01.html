@@ -1,0 +1,112 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">제품 관리</h3>
+			<div class="cont_location">
+				<a href="main_01.html">Home</a>
+				&gt;
+				<a href="main_01.html">Product 관리</a>
+				&gt;
+				<strong>제품 관리</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			<form method="post" name="product_item" action="" enctype="multipart/form-data">
+			<table class="tbl_st1 manage_imgs">
+				<colgroup>
+					<col width="80" />
+					<col width="140" />
+					<col width="*" />
+					<col width="130" />
+					<col width="130" />
+					<col width="70" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">분류</th>
+						<th scope="col">이미지</th>
+						<th scope="col">파일</th>
+						<th scope="col">alt</th>
+						<th scope="col">Link url</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+						$css = array( 4=>'class="last_tr"') ;
+						for( $i = 1 ; $i <= 4 ; $i++ ):
+							$cssstr = isset($css[$i]) ?$css[$i] : '' ;
+					?>
+					<?php if(is_array($data['data_'.$i.'_list'])) :
+						$firstTd = '<td class="align_c" rowspan="3">'.$data['category_list'][$i]['code_value'].'</td>';
+					foreach( $data['data_'.$i.'_list'] as $k => $row ) : ?>
+					<tr <?=$cssstr?>>
+						<?=$firstTd?>
+						<td><img src="<?=A::str($row, 'image_path');?>" alt="<?=A::str($row, 'image_alt');?>" width="130"/>
+							<input type="hidden" name="image_path[<?=$k;?>]" value="<?=A::str($row, 'image_path');?>" />
+							<input type="hidden" name="product_mobile_idx[<?=$k;?>]" value="<?=$k;?>" />
+						</td>
+						<td><input type="file" name="file[<?=$k?>]" class="input_file" /></td>
+						<td><input type="text" name="image_alt[<?=$k?>]"  class="input_text" value="<?=A::str($row, 'image_alt');?>"/></td>
+						<td><input type="hidden" id="link_str_<?=$k?>" name="link_str[<?=$k;?>]" value="<?=A::str($row, 'link_str');?>" />
+							<select data-return="link_str_<?=$k?>" class="url_box">
+								<option value="">상품URL</option>
+								<?php foreach( $data['data_'.$i.'_url'] as $kk => $rr) :?>
+								<option value="<?=A::str($rr, 'product_mobile_idx');?>" <?=H::selected($kk, A::str($row, 'link_str'))?>><?=A::str($rr, 'product_name');?></option>
+								<?php endforeach; ?>
+							</select>
+						</td>
+						<td class="align_c"><button type="button" class="btn btn_em1 btn_delete" data-idx="<?=$k?>">삭제</button></td>
+					</tr>
+					<?php $firstTd=''; endforeach ; ?>
+					<?php endif ; ?>
+					<?php endfor; ?>
+				</tbody>
+			</table>
+			<div class="function_btns1">
+				<a href="#" class="btn btn_em2">미리보기</a>
+			</div>
+			<div class="function_btns3">
+				<input type="submit" class="btn btn_em2" value="저장" />
+				<a href="#" class="btn btn_em2">취소</a>
+			</div>
+			</form>
+		</div>
+	</div>
+
+<script type="text/javascript">
+$(function(){
+	$(".url_box").bind('change',function(){	
+		$("#"+$(this).attr('data-return')).val($(this).val());		
+	});
+	
+	
+	$("button.btn_delete").bind('click',function(e){
+		e.preventDefault() ;
+		if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+
+		var del_idx = $(this).attr('data-idx');
+		location.href = '?view=01&del_product_idx='+del_idx;
+	});
+	
+	$("div.function_btns1 a").bind('click',function(e){
+		e.preventDefault() ;
+		
+		previewPopup_pro() ;
+		var frm = document.forms['product_item'] ;
+		
+		var title = '제품관리' ;
+		var f_src = 'image_path' ;
+		var f_alt = 'image_alt' ;
+		var f_link = '' ;
+		
+		frm.action = "img_preview.php?f_name=func_mobile_main&title="+title+"&f_src="+f_src+"&f_alt="+f_alt+"&f_link="+f_link;
+		frm.target = "preview_pro" ;
+		frm.submit() ;
+		
+		
+		frm.action = "" ;		 
+		frm.target = "" ;
+	});
+});
+</script>

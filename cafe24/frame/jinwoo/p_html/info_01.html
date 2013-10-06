@@ -1,0 +1,37 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">About VATECH Global</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="info_01.html">회사정보 관리</a>
+			&gt;
+			<strong>About VATECH Global</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" name="page_name_info" action="" enctype="multipart/form-data">
+		<textarea name="p[page_text]" id="" cols="30" rows="10"><?=A::str($data['data_row'], 'page_text')?></textarea>
+						
+		<?php editor('textarea', A::str($data['data_row'], 'editor_session_key'),'p[editor_session_key]',"true",600,750) ;?>
+		
+		<div class="function_btns3" style="margin-top:20px;">
+			<input type="submit" class="btn btn_em2" value="등록" />
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<style type="text/css">#contents{width: 752px;}</style>
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['page_name_info'].onsubmit = function() { 
+		$("textarea").each(function(i){
+			$(this).val(tinymce.get(i).getContent());
+		});
+		
+		return Validator.validate(this);
+	};
+</script>

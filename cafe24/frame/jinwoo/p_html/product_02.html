@@ -1,0 +1,368 @@
+<style type="text/css">.product_icon_banner{width:52px;height:52px;}</style>
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">제품 등록</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="product_01.html">제품 관리</a>
+			&gt;
+			<strong>제품 등록</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" name="product_item" action="" enctype="multipart/form-data">
+		<table class="tbl_st2 regist_product">
+			<colgroup>
+				<col width="170" />
+				<col width="300" />
+				<col width="50" />
+				<col width="230" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">분류</th>
+					<td colspan="3">
+						<select title="1뎁스 메뉴 선택" id="category_box">
+							<option value="">선택</option>
+							<?php if( is_array($data['category_list']) ) : ?>
+							<?php foreach($data['category_list'] as $row )  : ?>
+							<option value="<?=$row['category_idx']?>"><?=$row['category_name']?></option>
+							<?php endforeach; ;?>
+							<?php endif ;?>
+						</select>
+						<select title="2뎁스 메뉴 선택" id="product_menu">
+						</select>
+						<select title="분류 메뉴 선택" id="product_sub_menu" class="required">
+							<!-- [D] 2뎁스 선택에 따라 동적으로 option항목생성 -->
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">OverView 리스트 이미지
+						<br />360x370</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'overview_img') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="overview_img_box">파일삭제:</label><input id="overview_img_box" type="checkbox" name="del_file[overview_img]" value="on" style="margin:0px;"/>]
+						
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[overview_alt]" name="file[overview]"/>
+						<input type="hidden" name="p[overview_img]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[overview_alt]" value="<?=A::str($data['data_row'], 'overview_alt')?>" title="OverView 리스트 이미지 alt"/></td>
+				</tr>		
+				<tr>
+					<th scope="row" style="line-height: 25px;">OverView 하단 이미지
+						<br />620x275</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'overview_foot_img') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="overview_foot_img_box">파일삭제:</label><input id="overview_foot_img_box" type="checkbox" name="del_file[overview_foot_img]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[overview_foot_alt]" name="file[overview_foot]"/>
+						<input type="hidden" name="p[overview_foot_img]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[overview_foot_alt]" value="<?=A::str($data['data_row'], 'overview_foot_alt')?>" title="OverView 하단 이미지 alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">상품메인이미지
+						<br />750x315</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'item_img') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="item_img_box">파일삭제:</label><input id="item_img_box" type="checkbox" name="del_file[item_img]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[item_alt]" name="file[item]"/>
+						<input type="hidden" name="p[item_img]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[item_alt]" value="<?=A::str($data['data_row'], 'item_alt')?>" title="상품메인이미지 alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">상세하단이미지
+						<br />160x130</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'item_over_img') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="item_over_img_box">파일삭제:</label><input id="item_over_img_box" type="checkbox" name="del_file[item_over_img]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[item_over_alt]" name="file[item_over]"/>
+						<input type="hidden" name="p[item_over_img]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[item_over_alt]" value="<?=A::str($data['data_row'], 'item_over_alt')?>" title="메인이미지(over) alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">Highlights 이미지1
+						<br />600x360</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'highlight_img_1') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="highlight_img_1_box">파일삭제:</label><input id="highlight_img_1_box" type="checkbox" name="del_file[highlight_img_1]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[highlight_alt_1]" name="file[highlight_1]"/>
+						<input type="hidden" name="p[highlight_img_1]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[highlight_alt_1]" value="<?=A::str($data['data_row'], 'highlight_alt_1')?>" title="Highlights 이미지1 alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">Highlights 이미지2
+						<br />600x360</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'highlight_img_2') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="highlight_img_2_box">파일삭제:</label><input id="highlight_img_2_box" type="checkbox" name="del_file[highlight_img_2]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[highlight_alt_2]" name="file[highlight_2]"/>
+						<input type="hidden" name="p[highlight_img_2]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[highlight_alt_2]" value="<?=A::str($data['data_row'], 'highlight_alt_2')?>" title="Highlights 이미지2 alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">Highlights 이미지3
+						<br />600x360</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'highlight_img_3') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="highlight_img_3_box">파일삭제:</label><input id="highlight_img_3_box" type="checkbox" name="del_file[highlight_img_3]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[highlight_alt_3]" name="file[highlight_3]"/>
+						<input type="hidden" name="p[highlight_img_3]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[highlight_alt_3]" value="<?=A::str($data['data_row'], 'highlight_alt_3')?>" title="Highlights 이미지3 alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height: 25px;">Highlights 이미지4
+						<br />600x360</th>
+					<td>
+						<?php $a=A::str($data['data_row'], 'highlight_img_4') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="highlight_img_4_box">파일삭제:</label><input id="highlight_img_4_box" type="checkbox" name="del_file[highlight_img_4]" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[highlight_alt_4]" name="file[highlight_4]"/>
+						<input type="hidden" name="p[highlight_img_4]" value="<?=$a?>"/>
+					</td>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="p[highlight_alt_4]" value="<?=A::str($data['data_row'], 'highlight_alt_4')?>" title="Highlights 이미지4 alt"/></td>
+				</tr>
+				<tr>
+					<th scope="row">아이콘 선택</th>
+					<td colspan="3" class="regist_icon">
+						<ul class="regist_iconlist">
+							<li><img src="../images/temp_icon.gif" alt="아이콘" /></li>
+						</ul>
+						<input type="hidden" name="p[icon_index]" id="icon_index" value="<?=A::str($data['data_row'], 'icon_index')?>" />
+						<!-- [D] 찾기버튼 product_02.html이 레이어 팝업으로 보여짐 -->
+						<a href="#" class="btn product_open">찾기</a>
+					</td>
+				</tr>
+				<tr class="last_tr">
+					<th scope="row">상세 탭 메뉴 노출</th>
+					<td colspan="3" id="tabActivator" class="box_setting">
+						<input type="checkbox" id="reg_high" name="p[tab_use_bit][]" value="1" <?=H::bitChecked(A::number($data['data_row'], 'tab_use_bit'),1)?>/><label for="reg_high"><?=$data['code_data'][1]['code_value']?></label>
+						<input type="checkbox" id="reg_cbct" name="p[tab_use_bit][]" value="2" <?=H::bitChecked(A::number($data['data_row'], 'tab_use_bit'),2)?>/><label for="reg_cbct"><?=$data['code_data'][2]['code_value']?></label>
+						<input type="checkbox" id="reg_pano" name="p[tab_use_bit][]" value="4" <?=H::bitChecked(A::number($data['data_row'], 'tab_use_bit'),4)?>/><label for="reg_pano"><?=$data['code_data'][4]['code_value']?></label>
+						<input type="checkbox" id="reg_ceph" name="p[tab_use_bit][]" value="8" <?=H::bitChecked(A::number($data['data_row'], 'tab_use_bit'),8)?>/><label for="reg_ceph"><?=$data['code_data'][8]['code_value']?></label>
+						<input type="checkbox" id="reg_spec" name="p[tab_use_bit][]" value="16" <?=H::bitChecked(A::number($data['data_row'], 'tab_use_bit'),16)?>/><label for="reg_spec"><?=$data['code_data'][16]['code_value']?></label>
+						<input type="checkbox" id="reg_etc" name="p[tab_use_bit][]" value="32" <?=H::bitChecked(A::number($data['data_row'], 'tab_use_bit'),32)?>/><label for="reg_etc"><?=$data['code_data'][32]['code_value']?></label>
+					</td>
+				</tr>	
+			</tbody>
+		</table>
+		<div id="tabPannels" class="regist_detail">
+			<div id="reg_detail_high">
+				<a href="#reg_detail_high" class="regist_tabtitle">Highlights</a>
+				<table class="tbl_st2">
+					<tr class="last_tr">
+						<td><textarea cols="30" rows="10" id="regist_text01" style="width: 750px;height: 530px;" name="p[tab_content_1]"><?=A::str($data['data_row'], 'tab_content_1')?></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<div id="reg_detail_cbct">
+				<a href="#reg_detail_cbct" class="regist_tabtitle">CBCT</a>
+				<table class="tbl_st2">
+					<tr class="last_tr">
+						<td><textarea cols="30" rows="10" id="regist_text02" name="p[tab_content_2]"><?=A::str($data['data_row'], 'tab_content_2')?></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<div id="reg_detail_pano">
+				<a href="#reg_detail_pano" class="regist_tabtitle">Panoramic</a>
+				<table class="tbl_st2">
+					<tr class="last_tr">
+						<td><textarea cols="30" rows="10" id="regist_text03" name="p[tab_content_4]"><?=A::str($data['data_row'], 'tab_content_4')?></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<div id="reg_detail_ceph">
+				<a href="#reg_detail_ceph" class="regist_tabtitle">Cephalometric</a>
+				<table class="tbl_st2">
+					<tr class="last_tr">
+						<td><textarea cols="30" rows="10" id="regist_text04" name="p[tab_content_8]"><?=A::str($data['data_row'], 'tab_content_8')?></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<div id="reg_detail_spec">
+				<a href="#reg_detail_spec" class="regist_tabtitle">Specifications</a>
+				<table class="tbl_st2">
+					<tr class="last_tr">
+						<td><textarea cols="30" rows="10" id="regist_text05" name="p[tab_content_16]"><?=A::str($data['data_row'], 'tab_content_16')?></textarea></td>
+					</tr>
+				</table>
+			</div>
+			<div id="reg_detail_etc">
+				<a href="#reg_detail_etc" class="regist_tabtitle">Features</a>
+				<table class="tbl_st2">
+					<tr class="last_tr">
+						<td><textarea cols="30" rows="10" id="regist_text06" name="p[tab_content_32]"><?=A::str($data['data_row'], 'tab_content_32')?></textarea></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="function_btns1">
+			<a href="#" class="btn btn_em2">미리보기</a>
+		</div>
+		
+		<div class="function_btns3">
+			<input type="submit" class="btn btn_em2" value="등록" />
+			<a href="product.php?view=01" class="btn btn_em2">취소</a>
+		</div>
+		<?php if(is_numeric($data['data_row']['product_menu_idx'])):?>
+		<div class="function_btns_delete" style="position: absolute;right: 0;bottom: 50px;">
+			<a href="?view=02&del_item_idx=<?=$data['data_row']['product_menu_idx']?>" class="btn btn_em2">삭제</a>
+		</div>
+		<?php endif;?>
+			
+			<?php editor('textarea', A::str($data['data_row'], 'editor_session_key'),'p[editor_session_key]',"false",450,750) ;?>
+		</form>
+	</div>
+</div>
+
+<style type="text/css">#contents{width: 752px;}.regist_iconlist{width:350px;}</style>
+<style type="text/css">.regist_detail td {
+padding: 0px;
+}</style>
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['product_item'].onsubmit = function() { 
+		$("textarea").each(function(i){
+			$(this).val(tinymce.get(i).getContent());
+		});
+		
+		return Validator.validate(this);
+	};
+	
+	$("div.function_btns_delete a").bind('click',function(e){
+		if( confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return true;
+		else
+			e.preventDefault();		
+	});
+
+
+	$("div.function_btns1 a").bind('click',function(e){
+		e.preventDefault() ;
+		
+		previewPopup_pro() ;
+		var frm = document.forms['product_item'] ;
+		
+		var title = '제품 등록' ;
+		var f_src = 'item_img' ;
+		var f_alt = 'item_alt' ;
+		var f_link = '' ;
+		var f_name = $("#product_sub_menu option:selected").text();
+		
+		frm.action = "img_preview.php?f_action=func_product&f_name="+f_name+"&title="+title+"&f_src="+f_src+"&f_alt="+f_alt+"&f_link="+f_link;
+		frm.target = "preview_pro" ;
+		frm.submit() ;
+		
+		
+		frm.action = "" ;		 
+		frm.target = "" ;
+	});
+	
+	$("a.product_open").bind('click',function(e){
+		e.preventDefault();
+		iconPopup($("#icon_index").val()) ;
+	});
+	
+	$(function(){
+		$("#category_box").bind('change',function(){
+			var val = $(this).val();
+			$("#product_menu").empty().attr('data-cate-idx', val);
+			productMenu({action:"product_menu",cate_idx:val},"#product_menu") ;
+		});
+		
+		$("#product_menu").bind('change',function(){
+			var cateIdx = $("#product_menu").attr('data-cate-idx');
+			var val = $(this).val();
+			$("#product_sub_menu").empty().attr('data-menu-idx', val);
+			productMenu({action:"product_menu",cate_idx:cateIdx,menu_idx:val,find:'sub'},"#product_sub_menu") ;
+		});
+		
+		$("#product_sub_menu").bind('change',function(){
+			var cate_idx = $("#product_menu").attr('data-cate-idx'); 
+			var menu_idx = $("#product_sub_menu").attr('data-menu-idx'); 
+			location.href = '?view=02&item_idx='+ $(this).val()+"&cate_idx="+cate_idx+"&menu_idx="+menu_idx ;
+		});
+		
+		var get_cate_idx = "<?=$data['cate_idx']?>"; 
+		var get_menu_idx = "<?=$data['menu_idx']?>";
+		var get_item_idx = "<?=$data['item_idx']?>";
+		if( !isNaN(get_cate_idx) ){
+			$("#category_box").val(get_cate_idx);
+			productMenu({action:"product_menu",cate_idx:get_cate_idx,find_idx:get_menu_idx},"#product_menu") ;
+		}
+		if( !isNaN(get_cate_idx) ) productMenu({action:"product_menu",cate_idx:get_cate_idx,menu_idx:get_menu_idx,find_idx:get_item_idx,find:'sub'},"#product_sub_menu") ;
+	});
+	
+	function productMenu(oData,target)
+	{
+		$.get("ajax.php",oData,function(data){
+			$(target).html(data);
+		});
+	}
+	
+	function iconBannerPrint()
+	{
+		var aIdx = $("#icon_index").val().split(',');
+		if(!isNaN(aIdx[0])){
+			$(".regist_iconlist li").empty();
+		}
+		
+		$(".regist_iconlist").empty();
+		for( i in aIdx )			
+			$(".regist_iconlist").append("<li></li>");
+		for( i in aIdx ){
+			(function(step,idx){
+				$.getJSON("ajax.php",{action:"banner",banner_idx:idx},function(data){									
+					if( !data ) return;
+					
+					$(".regist_iconlist li").eq(step).html('<img src="'+data.banner_src+'" alt="'+data.banner_alt+'" class="product_icon_banner"/>');
+				});				
+			})(i,aIdx[i]);			
+		}
+	};
+	
+	$(window).load(function(){
+		iconBannerPrint() ;		
+		var size = $("input:checkbox:checked").size();
+		$("input:checkbox:checked").each(function(i){
+			$("#tabPannels").addClass("show");
+			var a = $(this).attr("id").split('_');
+			$("#"+a[0]+"_detail_"+a[1]).addClass("on");
+			if( i + 1 == size ){
+				$("#"+a[0]+"_detail_"+a[1]).addClass("active");
+			}
+		});
+	});
+	
+</script>
+
+

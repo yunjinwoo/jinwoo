@@ -1,0 +1,16 @@
+
+<form action="" method="post" name="login">
+<fieldset id="loginForm">
+	<legend>admin mode</legend>
+	<label for="form_id" class="label_id">ID</label><input type="text" name="admin_id" id="form_id" class="required" title="아이디"/>
+	<label for="form_pw" class="label_pw">Password</label><input type="password" name="admin_pw" id="form_pw" class="required" title="비밀번호"/>
+	<input type="submit" value="Login" class="btn btn_em1" />
+</fieldset>
+</form>
+
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['login'].onsubmit = function() { return Validator.validate(this); } 
+</script>
+

@@ -1,0 +1,75 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">제품 목록</h3>
+			<div class="cont_location">
+				<a href="main_01.html">Home</a>
+				&gt;
+				<a href="main_01.html">Product 관리</a>
+				&gt;
+				<strong>제품 목록</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			<strong class="cont_amount">제품 총 <span><?=$data['total_cnt']?></span>개</strong>
+
+			<span style="position: absolute;top:-24px;right:0px;">
+				<select title="1뎁스 메뉴 선택" id="category_box" name="p[category_code]">
+					<option value="">선택</option>
+					<?php foreach( $data['category_list'] as $k => $row ) : ?>
+					<option value="<?=$row['code_key']?>" data-idx="<?=$row['code_value2']?>" <?=H::selected(G::get('cate_idx'),$row['code_key']);?>><?=$row['code_value']?></option>
+					<?php endforeach;?>
+				</select>
+			</span>
+			
+			<table class="tbl_st1">
+				<colgroup>
+					<col width="100" />
+					<col width="250" />
+					<col width="250" />
+					<col width="*" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">분류</th>
+						<th scope="col">제품명</th>
+						<th scope="col">등록일</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+				<tr>
+					<td><?=$row['no']?></td>
+					<td>
+						[<?=$row['category_name']?>]
+					</td>
+					<td><a href="?view=03&item_idx=<?=$row['product_mobile_idx']?>"><?=$row['product_name']?></a></td>
+					<td><?=date('Y-m-d H:i', strtotime($row['reg_date']))?></td>
+				</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+			<!-- [D]페이지 이동 -->
+			<!-- [D]페이지 이동 -->
+			<?php page_include_old( '../include/page.php' , $data );?>
+			<div class="function_btns2">
+				<a href="m_product.php?view=03" class="btn btn_em2">등록</a>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+$(function(){
+	
+	
+	$("#category_box").bind('change',function(){
+		var val = $(this).val();
+		location.href = '?view=02&cate_idx='+val;
+	});
+});
+</script>
+		
+		
+		

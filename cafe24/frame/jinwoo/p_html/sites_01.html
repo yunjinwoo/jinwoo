@@ -1,0 +1,164 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">제품 카테고리 관리</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="sites_01.html">사이트 관리</a>
+			&gt;
+			<strong>제품 카테고리 관리</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<div class="category_order">
+			<!-- [D] 1뎁스 카테고리 -->
+			<div class="cate_depth cate_depth1">
+				<table class="tbl_st1">
+					<thead>
+						<tr>
+							<th scope="col">1Depth</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(is_array($data['category'])) foreach( $data['category'] as $k => $row ) : ?>
+						<tr>
+							<td><a href="?view=01&cate_idx=<?=$row['category_idx']?>"><?=$row['category_name']?></a></td>
+						</tr>
+						<?php endforeach ; ?>
+					</tbody>
+				</table>
+			</div>
+			<!-- [D] 2뎁스 카테고리 -->
+			<div class="cate_depth cate_depth2">
+				<table class="tbl_st1">
+					<colgroup>
+						<col width="80"/>
+						<col width="*"/>
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">노출순서</th>
+							<th scope="col">2Depth<br />(<?=$data['menu_title']?>)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(is_array($data['menu_list'])) foreach( $data['menu_list'] as $k => $row ) : ?>
+						<tr>
+							<td><button type="button" class="order_btn sort_up" title="위로" data-idx="<?=$row['menu_idx']?>">▲</button><button type="button" class="order_btn sort_down" title="아래로" data-idx="<?=$row['menu_idx']?>">▼</button></td>
+							<td><a href="<?=siteHref01($data['cate_idx'],$row['menu_idx'])?>"><?=$row['menu_name']?></a></td>
+						</tr>
+						<?php endforeach; ?>
+						<tr class="last_tr">
+							<td colspan="2"><button type="button" class="add_btn btn_reset" title="추가">+</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- [D] 3뎁스 카테고리 -->
+			<div class="cate_depth cate_depth3">
+				<table class="tbl_st1">
+					<colgroup>
+						<col width="80"/>
+						<col width="*"/>
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">노출순서</th>
+							<th scope="col">3Depth<br />(<?=$data['menu_sub_title']?>)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(is_array($data['menu_sub_list'])) foreach( $data['menu_sub_list'] as $k => $row ) : ?>
+						<tr>
+							<td><button type="button" class="order_btn sort_up" title="위로" data-idx="<?=$row['menu_idx']?>">▲</button><button type="button" class="order_btn sort_down" title="아래로" data-idx="<?=$row['menu_idx']?>">▼</button></td>
+							<td><a href="<?=siteHref01($data['cate_idx'],$row['menu_idx'],$row['menu_sub_group'])?>"><?=$row['menu_name']?></a></td>
+						</tr>
+						<?php endforeach; ?>
+						<tr class="last_tr">
+							<td colspan="2"><button type="button" class="add_btn btn_sub_reset" title="추가">+</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- [D] 카테고리 편집 -->
+		<form name="product_category" action="" method="post">
+		<div class="category_edit">
+			<table class="tbl_st1 tbl_additem">
+				<colgroup>
+					<col width="180" />
+					<col width="300" />
+					<col width="150" />
+					<col width="*" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">분류</th>
+						<th scope="col">2Depth 카테고리명</th>
+						<th scope="col">노출여부</th>
+						<th scope="col">비고</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="last_tr">
+						<td>(<?=$data['menu_title']?>)<input type="hidden" name="pc[menu_idx]" value="<?=A::str($data['menu_row'], 'menu_idx')?>" /></td>
+						<td class="align_l"><input type="text" class="input_text required" name="pc[cate_proc_name]" value="<?=A::str($data['menu_row'], 'menu_name')?>" title="카테고리명"/></td>
+						<td class="box_setting">
+							<input type="radio" name="pc[use_y_n]" value="Y" id="show" class="required-checked" title="노출여부" <?=A::str($data['menu_row'], 'use_y_n_1checked')?>/><label for="show">노출</label>
+							<input type="radio" name="pc[use_y_n]" value="N" id="noshow" <?=A::str($data['menu_row'], 'use_y_n_2checked')?>/><label for="noshow">숨김</label>
+						</td>
+						<td><button type="button" class="btn btn_em1 btn_delete" data-idx="<?=A::str($data['menu_row'], 'menu_idx')?>">삭제</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="function_btns3">
+			<a href="#" class="btn btn_em2 btn_submit">저장</a>
+			<a href="#" class="btn btn_em2 btn_reset">취소</a>
+		</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['product_category'].onsubmit = function() { return Validator.validate(this); } 
+	
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});
+	$(".btn_reset").bind('click',function(){
+		location.replace( '<?=siteHref01($data['cate_idx'])?>') ;
+	});
+	
+	$(".btn_sub_reset").bind('click',function(){
+		location.replace( '<?=siteHref01($data['cate_idx'],'',$data['parent_idx'])?>') ;
+	});
+	
+	$(".btn_submit").bind('click',function(e){
+		e.preventDefault() ;
+		var frm = document.forms['product_category'] ;
+		if( Validator.validate(frm) )
+			frm.submit() ;
+	});
+	$(".btn_delete").bind('click',function(e){
+		if( !confirm('삭제하시겠습니까? 삭제하시면 복구할수없습니다.') ) return ;
+
+		var i = $(this).attr('data-idx') ;
+		if( i <= 0 ) { e.preventDefault(); return; }
+		location.replace( '<?=siteHref01($data['cate_idx'],'',$data['parent_idx'])?>&delete='+ i ) ;
+	});
+	
+	$("button.sort_up").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('up',$(this).attr('data-idx')) ;
+	});
+	$("button.sort_down").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('down',$(this).attr('data-idx')) ;
+	});
+	
+	function locationSort(type, idx)
+	{
+		location.replace( '<?=siteHref01($data['cate_idx'],'',$data['parent_idx'])?>'+'&menu_idx='+idx+'&sort='+type ) ;
+	}
+</script>

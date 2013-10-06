@@ -1,0 +1,107 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">Business Partners</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="media_01.html">회사정보관리</a>
+			&gt;
+			<strong>Business Partners</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" name="info_partner" action="" enctype="multipart/form-data">
+		<table class="tbl_st2 write_board">
+			<colgroup>
+				<col width="160" />
+				<col width="*" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">대륙</th>
+					<td>
+						<select class="category_business" name="v[code_key]">
+							<?php foreach($data['code_list'] as $row ) : ?>
+							<option value="<?=$row['code_key']?>" <?=H::selected($row['code_key'],A::str($data['data_row'],'code_key'))?>><?=$row['code_value']?></option>
+							<?php endforeach;?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">국가</th>
+					<td><input type="text" class="input_text" name="v[part_country]" value="<?=A::str($data['data_row'],'part_country');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height:25px;">국가 이미지<br />50x33</th>
+					<td class="write_board_attach">
+						<?php $a=A::str($data['data_row'],'part_country_img'); if(!empty($a)):?>
+						[<a href="<?=$a;?>" target="_blank"><?=basename($a);?></a>]
+						<?php endif;?>
+						<input type="hidden" class="input_text" name="v[part_country_img]" value="<?=$a;?>"/>
+						<input type="file" class="input_file validate-image" name="file[part_country_img]"/>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="v[part_country_alt]" value="<?=A::str($data['data_row'],'part_country_alt');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">Company</th>
+					<td><input type="text" class="input_text" name="v[part_clinic]" value="<?=A::str($data['data_row'],'part_clinic');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height:25px;">Company 이미지<br />88x47</th>
+					<td class="write_board_attach">
+						<?php $a=A::str($data['data_row'],'part_clinic_img'); if(!empty($a)):?>
+						[<a href="<?=$a;?>" target="_blank"><?=basename($a);?></a>]
+						<?php endif;?>
+						<input type="hidden" class="input_text" name="v[part_clinic_img]" value="<?=$a;?>"/>
+						<input type="file" class="input_file validate-image" name="file[part_clinic_img]"/>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Company alt</th>
+					<td><input type="text" class="input_text" name="v[part_clinic_alt]" value="<?=A::str($data['data_row'],'part_clinic_alt');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">Location</th>
+					<td><input type="text" class="input_text" name="v[part_location]" value="<?=A::str($data['data_row'],'part_location');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">Web-site</th>
+					<td><input type="text" class="input_text" name="v[part_web_site]" value="<?=A::str($data['data_row'],'part_web_site');?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">Contact Point</th>
+					<td class="regist_clinic_contact">
+						<label for="form_email">E-mail</label><input type="text" id="form_email" class="input_text" name="v[part_contact_mail]" value="<?=A::str($data['data_row'],'part_contact_mail');?>" />
+						<br />
+						<label for="form_tell">Tell</label><input type="text" id="form_tell" class="input_text" name="v[part_contact_tel]" value="<?=A::str($data['data_row'],'part_contact_tel');?>" />
+						<br />
+						<label for="form_fax">Fax</label><input type="text" id="form_fax" class="input_text" name="v[part_contact_fax]" value="<?=A::str($data['data_row'],'part_contact_fax');?>" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="function_btns3">
+			<input type="submit" class="btn btn_em2" value="등록" />
+			<a href="info.php?view=04" class="btn btn_em2">취소</a>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['info_subsidiary'].onsubmit = function() {
+		return Validator.validate(this);
+	};
+	
+	$(function(){
+		var code = "<?=A::str($data['data_row'],'code_key')?>" ;
+		if( code != "" ) $("select.category_overseas").val(code);		 
+	});
+	
+</script>	

@@ -1,0 +1,79 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">운영자 설정</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="admin_01.html">관리자 설정</a>
+			&gt;
+			<strong>운영자 설정</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" action="?view=01&act=insert" name="admin_member">
+		<table class="tbl_st2">
+			<colgroup>
+				<col width="100" />
+				<col width="275" />
+				<col width="100" />
+				<col width="*" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">ID</th>
+					<td><input type="text" name="ad[admin_id]" value="<?=A::str($data['data'],'admin_id')?>" class="input_text required" title="아이디"/></td>
+					<th scope="row">PW</th>
+					<td><input type="password" name="ad[admin_pw]" value="<?=A::str($data['data'],'admin_pw')?>" class="input_text required" title="비밀번호" /></td>
+				</tr>
+				<tr>
+					<th scope="row">이름</th>
+					<td><input type="text" name="ad[admin_name]" value="<?=A::str($data['data'],'admin_name')?>" class="input_text required" title="이름"  /></td>
+					<th scope="row">연락처</th>
+					<td><input type="text" name="ad[admin_phone]" value="<?=A::str($data['data'],'admin_phone')?>" class="input_text" /></td>
+				</tr>
+				<tr class="last_tr">
+					<th scope="row">권한설정</th>
+					<td colspan="3" class="align_c box_setting">
+						<input type="checkbox" id="per01" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner1')?> value="1"/><label for="per01">관리자설정</label>
+						<input type="checkbox" id="per02" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner2')?> value="2"/><label for="per02">사이트 관리</label>
+						<input type="checkbox" id="per03" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner4')?> value="4"/><label for="per03">제품 관리</label>
+						<input type="checkbox" id="per04" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner8')?> value="8"/><label for="per04">미디어센터관리</label>
+						<input type="checkbox" id="per05" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner16')?> value="16"/><label for="per05">회사정보 관리</label>
+						<input type="checkbox" id="per06" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner32')?> value="32"/><label for="per06">문의 관리</label>
+						<hr />
+						
+						<input type="checkbox" id="per07" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner64')?> value="64"/><label for="per07">Mobile - Main 관리</label>
+						<input type="checkbox" id="per08" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner128')?> value="128"/><label for="per08">Mobile - Product 관리</label>
+						<input type="checkbox" id="per09" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner256')?> value="256"/><label for="per09">Mobile - 회사 관리</label>
+						<input type="checkbox" id="per10" name="ad[admin_owner][]" <?=A::str($data['data'],'admin_owner512')?> value="512"/><label for="per10">Mobile - 문의 관리</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="function_btns3">
+			<input type="submit" value="<?=$data['btnName']?>" class="btn btn_em2"/>
+			<a href="admin_member.php" class="btn btn_em2">취소</a>
+			
+			<?php if( $data['btnName'] == "수정" ) :?>
+			<div class="function_btns2">
+				<button type="button" class="btn btn_em2" data-id="<?=A::str($data['data'],'admin_id')?>">삭제</button>
+			</div>
+			<?php endif ;?>
+		</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['admin_member'].onsubmit = function() { return Validator.validate(this); } 
+	$(".function_btns2").on('click', 'button',function(e){
+		if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+
+		e.preventDefault() ;
+		
+		location.replace('?view=01&act=delete&id='+$(this).attr('data-id')) ;
+	});
+</script>
+

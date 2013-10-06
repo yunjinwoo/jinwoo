@@ -134,6 +134,8 @@ echo ul()->
 		var add = 1;
 		var now = 0;
 		now += (add++)
+	
+	
 		while (getDiv(now) < 500) {
 			now += (add++);
 			//$("#asdf").html(	$("#asdf").html()+"/"+now);

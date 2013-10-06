@@ -1,0 +1,51 @@
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">운영자 설정</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="admin_01.html">관리자 설정</a>
+			&gt;
+			<a href="admin_01.html"><strong>운영자 설정</strong></a>
+		</div>
+	</div>
+	<div class="cont_body">
+		<table class="tbl_st1">
+			<colgroup>
+				<col width="70" />
+				<col width="130" />
+				<col width="120" />
+				<col width="160" />
+				<col width="140" />
+				<col width="*" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">NO</th>
+					<th scope="col">이름</th>
+					<th scope="col">ID</th>
+					<th scope="col">연락처</th>
+					<th scope="col">등록일</th>
+					<th scope="col">수정</th>
+				</tr>
+			</thead>
+			<tbody>
+<?php if(is_array($data['data']))foreach( $data['data'] as $k => $row ) : $row = (object)$row;?>				
+				<tr>
+					<td><?=$row->no?></td>
+					<td><?=$row->admin_name?></td>
+					<td><?=$row->admin_id?></td>
+					<td><?=$row->admin_phone?></td>
+					<td><?=substr($row->reg_date,0,10)?></td>
+					<td><a href="admin_member.php?view=02&id=<?=$row->admin_id?>" class="btn btn_em1">수정</a></td>
+				</tr>
+<?php endforeach ; ?>
+			</tbody>
+		</table>
+		<!-- [D]페이지 이동 -->
+		<?php page_include_old( '../include/page.php' , $data );?>
+		<div class="function_btns2">
+			<a href="admin_member.php?view=02" class="btn btn_em2">등록</a>
+		</div>
+	</div>
+</div>
