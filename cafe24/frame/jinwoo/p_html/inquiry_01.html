@@ -1,0 +1,98 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">문의 관리</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<strong>문의 관리</strong>
+		</div>
+	</div>
+			
+	<div class="cont_body">
+		<form method="get" action="" name="">
+		<strong class="cont_amount">게시글 총 <span><?=$data['list_count']?></span>건</strong>
+		<div class="box_search">
+			<select name="customer">
+				<option value="">Customer</option>
+				<?php foreach($data['customer_list'] as $k => $v ) :?>
+				<option value="<?=$k?>"><?=$v?></option>
+				<?php endforeach; ?>
+			</select>
+			<select name="purpose">
+				<option value="">Purpose</option>
+				<?php foreach($data['purpose_list'] as $k => $v ) :?>
+				<option value="<?=$k?>"><?=$v?></option>
+				<?php endforeach; ?>
+			</select>
+			<select name="country">
+				<option value="">Country</option>
+				<?php foreach($data['country_list'] as $k => $r ) :?>
+				<option value="<?=$r['country']?>"><?=$r['country']?></option>
+				<?php endforeach; ?>
+			</select>
+			
+			<!-- input type="text" class="box_search_keyword" name="keyword" value="<?=$data['keyword']?>"/ -->
+			<input type="submit" class="btn" value="검색" />
+		</div>
+		</form>
+		<table class="tbl_st1 manage_board">
+			<colgroup>
+				<col width="60" />
+				<col width="100" />
+				<col width="100" />
+				<col width="100" />
+				<col width="120" />
+				<col width="*" />
+				<col width="80" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">등록일</th>
+					<th scope="col">Customer</th>
+					<th scope="col">Country</th>
+					<th scope="col">Name</th>
+					<th scope="col">Purpose</th>
+					<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $r ) : ?>
+				<tr>
+					<td><?=$r['no']?></td>
+					<td><a href="?view=02&us_idx=<?=$r['us_idx']?>"><?=substr($r['reg_date'],0,10)?></a></td>
+					<td class="align_l"><a href="?view=02&us_idx=<?=$r['us_idx']?>"><?=$r['customer']?></a></td>
+					<td><a href="?view=02&us_idx=<?=$r['us_idx']?>"><?=$r['country']?></a></td>
+					<td><a href="?view=02&us_idx=<?=$r['us_idx']?>"><?=$r['name']?></a></td>
+					<td><a href="?view=02&us_idx=<?=$r['us_idx']?>"><?=$r['purpose']?></a></td>
+					<td><button type="button" class="btn btn_em1 btn_us_delete" data-idx="<?=$r['us_idx']?>">삭제</button></td>
+				</tr>
+				<?php endforeach;?>
+
+			</tbody>
+		</table>
+		
+		<!-- [D]페이지 이동 -->
+		<?php page_include_old( '../include/page.php' , $data );?>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(function(){
+		$("#contents tbody tr:last").addClass('last_tr');
+		
+		$("select[name=customer]").val("<?=$data['customer']?>");
+		$("select[name=purpose]").val("<?=$data['purpose']?>");
+		$("select[name=country]").val("<?=$data['country']?>");
+	});
+	$(".btn_us_delete").bind('click',function(e){
+		e.preventDefault() ;
+		if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+		
+		var idx = $(this).attr('data-idx');
+		location.href = 'etc.php?view=01&del_idx=' + idx ;
+	});
+	
+</script>

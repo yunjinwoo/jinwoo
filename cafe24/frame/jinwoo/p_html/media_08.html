@@ -1,0 +1,62 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">소셜미디어(유튜브)</h3>
+			<div class="cont_location">
+				<a href="admin_01.html">Home</a>
+				&gt;
+				<a href="media_01.html">미디어센터 관리</a>
+				&gt;
+				<strong>소셜미디어(유튜브)</strong>
+			</div>
+		</div>
+	<div class="cont_body">
+		<table class="tbl_st1 manage_board">
+			<colgroup>
+					<col width="50" />
+					<col width="100" />
+					<col width="*" />
+					<col width="150" />
+					<col width="80" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">이미지</th>
+						<th scope="col">제목</th>
+						<th scope="col">등록일시</th>
+						<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+				<tr>
+					<td><?=$row['no']?></td>
+					<td><img src="<?=$row['file_path']?>" alt="<?=$row['file_alt']?>" width="100"/></td>
+					<td class="align_l"><a href="media.php?view=09&board_idx=<?=$row['board_idx']?>"><?=$row['board_title']?></a></td>
+					<td><?=date('Y-m-d H:i', strtotime($row['board_date']))?></td>
+					<td><button type="button" class="btn btn_em1 btn_delete" data-idx='<?=$row['board_idx']?>'>삭제</button></td>
+				</tr>
+				<?php endforeach ; ?>
+			</tbody>
+		</table>
+		<!-- [D]페이지 이동 -->
+		<?php page_include_old( '../include/page.php' , $data );?>
+		<div class="function_btns2">
+			<a href="media.php?view=09" class="btn btn_em2">등록</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});
+	$(".btn_delete").bind('click',function(e){
+		e.preventDefault() ;
+		
+		if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+
+		var idx = $(this).attr('data-idx');
+		location.href = 'media.php?view=08&del_idx=' + idx ;
+	});
+</script>

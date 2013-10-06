@@ -1,0 +1,55 @@
+<div  class="preview">
+	<div class="cont_body">
+		<table class="tbl_st1 manage_imgs">
+		<colgroup>
+			<?php if( G::get('viewtype') != 'one' ) :?>
+			<col width="80" />
+			<?php endif;?>
+			<col width="*" />
+		</colgroup>
+		<thead>
+			<tr>
+				<?php if( G::get('viewtype') != 'one' ) :?>
+				<th scope="col">분류</th>
+				<?php endif;?>
+				<th scope="col">이미지</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+			<tr>
+				<?php if( G::get('viewtype') != 'one' ) :?>
+				<td class="align_c"><?=$row['banner_name']?></td>
+				<?php endif;?>
+				<td><?php if( !empty($row['banner_link']) ):?>
+					<a href="<?=$row['banner_link']?>"><img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>"/></a>
+					<?php else:?>
+					<img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>"/>
+					<?php endif;?>
+				</td>
+			</tr>
+			<?php endforeach ; ?>
+		</tbody>
+		</table>
+
+		<div class="function_btns3">
+			<a href="#" class="btn btn_em2 btn_close">닫기</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$("div.wrapper").removeClass('login');
+		
+		/* // 안씀
+		$(".btn_opener_submit").bind('click',function(){
+			opener.document.forms['banner_file'].submit() ;
+			self.close() ;
+		});
+		*/
+		$(".btn_close").bind('click',function(){
+			self.close() ;
+		});
+	});
+</script>

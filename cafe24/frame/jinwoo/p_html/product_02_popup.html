@@ -1,0 +1,76 @@
+<style type="text/css">ul.pop_iconlist img{width:52px;height:52px;}</style>
+<div class="pop_findicon">
+	<ul class="pop_iconlist">
+		<?php if(is_array($data['product_icon_list'])) foreach( $data['product_icon_list'] as $k => $row ) : ?>
+		<li>
+			<input type="text" class="pop_iconOrder" name="banner_idx" data-idx="<?=$row['banner_idx']?>" data-sort="<?=$k?>" value="<?=$k?>"/>
+			<img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>"/>
+		</li>
+		<?php endforeach ; ?>
+		
+		<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+		<li>
+			<input type="text" class="pop_iconOrder" name="banner_idx" data-idx="<?=$row['banner_idx']?>" value=""/>
+			<img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>"/>
+		</li>
+		<?php endforeach ; ?>
+	</ul>
+	<div class="function_btns3">
+		<a href="#" class="btn btn_em2 act_submit">적용</a>
+		<a href="#" class="btn btn_em2 act_close">닫기</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$("div.wrapper").removeClass('login').removeClass('wrapper');
+		
+		$(".act_submit").bind('click',function(e){
+			e.preventDefault() ;
+			
+			var sortGroupIdx = [];
+			var sortGroupVal = [];
+			$(".pop_iconOrder").each(function(i){
+				if( $(this).val() == "" ) return;
+
+				sortGroupIdx.push(parseInt($(this).attr('data-idx')));
+				sortGroupVal.push(parseInt($(this).val()));
+			});
+
+			
+			var m = sortGroupVal.length;
+			var a,b,tmp;
+			for( i = 0 ; i < m ; i++ )
+			{
+				a = sortGroupVal[i];
+				for( j = i + 1 ; j < m ; j++ )
+				{
+					b = sortGroupVal[j];
+					if( a >= b )
+					{
+						a = b ;
+						
+						tmp = sortGroupIdx[i] ;
+						sortGroupIdx[i] = sortGroupIdx[j] ;
+						sortGroupIdx[j] = tmp;
+
+						tmp = sortGroupVal[i] ;
+						sortGroupVal[i] = sortGroupVal[j] ;
+						sortGroupVal[j] = tmp;
+					}
+				}
+			}
+			
+			opener.document.getElementById('icon_index').value = sortGroupIdx.join();
+			opener.iconBannerPrint();
+			opener.focus();
+			self.close() ;
+		});
+		
+		$(".pop_iconOrder").bind('keyup',function(){
+			$(this).val($(this).val().replace(/[^0-9]/g,''));
+		});
+		$(".act_close").bind('click',function(){
+			self.close() ;
+		});
+	});
+</script>

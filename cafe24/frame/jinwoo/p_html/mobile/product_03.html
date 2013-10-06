@@ -1,0 +1,198 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">제품 등록</h3>
+			<div class="cont_location">
+				<a href="main_01.html">Home</a>
+				&gt;
+				<a href="main_01.html">Product 관리</a>
+				&gt;
+				<strong>제품 등록</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			<form method="post" name="product_item" action="" enctype="multipart/form-data">
+			<table class="tbl_st2 regist_product">
+				<colgroup>
+					<col width="170" />
+					<col width="300" />
+					<col width="50" />
+					<col width="230" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row">분류</th>
+						<td colspan="3">
+							<select title="1뎁스 메뉴 선택" id="category_box" name="p[category_code]">
+								<option value="">선택</option>
+								<?php foreach( $data['category_list'] as $k => $row ) : ?>
+								<option value="<?=$row['code_key']?>" data-idx="<?=$row['code_value2']?>" <?=H::selected(A::str($data['data_row'], 'category_code'),$row['code_key']);?>><?=$row['code_value']?></option>
+								<?php endforeach;?>
+							</select>
+							
+							<select title="2뎁스 메뉴 선택" id="product_menu">
+							</select>
+							<select title="분류 메뉴 선택" id="product_sub_menu" data-item-idx="<?=A::str($data['data_row'], 'product_menu_idx')?>">
+								<!-- [D] 2뎁스 선택에 따라 동적으로 option항목생성 -->
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">제품명</th>
+						<td colspan="3"><input type="text" class="input_text required" id="item_name" name="p[item_name]"  value="<?=A::str($data['data_row'], 'product_name')?>"/>
+							<input type="hidden" id="product_menu_idx" name="p[product_menu_idx]" value="<?=A::str($data['data_row'], 'product_menu_idx')?>"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" style="line-height:25px;">제품 이미지<br />437x259</th>
+						<td><?php $a=A::str($data['data_row'], 'item_img') ; if(!empty($a)) :?>
+						[<a href="<?=$a?>" target="_blank" class="over_preview"><?=basename($a);?></a>
+						<label for="del_file_idx<?=$row['file_idx']?>">파일삭제</label>
+						<input type="checkbox" name="del_file" value="on" style="margin:0px;"/>]
+						<?php endif;?>
+						<input type="file" class="input_file validatelinkage.p[item_alt]" name="file[item]"/>
+						<input type="hidden" name="p[item_img]" value="<?=$a?>"/></td>
+						<th scope="row">alt</th>
+						<td><input type="text" class="input_text" name="p[item_alt]"  value="<?=A::str($data['data_row'], 'item_alt')?>" title="상품메인이미지 alt"/></td>
+					</tr>
+					<tr>
+						<th scope="row" colspan="4" class="highlights">Highlights</th>
+					</tr>
+					<tr>
+						<th scope="row">내용</th>
+						<td colspan="3" class="regist_detail_mobile">
+							<textarea cols="30" rows="10" name="p[tab_content_1]"><?=A::str($data['data_row'], 'tab_content_1')?></textarea>
+						
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="function_btns1">
+				<a href="#" class="btn btn_em2">미리보기</a>
+			</div>
+			<?php if(A::str($data['data_row'], 'product_mobile_idx') != "" ):?>
+			<div class="function_btns_delete" style="position: absolute;right: 0;bottom: 50px;">
+				<button type="button" class="btn btn_em1 act_delete" data-idx="<?=A::str($data['data_row'], 'product_mobile_idx')?>">삭제</button>
+		</div>
+
+				<?php endif;?>
+
+			<div class="function_btns3">
+				<input type="submit" class="btn btn_em2" value="등록" />
+				<a href="?view=02" class="btn btn_em2">취소</a>
+				
+			</div>
+			<?php editor('textarea', A::str($data['data_row'], 'editor_session_key'),'p[editor_session_key]',"true") ;?>
+			</form>
+		</div>
+	</div>
+
+<style type="text/css">#contents{width: 752px;}</style>
+<style type="text/css">.regist_detail td {
+padding: 0px;
+}</style>
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['product_item'].onsubmit = function() { 
+		$("textarea").each(function(i){
+			$(this).val(tinymce.get(i).getContent());
+		});
+		
+		return Validator.validate(this);
+	};
+	
+	
+	$("div.function_btns1 a").bind('click',function(e){
+		e.preventDefault() ;
+		
+		previewPopup_pro() ;
+		var frm = document.forms['product_item'] ;
+		
+		var title = '모바일 제품 등록' ;
+		var f_src = 'item_img' ;
+		var f_alt = 'item_alt' ;
+		var f_link = '' ;
+		var f_name = $("#item_name").val();
+		
+		frm.action = "img_preview.php?f_action=func_mobile_product&f_name="+f_name+"&title="+title+"&f_src="+f_src+"&f_alt="+f_alt+"&f_link="+f_link;
+		frm.target = "preview_pro" ;
+		frm.submit() ;
+		
+		
+		frm.action = "" ;		 
+		frm.target = "" ;
+	});
+	
+	$(function(){
+		$("button.act_delete").bind('click',function(e){
+			e.preventDefault();
+		
+			if(confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다."))
+				location.href = "?view=03&del_idx="+$(this).attr('data-idx');
+		});
+		
+	
+		$("#category_box").bind('change',function(){
+			var val = $(this).val();
+			var menuIdx = $(this).find('option').eq($(this).get(0).selectedIndex).attr('data-idx') ;
+			if( val !== '4' ) val = 1;
+			else val = 2;
+			
+			$("#product_menu").empty().attr('data-cate-idx', val);
+			productMenu({action:"product_menu",cate_idx:val},"#product_menu",function(){
+				if( menuIdx != "" && !isNaN(menuIdx) ){
+					$("#product_menu").val(menuIdx).trigger('change');					
+				}
+			}) ;
+			
+			productMenu({action:"product_menu",cate_idx:val,find:'group'},"#product_sub_menu",function(){
+				console.log('test') ;
+				if( val == '2' )one("#product_sub_menu");
+			}) ;
+		});
+		
+		$("#product_menu").bind('change',function(){
+			var cateIdx = $("#product_menu").attr('data-cate-idx');
+			var val = $(this).val();
+			$("#product_sub_menu").empty().attr('data-menu-idx', val);
+			productMenu({action:"product_menu",cate_idx:cateIdx,menu_idx:val,find:'sub'},"#product_sub_menu",function(){
+				one("#product_sub_menu");
+			}) ;			
+		});
+		
+		$("#product_sub_menu").bind('change',function(){
+			$("#item_name").val($(this).children("option:selected").text());
+			$("#product_menu_idx").val($(this).children("option:selected").val());
+		});
+
+		$("#category_box").trigger('change');
+	});
+	
+
+	var one = function(target){
+		if( target == "#product_sub_menu" )
+		{
+			var idx = $("#product_sub_menu").attr('data-item-idx');
+			if( !isNaN(idx) ){
+				$("#product_sub_menu").attr('data-item-idx', '');
+				$("#product_sub_menu option").each(function(){
+					if( $(this).val() == idx )
+						$(this).attr('selected','selected');
+				});
+			}
+
+			one = function(t){};
+		}
+	}
+	function productMenu(oData,target,callback)
+	{
+		$.get("ajax.php",oData,function(data){
+			$(target).html(data);
+			if( typeof callback == 'function') callback() ;
+		});
+	}
+	
+</script>
+
+

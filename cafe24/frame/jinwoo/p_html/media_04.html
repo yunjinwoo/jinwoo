@@ -1,0 +1,115 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">Event</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="media_01.html">미디어센터 관리</a>
+			&gt;
+			<strong>Event</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" action="" name="board_new" enctype="multipart/form-data">
+		<table class="tbl_st2 write_board">
+			<colgroup>
+				<col width="100" />
+				<col width="*" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">제목</th>
+					<td><input type="text" class="input_text required" title="제목" name="b[board_title]" value="<?=A::str($data['data_row'], 'board_title')?>" /></td>
+				</tr>
+				<tr>
+					<th scope="row">등록일시</th>
+					<td><input type="text" class="input_text validate-datetime" maxlength="19" title="등록일시" name="b[board_date]" value="<?=A::str($data['data_row'], 'board_date')?>" /></td>
+				</tr>
+				<tr>
+					<th scope="row">메인출력</th>
+					<td><input type="checkbox" title="메인출력" name="b[is_notice]" value="Y" <?=H::checked(A::str($data['data_row'], 'is_notice'), 'Y')?>/></td>
+				</tr>
+				
+				<tr>
+					<th scope="row">이벤트기간</th>
+					<td>
+						<input type="text" class="input_date validate-date" maxlength="10" title="시작기간" name="b[board_start_date]" value="<?=A::str($data['data_row'], 'board_start_date')?>" />
+						~
+						<input type="text" class="input_date validate-date" maxlength="10" title="끝기간" name="b[board_end_date]" value="<?=A::str($data['data_row'], 'board_end_date')?>" />
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">웹사이트</th>
+					<td><input type="text" class="input_text" title="웹사이트" name="b[board_site]" value="<?=A::str($data['data_row'], 'board_site')?>"/></td>
+				</tr>
+				<tr>
+					<th scope="row">국가</th>
+					<td class="wirte_event_country">
+						<select name="b[board_country]">
+							<?php foreach($data['country_list'] as $k => $row ) :?>
+							<option value="<?=$row['code_value']?>"><?=$row['code_value']?></option>
+							<?php endforeach;?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height:25px;">이미지<br />365x165</th>
+					<td><?php if(isset($data['data_file_pdf']) &&is_array($data['data_file_pdf']) && count($data['data_file_pdf']) >= 1 ) : $row = $data['data_file_pdf']  ;?> 
+					<div style="float:left;width:300px;">
+								[<!--<a href="media.php?view=04&file_idx=<?=$row['file_idx']?>">--><a href="<?=$row['file_path']?>"  target="_blank"><?=$row['file_upload_name']?></a>
+								<label for="del_file_idx<?=$row['file_idx']?>">파일삭제</label>
+								<input type="checkbox" name="b[del_file_idx][<?=$row['file_idx']?>]" id="del_file_idx<?=$row['file_idx']?>" style="margin:0px;"/>]<br/>
+							<input type="file" class="input_img validatelinkage.board_alt[prev]" name="board[prev]" style="width:100%;"/>
+							<input type="hidden" name="board_sub_name[prev]" value="prev"/>
+					</div>
+						<?php else:?>
+							<input type="file" class="input_img validatelinkage.board_alt[prev]" name="board[prev]"/>
+							<input type="hidden" name="board_sub_name[prev]" value="prev"/>
+						<?php endif;?>
+							
+							<span>alt</span>
+							<input type="text" class="input_alt" name="board_alt[prev]" title="이미지 alt" value="<?=A::str($row,'file_alt');?>"/>
+					
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><textarea cols="30" rows="30" id="editor_contents" class="" title="내용" name="b[board_text]"><?=A::str($data['data_row'], 'board_text')?></textarea>
+					<?php editor('textarea#editor_contents',A::str($data['data_row'], 'editor_session_key'));?></td>
+				</tr>
+				<tr>
+					<th scope="row">파일첨부</th>
+					<td class="write_board_attach">
+						<?php for( $i = 0 ; $i < 3 ; $i++ ) : ?>
+						<?php if(is_array($data['data_file_list']) && count($data['data_file_list']) >= 1 ) : $row = array_shift($data['data_file_list']) ;?> 
+								[<a href="media.php?view=04&file_idx=<?=$row['file_idx']?>"><?=$row['file_upload_name']?></a>
+								<label for="del_file_idx<?=$row['file_idx']?>">파일삭제</label>
+								<input type="checkbox" name="b[del_file_idx][<?=$row['file_idx']?>]" id="del_file_idx<?=$row['file_idx']?>" style="margin:0px;"/>]
+						<?php else:?>
+							<input type="file" class="input_file" name="board[]"/>
+						<?php endif;?>
+						<?php endfor;?>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="function_btns3">
+			<input type="submit" class="btn btn_em2" value="등록" />
+			<a href="media.php?view=03" class="btn btn_em2">취소</a>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['board_new'].onsubmit = function() { return Validator.validate(this); } 
+	
+	$(function(){
+		var country = '<?=A::str($data['data_row'], 'board_country')?>';
+		if( country != '')
+			$("select[name='b[board_country]']").val(country);
+	})
+</script>
+

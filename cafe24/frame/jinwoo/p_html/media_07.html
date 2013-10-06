@@ -1,0 +1,91 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">Testimonial</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="media_01.html">미디어센터 관리</a>
+			&gt;
+			<strong>Testimonial</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" action="" name="board_new" enctype="multipart/form-data">
+		<table id="writeTes" class="tbl_st2 manage_Testimonial type_youtube">
+			<colgroup>
+				<col width="100" />
+				<col width="*" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<th scope="row">구분</th>
+					<td class="box_setting">
+						<input type="radio" name="b[board_type]" id="typeY" class="required-checked" value="youtube" checked="checked" /><label for="typeY">유튜브</label>
+						<input type="radio" name="b[board_type]" id="typeP" value="pdf" /><label for="typeP">PDF</label>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">등록일시</th>
+					<td><input type="text" class="input_text validate-datetime" title="등록일시" name="b[board_date]" value="<?=A::str($data['data_row'], 'board_date')?>" /></td>
+				</tr>
+				<tr>
+					<th scope="row">제목</th>
+					<td><input type="text" class="input_text required" title="제목" name="b[board_title]" value="<?=A::str($data['data_row'], 'board_title')?>" /></td>
+				</tr>
+				<tr>
+					<th scope="row" style="line-height:25px;">이미지<br />230x130</th>
+					<td><?php if(isset($data['data_file_list']) && is_array($data['data_file_list']) && count($data['data_file_list']) >= 1 ) : $row = array_shift($data['data_file_list']) ;?> 
+								[<a href="media.php?view=07&file_idx=<?=$row['file_idx']?>"><?=$row['file_upload_name']?></a>
+								<label for="del_file_idx<?=$row['file_idx']?>">파일삭제</label>
+								<input type="checkbox" name="b[del_file_idx][<?=$row['file_idx']?>]" id="del_file_idx<?=$row['file_idx']?>" style="margin:0px;"/>][alt-<?=A::str($row,'file_alt');?>]
+								<input type="file" class="input_file" name="board[<?=$row['file_idx']?>]"/>
+						<?php else:?>
+							<input type="file" class="input_file" name="board[]"/>
+						<?php endif;?>
+					</td>
+				</tr>
+				
+				<tr>
+					<th scope="row">alt</th>
+					<td><input type="text" class="input_text" name="board_alt[<?=A::str($row, 'file_idx')?>]" value="<?=A::str($row,'file_alt');?>" /></td>
+				</tr>
+
+				<!-- [D] 구분항목이 PDF일때는 보이지 않음, 해당조건시 입력받을 필요없음 -->
+				<tr class="last_tr manage_tes_youtube" id="youtube">
+					<th scope="row">Link URL</th>
+					<td><input type="text" class="input_text" name="b[board_youtube_url]" value="<?=A::str($data['data_row'],'board_youtube_url');?>"/></td>
+				</tr>
+				<!-- [D] 구분항목이 youtube일때는 보이지 않음, 해당조건시 입력받을 필요없음 -->
+				<tr class="last_tr manage_tes_pdf" id="pdf">
+					<th scope="row">PDF파일</th>
+					<td><?php if(isset($data['data_file_pdf']) &&is_array($data['data_file_pdf']) && count($data['data_file_pdf']) >= 1 ) : $row = $data['data_file_pdf']  ;?> 
+								[<!--<a href="media.php?view=07&file_idx=<?=$row['file_idx']?>">--><a href="<?=$row['file_path']?>"  target="_blank"><?=$row['file_upload_name']?></a>
+								<label for="del_file_idx<?=$row['file_idx']?>">파일삭제</label>
+								<input type="checkbox" name="b[del_file_idx][<?=$row['file_idx']?>]" id="del_file_idx<?=$row['file_idx']?>" style="margin:0px;"/>]
+								
+							<input type="file" class="input_file" name="board[<?=$row['file_idx']?>]"/>
+							<input type="hidden" name="board_sub_name[<?=$row['file_idx']?>]" value="pdf"/>
+
+						<?php else:?>
+							<input type="file" class="input_file" name="board[1]"/>
+							<input type="hidden" name="board_sub_name[1]" value="pdf"/>
+						<?php endif;?></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="function_btns3">
+			<input type="submit" class="btn btn_em2" value="등록" />
+			<a href="media.php?view=06" class="btn btn_em2">취소</a>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">
+	document.forms['board_new'].onsubmit = function() { return Validator.validate(this); } 
+	$(window).load(function(){<?=A::str($data['data_row'], 'checked_action')?>});
+</script>
+

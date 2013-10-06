@@ -1,0 +1,139 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">Worldwide VATECH 관리</h3>
+			<div class="cont_location">
+				<a href="main_01.html">Home</a>
+				&gt;
+				<a href="main_01.html">Main 관리</a>
+				&gt;
+				<strong>Worldwide VATECH 관리</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			<form method="post" name="banner_file_insert" action="" enctype="multipart/form-data">
+			<!-- [D]국가 등록 -->
+			<table class="tbl_st1 tbl_additem">
+				<colgroup>
+					<col width="140" />
+					<col width="*" />
+					<col width="130" />
+					<col width="130" />
+					<col width="70" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">국가명</th>
+						<th scope="col">파일</th>
+						<th scope="col">alt</th>
+						<th scope="col">Link url</th>
+						<th scope="col">비고</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><?php $k = count($data['data_list'])+1?>
+						<td><input type="text" name="banner_text[<?=$k?>]" class="input_text" /></td>
+						<td><input type="file" name="file[<?=$k?>]" class="input_file" /><input type="hidden" name="banner_src[<?=$k?>]" value="" /><br />70x42</td>
+						<td><input type="text" name="banner_alt[<?=$k?>]" class="input_text" value="이미지 ALT" /></td>
+						<td><input type="text" name="banner_link[<?=$k?>]" class="input_text" value="" /></td>
+						<td class="align_c btns">
+							<input type="submit" class="btn btn_em1" value="등록" />
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+			</form>
+
+
+			<form method="post" name="banner_file" action="" enctype="multipart/form-data">
+			<!-- [D]국가 목록 -->
+			<table class="tbl_st1 manage_imgs">
+				<colgroup>
+					<col width="40" />
+					<col width="120" />
+					<col width="90" />
+					<col width="*" />
+					<col width="110" />
+					<col width="110" />
+					<col width="60" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">순서</th>
+						<th scope="col">국가명</th>
+						<th scope="col">이미지</th>
+						<th scope="col">파일</th>
+						<th scope="col">alt</th>
+						<th scope="col">Link url</th>
+						<th scope="col">비고</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+					<tr>
+						<td class="align_c"><button type="button" class="order_btn sort_up" data-idx="<?=$row['banner_idx']?>" title="위로">▲</button><button type="button" class="order_btn sort_down" data-idx="<?=$row['banner_idx']?>" title="아래로">▼</button></td>
+						<td><input type="text" class="input_text" name="banner_text[<?=$k?>]" value="<?=$row['banner_text']?>" /></td>
+						<td><img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>" width="80"/>
+							<input type="hidden" name="banner_src[<?=$k?>]" value="<?=$row['banner_src']?>" />
+							<input type="hidden" name="banner_idx[<?=$k?>]" value="<?=$row['banner_idx']?>" /></td>
+						<td><input type="file" name="file[<?=$k?>]" class="input_file" /></td>
+						<td><input type="text" name="banner_alt[<?=$k?>]" class="input_text" value="<?=$row['banner_alt']?>" /></td>
+						<td><input type="text" name="banner_link[<?=$k?>]" class="input_text" value="<?=$row['banner_link']?>" /></td>
+						<td class="align_c btns">
+							<!--<input type="submit" class="btn btn_em1" value="수정" />-->
+							<a href="?view=05&amp;del_idx=<?=$row['banner_idx']?>" class="btn btn_em1 btn_delete">삭제</a>
+						</td>
+					</tr>
+					<?php endforeach ; ?>
+				</tbody>
+			</table>
+			<div class="function_btns1">
+				<a href="#" class="btn btn_em2">미리보기</a>
+			</div>
+			<div class="function_btns3">
+				<input type="submit" class="btn btn_em2" value="저장" />
+				<a href="#" class="btn btn_em2">취소</a>
+			</div>
+
+			</form>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});
+	$("div.function_btns1 a").bind('click',function(e){
+		e.preventDefault() ;
+		
+		previewPopup() ;
+		var frm = document.forms['banner_file'] ;
+		frm.action = "banner_preview.php?type=<?=$data['banner_type']?>&viewtype=one" ;		 
+		frm.target = "preview" ;
+		frm.submit() ;
+		
+		frm.action = "" ;		 
+		frm.target = "" ;
+	});
+	
+	$("button.sort_up").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('up',$(this).attr('data-idx')) ;
+	});
+	$("button.sort_down").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('down',$(this).attr('data-idx')) ;
+	});
+	
+	function locationSort(type, idx)
+	{
+		location.replace( '?view=02&banner_idx='+idx+'&sort='+type ) ;
+	}
+	
+	$("a.btn_delete").bind('click',function(e){
+		if( confirm("삭제하시겠습니까?") )
+			return true ;
+		else 
+			e.preventDefault() ;
+	})
+</script>

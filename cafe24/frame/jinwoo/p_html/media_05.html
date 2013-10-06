@@ -1,0 +1,84 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">Green Clinic Members</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="media_01.html">미디어센터 관리</a>
+			&gt;
+			<strong>Green Clinic Members</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<?php codeCheckedLogic('use_menu_green')?>
+		<!-- [D] memberlist 한번에 15개 아이템 노출 -->
+		<table class="tbl_st1 manage_clinic">
+			<colgroup>
+				<col width="70" />
+				<col width="150" />
+				<col width="150" />
+				<col width="150" />
+				<col width="160" />
+				<col width="*" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">Country</th>
+					<th scope="col">Clinic Name</th>
+					<th scope="col">Location</th>
+					<th scope="col">Web-site</th>
+					<th scope="col">Contact Point</th>
+					<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+				<tr>
+					<td>
+						<a href="?view=05_01&part_idx=<?=$row['part_idx']?>"><img src="<?=$row['part_country_img']?>" alt="<?=$row['part_country_alt']?>" />
+						<br />
+						<?=$row['part_country']?></a>
+					</td>
+					<td>
+						<a href="?view=05_01&part_idx=<?=$row['part_idx']?>"><img src="<?=$row['part_clinic_img']?>" alt="<?=$row['part_clinic_alt']?>" />
+						<br />
+						<?=$row['part_clinic']?></a>
+					</td>
+					<td><a href="?view=05_01&part_idx=<?=$row['part_idx']?>"><?=$row['part_location']?></a></td>
+					<td><a href="<?=$row['part_web_site']?>" target="_blank"><?=$row['part_web_site']?></a></td>
+					<td class="manage_cli_contact align_l">
+						<a href="?view=05_01&part_idx=<?=$row['part_idx']?>"><strong>E-mail</strong> 
+						<?=$row['part_contact_mail']?>
+						<strong>Tel</strong>
+						<?=$row['part_contact_tel']?>
+						<strong>Fax</strong>
+						<?=$row['part_contact_fax']?></a>
+					</td>
+					<td>
+						<button type="button" class="btn btn_em1" data-idx="<?=$row['part_idx']?>">삭제</button>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<!-- [D]페이지 이동 -->
+		<?php page_include_old( '../include/page.php' , $data );?>
+		<div class="function_btns2">
+			<a href="media.php?view=05_01" class="btn btn_em2">등록</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});	
+	$(function(){
+		$("#contents table button.btn_em1").bind('click',function(e){
+			e.preventDefault() ;
+			if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+
+			location.href = '?view=05&del_idx='+$(this).attr('data-idx');
+		});
+	});
+</script>

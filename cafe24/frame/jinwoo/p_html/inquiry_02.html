@@ -1,0 +1,81 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">문의 관리</h3>
+			<div class="cont_location">
+				<a href="admin_01.html">Home</a>
+				&gt;
+				<strong>문의 관리</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			<table class="tbl_st2 manage_inquiry" summary="문의 접수 내용. 고객직업, 국가, 이름, 연락처, 연락목적, 메시지, 파일첨부 등">
+				<colgroup>
+					<col width="130" />
+					<col width="*" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>date</th>
+						<td>
+							<?=$data['data_row']['reg_date']?>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">Customer</th>
+						<td id="custom_form" class="check_customer">
+							<?=$data['data_row']['customer']?>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">Country</th>
+						<td><?=$data['data_row']['country']?></td>
+					</tr>
+					<tr>
+						<th scope="row">Name</th>
+						<td><?=$data['data_row']['name']?></td>
+					</tr>
+					<tr>
+						<th scope="row">Phone Number</th>
+						<td><?=$data['data_row']['phone']?></td>
+					</tr>
+					<tr>
+						<th scope="row">E-Mail</th>
+						<td><?=$data['data_row']['email']?></td>
+					</tr>
+					<tr>
+						<th scope="row">Purpose</th>
+						<td id="custom_form" class="check_purpose">
+							<?=$data['data_row']['purpose']?>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">Interest unit</th>
+						<td>
+							<?=$data['data_row']['parent_menu_name']?> - <?=$data['data_row']['menu_name']?>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">Title</th>
+						<td><?=$data['data_row']['title']?></td>
+					</tr>
+					<tr>
+						<th scope="row">Message</th>
+						<td class="manage_inquiry_msg">
+							<?=$data['data_row']['text']?>
+						</td>
+					</tr>
+					<tr class="last_tr">
+						<th scope="row">File</th>
+						<td><?php if(!empty($data['data_row']['file_name'])):?>
+							<a href="<?=$data['data_row']['file_path']?>" target='_blank'><?=$data['data_row']['file_name']?></a>
+							<?php endif;?>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="function_btns4">
+				<a href="etc.php?view=01" class="btn btn_em2">목록</a>
+			</div>
+		</div>
+	</div>

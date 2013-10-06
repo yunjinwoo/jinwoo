@@ -1,0 +1,82 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">Business Partners</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="media_01.html">회사정보관리</a>
+			&gt;
+			<strong>Business Partners</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<!-- [D] 구분별 정렬 버튼 -->
+		<div class="order_tab order_business">
+			<!-- [D] 현재 선택된 정렬에 active클래스 추가, 기본값은 all -->
+			<a href="?view=04" class="active">All</a>
+			<?php foreach($data['code_list'] as $row ) : ?>
+			<a href="?view=04&amp;code_key=<?=$row['code_key']?>" data-code="<?=$row['code_key']?>"><?=$row['code_value']?></a>
+			<?php endforeach;?>
+		</div>
+		<!-- [D] memberlist 목록이 많지 않아 페이징 없음 -->
+		<table class="tbl_st1 manage_business">
+			<colgroup>
+				<col width="70" />
+				<col width="100" />
+				<col width="100" />
+				<col width="*" />
+				<col width="80" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">번호</th>
+					<th scope="col">대륙</th>
+					<th scope="col">국가</th>
+					<th scope="col">회사</th>
+					<th scope="col">삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+				<tr>
+					<td><?=$row['no']?></td>
+					<td><?=$row['code_name']?></td>
+					<td class="align_l"><a href="info.php?view=05&amp;part_idx=<?=$row['part_idx']?>"><?=$row['part_country']?></a></td>
+					<td class="align_l"><a href="info.php?view=05&amp;part_idx=<?=$row['part_idx']?>"><?=$row['part_clinic']?></a></td>
+					<td>
+						<button type="button" class="btn btn_em1" data-idx="<?=$row['part_idx']?>">삭제</button>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<div class="function_btns2">
+			<a href="info.php?view=05" class="btn btn_em2">등록</a>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});	
+	$(function(){
+		var codeKey = "<?=G::get('code_key');?>";
+		$(".order_business a:first").addClass("active");
+		if( codeKey != "" &&  !isNaN(codeKey) )
+			$(".order_business a").removeClass("active").each(function(){
+				var cd = $(this).attr('data-code');
+				if( cd == codeKey )
+					$(this).addClass("active");
+			});
+		
+			
+		
+		$("table.manage_business button").bind('click',function(e){
+			e.preventDefault() ;
+			if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+
+			location.href = '?view=04&del_idx='+$(this).attr('data-idx');
+		});
+	});
+</script>

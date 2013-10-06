@@ -1,0 +1,65 @@
+<style type="text/css">ul.pop_iconlist img{width:52px;height:52px;}</style>
+<div class="pop_findicon">
+	<ul class="pop_iconlist selected">
+		<?php if(is_array($data['product_icon_list'])) foreach( $data['product_icon_list'] as $k => $row ) : ?>
+		<li>
+			<input type="hidden" class="pop_iconOrder" name="banner_idx" data-idx="<?=$row['banner_idx']?>" data-sort="<?=$k?>" value="<?=$k?>"/>
+			<a href="#"><img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>"/></a>
+		</li>
+		<?php endforeach ; ?>
+	</ul>
+	<ul class="pop_iconlist list">
+		<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+		<li>
+			<input type="hidden" class="pop_iconOrder" name="banner_idx" data-idx="<?=$row['banner_idx']?>" value=""/>
+			<a href="#"><img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>"/></a>
+		</li>
+		<?php endforeach ; ?>
+	</ul>
+	<div class="function_btns3">
+		<a href="#" class="btn btn_em2 act_submit">적용</a>
+		<a href="#" class="btn btn_em2 act_close">닫기</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$("div.wrapper").removeClass('login').removeClass('wrapper');
+		
+		$(".act_submit").bind('click',function(e){
+			e.preventDefault() ;
+			
+			var sortIdxGroup = [];
+			$(".selected .pop_iconOrder").each(function(){
+				sortIdxGroup.push($(this).attr('data-idx'));
+			});
+			
+			opener.document.getElementById('icon_index').value = sortIdxGroup.join();
+			console.log(opener.document.getElementById('icon_index').value);
+			opener.iconBannerPrint();
+			opener.focus();
+			//self.close() ;
+		});
+		
+		$("ul.selected").on("click","a",function(e){
+			e.preventDefault();
+
+			var $t = $(this).parent() ;
+			console.log($t);
+			$("ul.list").append("<li>"+$t.html()+"</li>");
+			console.log($("ul.selected").html());
+			$t.remove();
+		});
+		$("ul.list").on("click","a",function(e){
+			e.preventDefault();
+
+			var $t = $(this).parent() ;
+			console.log($t);
+			$("ul.selected").append("<li>"+$t.html()+"</li>");
+			console.log($("ul.selected").html());
+			$t.remove();
+		});
+		$(".act_close").bind('click',function(){
+			self.close() ;
+		});
+	});
+</script>

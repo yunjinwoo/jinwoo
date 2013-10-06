@@ -1,0 +1,122 @@
+
+<div id="contents">
+	<div class="cont_header">
+		<h3 class="cont_title">제품 아이콘 관리</h3>
+		<div class="cont_location">
+			<a href="admin_01.html">Home</a>
+			&gt;
+			<a href="product_01.html">제품 관리</a>
+			&gt;
+			<strong>제품 아이콘 관리</strong>
+		</div>
+	</div>
+	<div class="cont_body">
+		<form method="post" name="banner_file_insert" action="" enctype="multipart/form-data">
+		<table class="tbl_st1 manage_imgs tbl_additem">
+			<colgroup>
+				<col width="140" />
+				<col width="*" />
+				<col width="180" />
+				<col width="80" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">아이콘명</th>
+					<th scope="col">파일</th>
+					<th scope="col">alt</th>
+					<th scope="col">비고</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><?php $k = count($data['data_list'])+1?>
+					<td><input type="text" class="input_text required" name="banner_text[<?=$k?>]"/></td>
+					<td><input type="file" class="input_file required validate-image" name="file[<?=$k?>]"/><input type="hidden" name="banner_src[<?=$k?>]" value="" /></td>
+					<td><input type="text" class="input_text required" name="banner_alt[<?=$k?>]"/></td>
+					<td class="align_c">
+						<input type="submit" class="btn btn_em1" value="등록" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+		
+		
+		<form method="post" name="banner_file" action="" enctype="multipart/form-data">
+		<!-- [D]아이콘 목록 -->
+		<table class="tbl_st1 manage_imgs">
+			<colgroup>
+				<col width="140" />
+				<col width="70" />
+				<col width="*" />
+				<col width="180" />
+				<col width="80" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col">아이콘명</th>
+					<th scope="col">이미지</th>
+					<th scope="col">파일</th>
+					<th scope="col">alt</th>
+					<th scope="col">비고</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+				<tr>
+					<td><input type="text" class="input_text" name="banner_text[<?=$k?>]" value="<?=$row['banner_text']?>"/></td>
+					<td class="align_c"><img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>" />
+						<input type="hidden" name="banner_src[<?=$k?>]" value="<?=$row['banner_src']?>" /></td>
+					<td><input type="file" class="input_file" name="file[<?=$k?>]"/></td>
+					<td><input type="text" class="input_text" name="banner_alt[<?=$k?>]" value="<?=$row['banner_alt']?>"/></td>
+					<td class="align_c btns">
+						<a href="?view=03&amp;del_idx=<?=$row['banner_idx']?>" class="btn btn_em1 btn_delete">삭제</a>
+					</td>
+				</tr>
+				<?php endforeach ; ?>
+			</tbody>
+		</table>
+		<div class="function_btns3">
+			<input type="submit" class="btn btn_em2" value="저장" />
+			<a href="#" class="btn btn_em2">취소</a>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../js/validator.js"></script>
+<script type="text/javascript">	
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});
+	document.forms['banner_file_insert'].onsubmit = function() { return Validator.validate(this); }	
+	document.forms['banner_file'].onsubmit = function() { 
+		$(this).find('input:file').each(function(){
+			console.log($(this).val());
+			if( $(this).val() == "" )
+				$(this).remove();
+
+		});
+		return true ;
+	}	
+	
+	
+	$("button.sort_up").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('up',$(this).attr('data-idx')) ;
+	});
+	$("button.sort_down").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('down',$(this).attr('data-idx')) ;
+	});
+	
+	function locationSort(type, idx)
+	{
+		location.replace( '?view=05&banner_idx='+idx+'&sort='+type ) ;
+	}
+	
+	$("a.btn_delete").bind('click',function(e){
+		if( confirm("삭제하시겠습니까?") )
+			return true ;
+		else 
+			e.preventDefault() ;
+	})
+</script>

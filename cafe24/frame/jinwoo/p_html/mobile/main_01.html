@@ -1,0 +1,117 @@
+
+	<div id="contents">
+		<div class="cont_header">
+			<h3 class="cont_title">Main 제품 관리</h3>
+			<div class="cont_location">
+				<a href="main_01.html">Home</a>
+				&gt;
+				<a href="main_01.html">Main 관리</a>
+				&gt;
+				<strong>Main 제품 관리</strong>
+			</div>
+		</div>
+		<div class="cont_body">
+			<form method="post" name="banner_file" action="" enctype="multipart/form-data">
+			
+			<table class="tbl_st1 manage_imgs">
+				<colgroup>
+					<col width="80" />
+					<col width="140" />
+					<col width="*" />
+					<col width="120" />
+					<col width="120" />
+					<col width="70" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">순서</th>
+						<th scope="col">이미지</th>
+						<th scope="col">파일</th>
+						<th scope="col">alt</th>
+						<th scope="col">Link url</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if(is_array($data['data_list'])) foreach( $data['data_list'] as $k => $row ) : ?>
+					<tr>
+						<td class="align_c"><button type="button" class="order_btn sort_up" data-idx="<?=$row['banner_idx']?>" title="위로">▲</button><button type="button" class="order_btn sort_down" data-idx="<?=$row['banner_idx']?>" title="아래로">▼</button></td>
+						<td><img src="<?=$row['banner_src']?>" alt="<?=$row['banner_alt']?>" width="130"/>
+							<input type="hidden" name="banner_src[<?=$k?>]" value="<?=$row['banner_src']?>" />
+							<input type="hidden" name="banner_name[<?=$k?>]" value="<?=$row['banner_name']?>" />
+							<input type="hidden" name="banner_idx[<?=$k?>]" value="<?=$row['banner_idx']?>" /></td>
+						<td><input type="file" name="file[<?=$k?>]" class="input_file" /><br />480x351</td>
+						<td><input type="text" name="banner_alt[<?=$k?>]"  class="input_text" value="<?=$row['banner_alt']?>"/></td>
+						<td><select class="url_box">
+								<option value="">상품URL</option>
+								<?php foreach( $data['data_url'] as $kk => $rr) :?>
+								<option value="/m/mb/?v=product_detail&idx=<?=A::str($rr, 'product_mobile_idx');?>" <?=H::selected(A::str($rr, 'product_mobile_idx'), str_replace('/m/mb/?v=product_detail&idx=','',$row['banner_link']))?>><?=A::str($rr, 'product_name');?></option>
+								<?php endforeach; ?>
+							</select>
+							<input type="text" name="banner_link[<?=$k?>]"  class="input_text" value="<?=$row['banner_link']?>" /></td>
+						<td class="align_c"><button type="button" class="btn btn_em1 btn_delete" data-idx="<?=$row['banner_idx']?>">삭제</button></td>
+					</tr>
+					<?php endforeach ; ?>
+					
+				</tbody>
+			</table>
+
+			<div class="function_btns1">
+				<a href="#" class="btn btn_em2">미리보기</a>
+			</div>
+			<div class="function_btns3">
+				<input type="submit" class="btn btn_em2" value="저장" />
+				<a href="#" class="btn btn_em2">취소</a>
+			</div>
+			</form>
+		</div>
+		
+		
+		
+	</div>
+
+<script type="text/javascript">
+	$(function(){$("#contents tbody tr:last").addClass('last_tr');});
+	$("div.function_btns1 a").bind('click',function(e){
+		e.preventDefault() ;
+		
+		previewPopup() ;
+		var frm = document.forms['banner_file'] ;
+		frm.action = "banner_preview.php?type=<?=$data['banner_type']?>" ;		 
+		frm.target = "preview" ;
+		frm.submit() ;
+		
+		
+		frm.action = "" ;		 
+		frm.target = "" ;
+	});
+	
+	$("button.sort_up").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('up',$(this).attr('data-idx')) ;
+	});
+	$("button.sort_down").bind('click',function(e){
+		e.preventDefault() ;
+		locationSort('down',$(this).attr('data-idx')) ;
+	});
+	
+	
+	$("button.btn_delete").bind('click',function(e){
+		e.preventDefault() ;
+		if( !confirm("삭제하시겠습니까? 삭제하시면 복구할수없습니다.") ) return ;
+
+		var del_idx = $(this).attr('data-idx');
+		location.href = '?view=01&del_banner_idx='+del_idx;
+	});
+	
+	function locationSort(type, idx)
+	{
+		location.replace( '?view=01&banner_idx='+idx+'&sort='+type ) ;
+	}
+	
+	$(".url_box").bind('change', function(){
+		var val = $(this).val();
+		
+		$(this).next().val(val);
+	});
+</script>
