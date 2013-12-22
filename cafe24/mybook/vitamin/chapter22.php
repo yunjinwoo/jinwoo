@@ -52,7 +52,7 @@
 						<tr>
 							<td><?php echo $t1 = substr($s,$i,1)?></td><td>*<?php echo $t2 = $weight[$i%2]?></td><td>=<?php $sum+=$t1*$t2 ; echo $t1*$t2 ;?></td>
 						</tr>
-						<? } ?>
+						<?php } ?>
 						</table>
 						<ul>
 							<li>합은 : <?php echo $sum?>

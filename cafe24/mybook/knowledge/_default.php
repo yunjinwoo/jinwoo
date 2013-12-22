@@ -204,7 +204,10 @@ function getSubTitle()
 	$sAction = get('action') ;	
 	$key = (int)substr($sAction,0,2) ;
 	$subKey = (int)substr($sAction,-2) ;
-	return $_bookMenu[ $aTitle[ --$key ] ][ --$subKey ] ;
+        if( --$key < 0 ) $key = 1;
+        if( --$subKey < 0 ) $subKey = 1;
+        
+	return $_bookMenu[ $aTitle[ $key ] ][ $subKey ] ;
 }
 
 ?>
