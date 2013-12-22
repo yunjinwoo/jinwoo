@@ -33,7 +33,7 @@ if( chapter0_is_Var($nNT1) && chapter0_is_Var($nNT_number) && chapter0_is_Var($n
 	
 	<b><?php echo $nNT1?></b>진수 <b><?php echo $nNT_number?></b>은 <br />
 	<b><?php echo $nNT2?></b>진수의 <b class="red"><?php echo NT_division($ten_number,$nNT2) ; ?></b>입니다.
-<?
+<?php
 }
 ?>
 <div>
