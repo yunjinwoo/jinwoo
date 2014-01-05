@@ -1,3 +1,4 @@
+
 <div class="panel-group" id="accordion">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -7,6 +8,7 @@
 		</div>
 
 		<div id="collapseOne" class="panel-collapse collapse in" style="height:0px;">
+			
 			<div class="panel-body">
 				자바스크립트의 역사를 사펴보면서 과거의 사건이 현재 자바스크립 구현과 커뮤니티에
 				어떤 영향을 미쳤는지 설명한다. mvc 아키텍처 패턴을 소개하고, 자바스크립트 생성자 함수,

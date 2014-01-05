@@ -15,7 +15,16 @@ $sTitle = getPageTitle() ;
 <body>
     
 <div class="container">
-	<h1><?php echo _TITLE_ ;?></h1>
+	<h1><?php echo _TITLE_ ;?>
+		<a data-toggle="collapse" data-parent="#default_js" href="#default_js_data">
+			[js]
+		</a></h1>
+		<div class="panel-group" id="default_js">
+			<div id="default_js_data" class="panel-collapse collapse in" style="height:0px;">
+				<?php JsDefault::assert()?>
+			</div>
+		</div>
+	
 	<div class="row">
 		<div class="col-md-3">
 			<ol class="nav nav-pills nav-stacked">
@@ -37,7 +46,7 @@ $sTitle = getPageTitle() ;
                 </li>
         <?php endforeach ; ?>
 			</ol>
-	</div>
+		</div>
 		
 				
-	<div class="col-md-7">
+		<div class="col-md-9"><!--class="col-md-7" style="width:75%;float:right" -->
