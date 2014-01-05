@@ -1,4 +1,4 @@
-
+<?php require_once './_head.php';?>
 <article>
 	<section class="panel panel-primary">
 		<div class="panel-heading ">

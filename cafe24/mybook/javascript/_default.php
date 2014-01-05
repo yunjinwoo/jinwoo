@@ -340,6 +340,24 @@ function getSubTitle()
 
 class JsDefault
 {
+	static function assert(){
+		?>
+<pre class="brush: javascript;">
+	<script type="text/javascript">
+	var assert = function(value, msg){
+		if( !value )
+			throw(msg || ("assert : "+value + " dose not equal true"));
+	}
+
+	var assertEqual = function(val1,val2,msg){
+		if( val1 !== val2 )
+			throw(msg || ("assertEqual : "+val1 + " dose not equal " + val2));
+	}
+	</script>
+</pre>
+		
+		<?php
+	}
 	static function char01_class()
 	{
 		?>
@@ -389,12 +407,20 @@ class JsDefault
 									klass.include = function(obj){
 										var included = obj.included;
 										for(var i in obj){
-											console.log( obj[i] );
 											klass.fn[i] = obj[i];
 										}
 										
 										if(included) included(klass);
 									};
+									
+									// 프록시 함수 추가
+									klass.proxy = function(func){
+										var self = this;
+										return (function(){
+											return func.apply(self, arguments);
+										});
+									}
+									klass.fn.proxy = klass.proxy;
 									
 									return klass;
 								};
