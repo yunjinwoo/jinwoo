@@ -113,6 +113,11 @@ function problem11()
 
 
 
+
+?>
+<?php //@highlight_end?>
+<?php
+
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=11'
 		,'project Euler@kr'
 		,'_blank') ;

@@ -26,132 +26,97 @@ Problem 12 : 2012-01-03 19:11:35
 /*@high_no*/printLayout('Problem 12');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
-
-
-function problem12_test($max , $cnt=6)
-{
-	$sum = $n = array_sum(range(1,$max)) ;
-	$arr = array(1) ;
-	for( $i = 2 ; $n > 2 ; $i++ )
-	{
-		while($n%$i==0)
-		{
-			$n = $n / $i ;
-			$arr[] = $i ;
-		}		
-	}
-	$arr[] = $sum ;
-	
-	return count( $arr ) ;
-	
-	if( count( $arr ) < $cnt ) return count( $arr ) ;
-	if( count( $arr ) < $cnt ) return count( $arr ) ;
-	
-	$endArr = array() ;
-	if( count( $arr ) >= $cnt ){
-	//	echo h1($max.'::'.$sum) ;
-		$i_cnt = 0 ;
-		for($i=0,$m=count($arr); $i < $m ; $i++ )
-		{
-	//		echo h3($i) ;
-			for( $ii = $i + 1; $ii < $m ; $ii++ )
-			{
-				$i_cnt++ ;
-				$k = $arr[$i]*$arr[$ii] ;
-				$endArr[$k] = $k ;
-			}
-		}
-	//	echo $i_cnt;
-	//
-	//		echo h1(count( $arr ).print_r($arr,true).'<br />'.count( $endArr ).print_r($endArr,true)) ;		
-	} 
-	
-	if( count($endArr) < 500 ) return '' ; // count( $arr ).print_r($arr, true) ;
-	return 'GOOD!! ['.$sum.']'.count( $endArr ).print_r($endArr, true).'<br />기준:'.print_r($arr, true) ;
-}
-
-
-
-$s = a('http://euler.synap.co.kr/prob_detail.php?id=12'
-		,'project Euler@kr'
-		,'_blank') ;
-echo h1("최대 공약수".$s);
- 
-$ul = new ul ;
-
-//for( $i = 2, $m = $i + 100  ; $i <= $m ; $i++ )
-//{
-//	echo h3($i.'::'.array_sum(range(1,$i))) ;
-//}
-
-//for($i = 8000 , $m = $i+4000 ; $i < $m ; $i++)
-//for($i = 12000 , $m = $i+10 ; $i < $m ; $i++)
-//{
-//	$startTime = microtime(true) ;
-//	$tmp = h3($i.'::'.problem12( $i, 32 )) ;	
-//	$ul->li(  $tmp.( ' - execTime:'.(microtime(TRUE)-$startTime) ) ) ;
-//}
-//echo $ul->end(); 
-
 /**
  * 500개 이상이 되려면 32 개의 약수가 필요하다
+ * 어렵다 긁어온 스크립트 소스의 sqrt 값에 대한 이해가 부족하다....
  */
 function problem12($cnt)
 {
-	while(  ++$idx )
-	{
-		$sum = $n = array_sum(range(1,$idx)) ;
-		$arr = array(1) ;
-		for( $i = 2 ; $n > 2 ; $i++ )
-		{
-			while($n%$i==0)
-			{
-				$n = $n / $i ;
-				$arr[] = $i ;
-			}		
+	if(!is_numeric($cnt)){ return 0; }
+	
+	$while_total = 0;
+	$arr = array(1) ;
+	$sum = $idx = 1;
+	while( count($arr) < $cnt ){
+		$idx++;
+		$sum = $sum + $idx ;
+		$i = 2;
+		$tmp = array(1 => 1) ;
+		while($sum > $i){
+			$while_total++;
+			if( $sum % $i == 0 ){
+				$tmp[$i] = $i ;
+			}
+			
+			$i++;
 		}
-		$arr[] = $sum ;
-		//echo h1($idx.'@'.$sum.'::'.count($arr));
-
-		if( count( $arr ) >= $cnt )
-			return $idx.print_r($arr, true) ;
+		
+		$tmp[$sum] = $sum ;
+		$arr = $tmp;
 	}
 	
-	return 'fail' ;
+	return $sum."[".$while_total."]".print_r($arr, true) ;
 }
-echo ul()->
-		li('executeTimer( "problem12" , "32" ) ['.executeTimer( "problem12" , "32" ).']' )->
-	end(); 
+
 
 ?>
+<?php //@highlight_end?>
+<?php
+$s = a('http://euler.synap.co.kr/prob_detail.php?id=12'
+		,'project Euler@kr'
+		,'_blank') ;
+$ul = new ul ;
 
+echo ul()->
+		li( sqrt(2) )->
+		li( sqrt(5) )->
+		li( sqrt(10) )->
+		li( sqrt(28) )->
+		li( sqrt(36) )->
+		li( sqrt(48) )->
+	end(); 
+
+
+$step = 50 ;
+echo h2($step);
+echo ul()->
+		li('executeTimer( "problem12" , "'.$step.'" ) ['.executeTimer( "problem12" , $step ).']' )->
+	end(); 
+?>
+
+<div>step : <strong id="asdf"></strong></div>
+<div>500개 <strong id="asdf500"></strong></div>
 <script type="text/javascript">
 <!--
-/* 
-2013-08-05 12:00:54
+	var while_total = 0;
 	window.onload = function() {
 
+	
 		var add = 1;
 		var now = 0;
 		now += (add++)
-	
-	
+		while (getDiv(now) < <?=$step?>) {
+			now += (add++);
+		}
+		document.getElementById("asdf").innerHTML = now + "["+while_total+"]";
+		
+		add = 1;
+		now = 0;
+		now += (add++)
 		while (getDiv(now) < 500) {
 			now += (add++);
-			//$("#asdf").html(	$("#asdf").html()+"/"+now);
 		}
-		alert(now);
-
+		document.getElementById("asdf500").innerHTML = now + "["+while_total+"]";
 	}
 	function getDiv(input) {
 		var cnt = 0;
 		for ( var i = 1; i < Math.sqrt(input); i++) {
+			while_total++;
 			if (input % i == 0)
 				cnt++
 		}
 		return cnt * 2;
 	}
-*/
 
 //-->
 </script>

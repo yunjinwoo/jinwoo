@@ -13,34 +13,28 @@ Problem 3 출제 일시 : 2012-01-03 19:11:35
 /*@high_no*/printLayout('Problem 3');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
-
+/**
+ * 인수 보다 작은 모든 소수를 출력한다.
+ * @int 
+ * @string ul 태그
+ **/
 function primes($max)
 {
 	$ol = new ol;
 	$ol->li('2');
-	$a = array(3);
-	$tmp = 3 ;
-	for( $i = 5 ; $i < $max ; $i+=2)
+	$tmp = 2;
+	for( $i = 3 ; $i < $max ; $i+=2)
 	{
-		$primes = true ;
-		foreach($a as $v){
-			if( $i % $v === 0 ){
-				$primes = false ;
-			}
+		if( bcmod($max , $i) === 0 ){
+			break;
 		}
-			
-		if( $primes ){
-			$a[] = $i ;
-			//echo $i."<br />" ;
-			$ol->li($i.'::'.($i-$tmp)) ;
-			$tmp = $i ;
-		}
-		
+		$ol->li($i) ;
 	}	
 	return $ol->end() ;
 }
 
 // http://dplex.egloos.com/4302796 참고
+// 빠르다....
 function primesFind($max)
 {
 	echo h1($max);
@@ -111,10 +105,12 @@ function primesFind($max)
 }
 
 // euler 댓글중에서 흉내
-function prime_euler($max)
+// 약수로 나누워서 수를 줄이는게 포인트
+function problem3($max)
 {
 	while(bcmod($max, 2) == 0)
-		$max = bcdiv($max, 2) ;
+		$max = bcdiv($max, 2);
+	
 	$b = 2 ;
 	for ( $i = 3; $i < $max; $i+=2)
 	{
@@ -128,23 +124,18 @@ function prime_euler($max)
 	return $i;
 }
 
+?>
+<?php //@highlight_end?>
+<?php
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=3'
 		,'project Euler@kr'
 		,'_blank') ;
-echo h1("소인수분해 ".$s);
-
-$s = microtime(true) ;
-$a = primesFind(600851475143).'<br />';
-$t1 = microtime(true) - $s ;
-
-$s = microtime(true) ;
-$b = prime_euler(600851475143).'<br />';
-$t2 = microtime(true) - $s ;
+echo h1("최대 소인수 ".$s);
 
 echo ul()->
 		li('Primes( 100 )'.executeTimer( "Primes" , 100 ) )->
-		li('primesFind( 600851475143 )'.  $a.strong($t1))->
-		li('prime_euler( 600851475143 )'.  $b.strong($t2))->
+		li('primesFind( 600851475143 )'.  executeTimer( "primesFind" , 600851475143 ))->
+		li('problem3( 600851475143 )'.  executeTimer( "problem3" , 600851475143 ))->
 	end(); // 600851475143    13195
 // 13195의 소인수는 5, 7, 13, 29
 
