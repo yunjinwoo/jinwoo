@@ -23,7 +23,7 @@ function problem7($max)
 		$isPrimes = true ;
 		$b = 1 ;
 		foreach($aPrimes as $v){
-			if( $v > $i/$b ){ // 여기가 핵심이다...
+			if( $v > $i/$b ){ // $v 소수 $i 3부터 2씩 올라가는 수 $v 이전 약수 
 				break ;
 			}else if( $i % $v == 0 ){
 				$isPrimes = false ;
@@ -43,16 +43,24 @@ function problem7($max)
 }
   
 
+/* 말 그대로의 문제 */
+?>
+<?php //@highlight_end?>
+<?php
+
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=7'
 		,'project Euler@kr'
 		,'_blank') ;
 echo h1("소수 알고리즘".$s);
 
 echo ul()->
-		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "problem7" , 20 ) )->
+		li('executeTimer( "numberSumPow" , 1, 10001 )'.executeTimer( "problem7" , 10001 ) )->
 	end(); 
-//@highlight_end
+
+
 ?>
+<pre>
+어딘가에서 가져온거 일껀데......
 
 function p007_in(n){
 	if (n <= 2) {
@@ -82,3 +90,4 @@ function p007_in(n){
 
 	alert(prime[n-1]);
 }
+</pre>

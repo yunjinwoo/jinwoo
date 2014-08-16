@@ -22,11 +22,19 @@ function problem1( $max )
 	return array_sum($a);
 }
 
+?>
+<?php //@highlight_end?>
+<?php
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=1'
 		,'project Euler@kr'
 		,'_blank') ;
 echo h1("3 또는 5의 배수".$s);
 echo ul()->
-		li('problem1( 10 )'.executeTimer( "problem1" , 10 ) )->
-		li('problem1( 1000 )'.executeTimer( "problem1" , 1000 ) )->
+		li('10:'.problem1( 10 ))->
+		li('1000:'.problem1( 1000 ))->
 	end();
+
+?>
+
+그냥 숫자 3,5 배수 모두 더하기
+

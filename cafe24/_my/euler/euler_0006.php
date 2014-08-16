@@ -42,13 +42,19 @@ function numberPowSum( $start, $end )
 }
 
 
+/* 말 그대로의 문제 */
+?>
+<?php //@highlight_end?>
+<?php
+
+
 echo ul()->
 		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "numberSumPow" , 1, 10 ) )->
-		li('executeTimer( "numberSumPow" , 1, 10 )'.executeTimer( "numberPowSum" , 1, 10 ) )->
+		li('executeTimer( "numberPowSum" , 1, 10 )'.executeTimer( "numberPowSum" , 1, 10 ) )->
 		li('(numberPowSum(1,10) - numberSumPow(1,10))'.(numberPowSum(1,10) - numberSumPow(1,10)) )->
 		
 		li('executeTimer( "numberSumPow" , 1, 100 )'.executeTimer( "numberSumPow" , 1, 100 ) )->
-		li('executeTimer( "numberSumPow" , 1, 100 )'.executeTimer( "numberPowSum" , 1, 100 ) )->
+		li('executeTimer( "numberPowSum" , 1, 100 )'.executeTimer( "numberPowSum" , 1, 100 ) )->
 		li('(numberPowSum(1,100) - numberSumPow(1,100))'.(numberPowSum(1,100) - numberSumPow(1,100)) )->
 	end(); 
 ?>

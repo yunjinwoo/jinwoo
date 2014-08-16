@@ -14,7 +14,7 @@
 /*@high_no*/printLayout('Problem 4');
 /*@high_no*/highlight_string(getReadContents(__FILE__)) ;
 
-
+// 이중 for 가 최소로 돌것 같지만...
 function problem4( $num1 , $num2 )
 {	
 	$forCount = 0 ;
@@ -43,6 +43,7 @@ function problem4( $num1 , $num2 )
 	return $t.'::'.$n1.'::'.$n2.'::	$forCount::'.$forCount ;
 }
 
+// 위에 for 두개를 하나로 합쳤다....
 function problem4_ver1( $num1 , $num2 )
 {	
 	$forCount = 0 ;
@@ -58,11 +59,10 @@ function problem4_ver1( $num1 , $num2 )
 		{
 			$forCount++ ;
 			$t = $n1*$n2 ;
-		//	echo ($t == strrev($t)?"true@":"false@").$t.'::'.$n1.'::'.$n2.hr() ;
 			if( $t == strrev($t) ) {		
 				if($max < $t) $max = $t ;
-					
 				
+				//echo $max.':::'.$dep.':::'.$t.'::'.$n1.'::'.$n2.hr() ;
 				$n1 = $num1 ;
 				$dep = $n2 ;
 				
@@ -76,6 +76,12 @@ function problem4_ver1( $num1 , $num2 )
 	}
 	return $max.'::'.$n1.'::'.$n2.'::	$forCount::'.$forCount ;
 }
+
+
+?>
+<?php //@highlight_end?>
+<?php
+
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=3'
 		,'project Euler@kr'
 		,'_blank') ;
@@ -85,7 +91,13 @@ echo h1("대칭수 ".$s);
 
 echo ul()->
 		li('problem4( 999,999 )'.executeTimer( "problem4" , 999, 999 ))->
-		li('problem4( 999,999 )'.executeTimer( "problem4_ver1" , 999, 999 ))->
+		li('problem4_ver1( 999,999 )'.executeTimer( "problem4_ver1" , 999, 999 ))->
+		
+		li('problem4( 9999,9999 )'.executeTimer( "problem4" , 9999, 9999 ))->
+		li('problem4_ver1( 9999,9999 )'.executeTimer( "problem4_ver1" , 9999, 9999 ))->
+		
+		li('problem4( 99999,99999 )'.executeTimer( "problem4" , 99999, 99999 ))->
+		li('problem4_ver1( 99999,99999 )'.executeTimer( "problem4_ver1" , 99999, 99999 ))->
 	end(); 
 
 ?>

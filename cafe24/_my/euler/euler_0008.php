@@ -57,6 +57,9 @@ function problem8($target)
 }
 
 
+?>
+<?php //@highlight_end?>
+<?php
 $s = a('http://euler.synap.co.kr/prob_detail.php?id=8'
 		,'project Euler@kr'
 		,'_blank') ;
